@@ -30,15 +30,22 @@
 
             <hr>
 
-            <div class="input-group">
-              <div class="input-group-addon"><i class="fa fa-user"></i></div>
-              <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Username">
-            </div>
+            <!-- Login Form -->
+            <form id="login-form" action="#" method="post">
 
-            <div class="input-group">
-              <div class="input-group-addon"><i class="fa fa-user"></i></div>
-              <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Username">
-            </div>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Username">
+              </div>
+
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                <input type="text" class="form-control" id="login-password" name="login-password" placeholder="Passwort">
+              </div>
+
+              <button type="submit" id="login-btn" class="btn btn-primary">Einloggen</button>
+
+            </form>
 
           </div>
         
