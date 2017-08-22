@@ -1,0 +1,34 @@
+Entiwcklungsumgebung: Visual Studio Code
+3 Phasen: Anlegen Veranstaltungen/Eintragen/Zuweisen bzw. Bestätigen von Eintragungen
+Arbeitstag: 08:00 Uhr bis 16:00 Uhr, 1. Halbtag: 08:00 Uhr bis 12:00 Uhr, 2. Halbtag: 12:00 Uhr bis 16:00 Uhr
+mehrtägig = nur ganze Tage
+
+Oberfläche/GUI
+	Login
+	Veranstaltungsübersicht allgemein
+	Meine Veranstaltungen
+		Gewählte Veranstaltungen
+		Bestätigte Veranstaltungen
+	Anlegen/Bearbeiten von Veranstaltungen
+	Nuterprofil(Passwort ändern, E-Mail ändern)
+	Systemeinstellungen (Parameter setzen z.B. Mailabstände)
+	Nutzerverwaltung für Sachbearbeiter (Anlegen, Bearbeiten, Löschen)
+	Impressum
+
+Datenbank
+	Nutzer(username, passwort, sachbearbeiter ja/nein, email)
+	Veranstaltungen(ID, Name, Beschreibung, Start, Ende, Teilnehmeranzahl aktuell, Teilnehmeranzahl maximal, Proektverantwortlicher)
+	Nutzer pro Veranstaltung(username, Veranstaltungsid, prio, eintragungszeitpunkt, bestätigt)
+	Systemeinstellungen()
+
+	Admin(MySQL), Projektadmin, Sachbearbeiter, Mitarbeiter
+
+Klassen
+	Nutzer
+	Teilnehmer erbt Nutzer
+	Sachbearbeiter erbt Nutzer
+	Veranstaltung
+		Prüfe Teilnehmerzahl
+		Prüfe Zeit
+	Systemmanager
+		Prüfen, ob für jeden Timeslot eine Veranstaltung existiert
