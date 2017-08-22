@@ -1,4 +1,17 @@
+body {
+    background-color: #427BE3;
+    height: 100%;
+}
 #login-card {
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    margin-top: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+}
+#login-card > h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2rem;
+    color: #333;
 }
