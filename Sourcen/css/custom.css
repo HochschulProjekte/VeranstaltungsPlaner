@@ -3,7 +3,8 @@ body {
     height: 100%;
 }
 #wrapper {
-    min-height: 92.7vh;
+    margin-top: 56px;
+    min-height: 85.5vh;
 }
 .navbar-nav .nav-link {
     padding: .5rem 1rem;
