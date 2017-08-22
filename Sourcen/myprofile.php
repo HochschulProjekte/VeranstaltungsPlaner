@@ -4,7 +4,7 @@
   <!-- HEAD -->
   <head>
     <!-- Title -->
-    <title></title>
+    <title>Mein Profil</title>
 
     <!-- Meta Tags -->
     <meta charset="utf-8">

@@ -2,3 +2,22 @@ body {
     background-color: #427BE3;
     height: 100%;
 }
+#wrapper {
+    min-height: 92.7vh;
+}
+.navbar-nav .nav-link {
+    padding: .5rem 1rem;
+}
+.navbar.navbar-bottom {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+}
+.navbar.navbar-bottom .nav-link {
+    color: rgba(0,0,0,.5);
+}
+.navbar.navbar-bottom .nav-link:hover {
+    color: rgba(0,0,0,.8);
+}
