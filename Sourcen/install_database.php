@@ -1,5 +1,6 @@
 <?php
 
+    // Datenbank eingaben einlesen
     $host = $_POST['install-hostname'];
     $db = $_POST['install-database'];
     $user = $_POST['install-username'];
@@ -8,6 +9,7 @@
     if($host != NULL && $db != NULL && $user != NULL) {
         $pdo = new PDO('mysql:host='.$host.';dbname='.$db, $user, $pass);
         
+        // Datenbank Statement vorbereiten
         $statement = $pdo->prepare("
             CREATE TABLE IF NOT EXISTS `".$db."`.`Benutzer` (
             `name` VARCHAR(12) NOT NULL,
@@ -72,10 +74,37 @@
             SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
         ");
 
+        // Datenbank Statement ausführen
         if(!$statement->execute()) {
             echo "Query fehlgeschlagen: ".$statement->error;
+        } else {
+
+            // Erstellung der DB-Informations-Dateis
+            $fhandler = fopen('./database/credentials.php', 'w');
+            $content = '
+                <?php
+                    $host = "'.$host.'";
+                    $db = "'.$db.'";
+                    $user = "'.$user.'";
+                    $pass = "'.$pass.'";
+                ?>
+            ';
+
+            // DB-Datei schliessen
+            fwrite($fhandler, $content);
+            fclose($fhandler);
+
+            // Installationsdatei löschen
+            unlink('./installation.php');
+            unlink('./install_database.php');
+
+            // Erfolgsmeldung ausgebens
+            echo '<h1>Installation Erfolgreich</h1>';
+            echo '<script>function navigateToLogin() { window.location.replace("./login.php") }</script>';
+            echo '<button onclick="navigateToLogin()">Ok</button>';
         }
     } else {
+        // Navigation zurück zur Installations-Seite
         header('Location: ./installation.php');
     }
 
