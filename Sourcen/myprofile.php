@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/myprofile.css">
   </head>
 
   <!-- BODY -->
@@ -29,7 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Startseite</a>
+                    <a class="nav-link" href="index.php">Startseite</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Veranstaltungsübersicht</a>
@@ -42,7 +43,7 @@
                 </li>
             </ul>
             <span class="nav-item">
-                <a class="nav-link" href="#">Mein Profil</a>
+                <a class="nav-link" href="myprofile.php">Mein Profil</a>
             </span>
             <span class="nav-item">
                 <a class="nav-link" href="#">Ausloggen</a>
@@ -52,7 +53,50 @@
 
     <!-- Wrapper -->
     <div class="container-fluid" id="wrapper">
+
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-sm-10 col-md-8 col-lg-8 col-xl-6">
         
+                <div class="jumbotron">
+                    
+                    <h1 class="display-3 h1">Mein Profil</h1>
+
+                    <hr>
+
+                    <label>Username: username</label>
+
+                    <hr>
+
+                    <form action="#" method="post">
+
+                        <h2 class="display-3 h2">E-Mail ändern</h2>
+
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                            <input type="email" class="form-control" id="myprofile-email" name="myprofile-email" placeholder="E-Mail" value="mail@mail.de">
+                        </div>
+
+                        <hr>
+
+                        <h2 class="display-3 h2">Passwort ändern</h2>
+
+                        <input type="password" class="form-control" id="myprofile-oldpassword" name="myprofile-oldpassword" placeholder="Altes Passwort" value="passwort">
+
+                        <input type="password" class="form-control" id="myprofile-newpassword" name="myprofile-newpassword" placeholder="Neues Passwort">
+
+                        <input type="password" class="form-control" id="myprofile-passwordconfirm" name="myprofile-passwordconfirm" placeholder="Passwort bestätigen">
+
+                        <center><button type="submit" class="btn btn-primary">Speichern</button></center>
+
+                    </form>
+
+                </div>
+            
+            </div>
+
+        </div>
+    
     </div>
 
     <!-- Footer -->
