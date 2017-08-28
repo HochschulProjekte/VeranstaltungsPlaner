@@ -1,0 +1,29 @@
+body {
+    background-color: #427BE3;
+    height: 100%;
+}
+#install-card {
+    width: 100%;
+    padding: 20px;
+    margin-top: 30%;
+    background-color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    border-radius: 10px;
+}
+#install-card > h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#install-card > #install-form > #install-btn:hover {
+    cursor: pointer;
+}
+
+#install-card > #install-form > .input-group {
+    margin-bottom: 20px;
+}
+#install-card > #install-form > .input-group > .input-group-addon {
+    width: 40px;
+}
