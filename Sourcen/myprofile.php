@@ -104,7 +104,7 @@
         <span class="nav-item">
             <a class="nav-link" href="#">Impressum</a>
         </span>
-        <span class="navbar-text pull-right">&copy Matthias Fischer, Jonathan Hermsen, Fabian Hagengers</span>
+        <span class="navbar-text pull-right">by Matthias Fischer, Jonathan Hermsen, Fabian Hagengers</span>
     </nav>
 
     <!-- Javascript Includes -->
