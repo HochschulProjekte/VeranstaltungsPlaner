@@ -1,0 +1,28 @@
+Startseite
+
+- Informationen
+	- Hinweis: Sie haben noch keine Priorisierung für folgende Zeiträume vorgenommen: ... [Mitarbeiter]
+	- Achtung: die Veranstaltungsliste für die kommende Woche wurde noch nicht freigeschaltet [Sachbearbeiter]
+	- Info: die Veranstaltungsliste für die kommende Woche wurde freigeschaltet [Mitarbeiter]
+	- Info: Sie sind diese Woche für folgende Veranstaltungen verantwortlich [Mitarbeiter]
+	- Keine neuen Informationen (kursiv)
+	
+- Kommende Veranstaltungen
+	- Meine Veranstaltungen heute + morgen
+
+Meine Veranstaltungen
+
+- jeweils aktuelle Woche (nur Werktage) + Möglichkeit zurückzuschauen -> Zeitraum (mom. betrachtet), Heute-Btn, Zurück-Btn, Vor-Btn
+- Heutiger Tag markiert
+
+- Tabellenansicht:
+	- Tabelle: Datum, Zeit, Bezeichnung, Verantwortlicher, Anzahl Teilnehmer
+
+- Listenansicht:
+	- Tag als Oberpunkt gekennzeichnet
+	- Darunter zwei Listenpunkte mit den Infos -> Bezeichnung fett
+
+- Kalenderansicht
+	- Woche in 5 Spalten aufgeteilt
+	- Spalten jeweils in 2 Zeilen aufgeteilt [1. Hlbtg, 2. Hlbtg]
+	- in jedem Block steht jeweils die Bezeichnung. Wenn man drüber hovert/anklickt, zeigt sich eine Box mit den weiteren Infos
