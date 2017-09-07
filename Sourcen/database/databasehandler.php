@@ -1,14 +1,14 @@
 <?php
 
-    include './i_databasehandler.php';
-    include './columnitem.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/vstp/database/i_databasehandler.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/vstp/database/columnitem.php';
 
     class PDOHandler implements DatabaseHandler {
 
         private $pdo;
 
         function __construct() {
-            include './credentials.php';
+            include $_SERVER['DOCUMENT_ROOT'].'/vstp/database/credentials.php';
             $this->pdo = new PDO('mysql:host='.$host.';dbname='.$db, $user, $pass);
         }
 

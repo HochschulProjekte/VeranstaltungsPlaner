@@ -1,5 +1,5 @@
 <?php
-    include "./databasehandler.php";
+    include $_SERVER['DOCUMENT_ROOT']."/vstp/database/databasehandler.php";
 
     $db = new PDOHandler();
 
