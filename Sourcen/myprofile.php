@@ -36,13 +36,13 @@
                     <a class="nav-link" href="#">Veranstaltungsübersicht</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Meine Veranstaltungen</a>
+                    <a class="nav-link" href="myevents.php">Meine Veranstaltungen</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Verwaltung</a>
                 </li>
             </ul>
-            <span class="nav-item">
+            <span class="nav-item active">
                 <a class="nav-link" href="myprofile.php">Mein Profil</a>
             </span>
             <span class="nav-item">

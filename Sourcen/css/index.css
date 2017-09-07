@@ -1,0 +1,22 @@
+#wrapper > .row {
+    padding-top: 75px;
+}
+.list-group-item.active {
+    background-color: #1348AB;
+    border-color: #1348AB;
+    font-size: 1.5rem;
+}
+
+.list-group {
+    margin-bottom: 25px;
+}
+.event-list .event-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+.event-list .event-information {
+    margin-top: 15px;
+}
+.event-list .event-information td:nth-child(2) {
+    padding-left: 10px;
+}
