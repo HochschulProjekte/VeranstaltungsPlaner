@@ -59,10 +59,10 @@
 
             if($this->id == NULL) {
                 // new event
-                $this->databaseHandler->insert(self::TABLE, $values);
+                return $this->databaseHandler->insert(self::TABLE, $values);
             } else {
                 // update
-                $this->databaseHandler->update(self::TABLE, $values, 'eventId = '.$this->id);
+                return $this->databaseHandler->update(self::TABLE, $values, 'eventId = '.$this->id);
             }
         }
     }

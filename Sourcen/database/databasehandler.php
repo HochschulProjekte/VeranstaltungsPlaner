@@ -47,7 +47,17 @@
             
             $sql_string .= ') VALUES ('.$value_string.');';
 
-            return $this->pdo->exec($sql_string);
+            $affected = $this->pdo->exec($sql_string);
+
+            if($affected == false) {
+                return false;
+            }
+
+            if($affected > 0) {
+                return true;
+            }
+
+            return false;
         }
 
         function update($table, $column_items, $where) {
@@ -63,12 +73,34 @@
             }
             
             $sql_string.= ' WHERE '.$where.';';
-            return $this->pdo->exec($sql_string);
+            
+            $affected = $this->pdo->exec($sql_string);
+
+            if($affected == false) {
+                return false;
+            }
+
+            if($affected > 0) {
+                return true;
+            }
+
+            return false;
         }
 
         function delete($table, $where) {
             $sql_string = 'DELETE FROM '.$table.' WHERE '.$where.';';
-            return $this->pdo->exec($sql_string);
+            
+            $affected = $this->pdo->exec($sql_string);
+            
+            if($affected == false) {
+                return false;
+            }
+
+            if($affected > 0) {
+                return true;
+            }
+
+            return false;
         }
     }
 

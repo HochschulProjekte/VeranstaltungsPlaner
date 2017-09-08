@@ -12,23 +12,22 @@
             $this->email = $email;    
         }
 
-        function createEvent() {
+        function createEvent(   $name, $description,
+                                $date, $length, 
+                                $currentParticipants, $maxParticipants,
+                                $eventManager) {
             $event = new Event();
 
-            $event->name = 'Test10';
-            $event->description = 'Test10';
-            $event->date = '2017-09-10 00:00:00';
-            $event->length = '3';
-            $event->currentParticipants = '0';
-            $event->maxParticipants = '100';
-            $event->eventManager = $this->name;
+            $event->name = $name;
+            $event->description = $description;
+            $event->date = $date;
+            $event->length = $length;
+            $event->currentParticipants = $currentParticipants;
+            $event->maxParticipants = $maxParticipants;
+            $event->eventManager = $eventManager;
 
-            $event->save();
+            return $event->save();
         }
     }
-
-    $test = new PersonnalManager('Chef', 'chef@boss.de');
-    $test->createEvent();
-
 
 ?>
