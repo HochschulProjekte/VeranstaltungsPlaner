@@ -1,5 +1,5 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT'].'/vstp/navbar.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/navbar.php';
 ?>
 
 <?php
@@ -11,30 +11,76 @@
         const TABLE = 'ProjectWeek';
 
         private $databaseHandler;
-        private $events = [];
+        private $allEvents = [];
+
+        private $year;
+        private $week;
+
+        private $from;
+        private $until;
 
         function __construct($id = NULL) {
             $this->databaseHandler = new PDOHandler();
             
-           /*  if($id != NULL) {
+            if($id == NULL) {
+                $this->createCurrentWeek();
+            } else {
                 $this->load($id);
-            } */
+            }
         }
 
-        function loadAllEvents() {
+        private function createCurrentWeek() {
+
+            $this->year = $this->getCurrentCalendarYear();
+            $this->week = $this->getCurrentCalendarWeek();
+            $this->from = $this->getCurrentStartDate();
+            $this->until = $this->getCurrentEndDate();
+
+            $values = [
+                new ColumnItem('year', $this->year),
+                new ColumnItem('week', $this->week),
+                new ColumnItem('from', $this->from),
+                new ColumnItem('until', $this->until)
+            ];
+
+            $result = $this->databaseHandler->insert(self::TABLE, $values);
+        }
+
+        public function loadAllEvents() {
             $result = $this->databaseHandler->select('Event', null);
-            $this->events = [];
+            $this->allEvents = [];
 
             foreach ($result as $row) {
-                array_push($this->events, new Event($row['eventId']));
+                array_push($this->allEvents, new Event($row['eventId']));
             }
 
-            return $this->events;
+            return $this->allEvents;
+        }
+
+        public function getCurrentCalendarWeek() {
+            $calendarWeek = 0;
+            $calendarWeek = date('W', time());
+            return $calendarWeek;
+        }
+
+        public function getCurrentCalendarYear() {
+            $year = 0;
+            $year = date('Y');
+            return $year;
+        }
+
+        public function getCurrentStartDate() {
+            $day = date('w');
+            return date("Y-m-d", strtotime('monday this week'));
+        }
+
+        public function getCurrentEndDate() {
+            $day = date('w');
+            return date("Y-m-d", strtotime('friday this week'));
         }
     }
 
     $projectWeek = new ProjectWeek();
-
 ?>
 
     <!-- Wrapper -->
