@@ -1,0 +1,46 @@
+#wrapper > .users {
+    padding-top: 80px;
+}
+
+table thead tr {
+    background-color: #EEE;
+}
+table tbody tr {
+    background-color: #FFF;
+}
+
+.row {
+    padding: 20px;
+}
+
+input {
+    margin-bottom: 15px;
+}
+
+.form-check-label {
+    padding-top: 10px;
+    color: #FEFEFE;
+}
+
+.form-check-label input {
+    margin-right: 5px;
+}
+
+.add-user h4 {
+    color: #FFF;
+    margin-bottom: 40px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.btn-edit,
+.btn-delete {
+    text-align: center;
+    width: 37px;
+}
+
+.fa.fa-pencil:hover,
+.fa.fa-trash:hover {
+    cursor: pointer;
+    color: #007bff;
+}
