@@ -1,6 +1,6 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'].'/programmierprojekt/database/databasehandler.php';
+include $_SERVER['DOCUMENT_ROOT'].'/vstp/database/databasehandler.php';
 
 class User {
 
@@ -153,7 +153,7 @@ class User {
     }
 
     /***********************************************************************************/
-    /*   Other functions                                                               */
+    /*   Format functions                                                              */
     /***********************************************************************************/
 
     private function convertPersonnalManagerForObject($personnalManager) {

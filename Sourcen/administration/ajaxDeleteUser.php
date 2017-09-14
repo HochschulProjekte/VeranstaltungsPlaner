@@ -1,6 +1,6 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'].'/programmierprojekt/class/user.php';
+include $_SERVER['DOCUMENT_ROOT'].'/vstp/class/user.php';
 
 if ($_POST['id']) {
 

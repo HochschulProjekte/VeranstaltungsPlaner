@@ -1,13 +1,7 @@
 <?php
 
-<<<<<<< HEAD
-    include $_SERVER['DOCUMENT_ROOT'].'/programmierprojekt/database/i_databasehandler.php';
-    include $_SERVER['DOCUMENT_ROOT'].'/programmierprojekt/database/columnitem.php';
-=======
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/database/i_databasehandler.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/database/columnitem.php';
-
->>>>>>> 363a2fd2a2778685eb691f9a680d7ecff74b6388
 
     class PDOHandler implements DatabaseHandler {
 
