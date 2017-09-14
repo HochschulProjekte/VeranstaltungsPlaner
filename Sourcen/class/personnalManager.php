@@ -1,6 +1,6 @@
 <?php
 
-    include $_SERVER['DOCUMENT_ROOT'].'/vstp/class/event.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/event.php';
 
     class PersonnalManager {
 
@@ -13,16 +13,14 @@
         }
 
         function createEvent(   $name, $description,
-                                $date, $length, 
-                                $currentParticipants, $maxParticipants,
+                                $length, $maxParticipants,
                                 $eventManager) {
             $event = new Event();
 
             $event->name = $name;
             $event->description = $description;
-            $event->date = $date;
             $event->length = $length;
-            $event->currentParticipants = $currentParticipants;
+            $event->currentParticipants = 0;
             $event->maxParticipants = $maxParticipants;
             $event->eventManager = $eventManager;
 

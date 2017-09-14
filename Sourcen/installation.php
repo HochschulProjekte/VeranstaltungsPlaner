@@ -34,7 +34,7 @@
             <hr>
 
             <!-- Installation Form -->
-            <form id="install-form" action="./install_database.php" method="post">
+            <form id="install-form" action="./installDatabase.php" method="post">
 
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-globe"></i></div>
