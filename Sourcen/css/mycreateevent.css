@@ -9,3 +9,8 @@
 .input-group-addon{
     width: 45px;
 }
+
+.create-event {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+}

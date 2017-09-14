@@ -11,7 +11,7 @@
         
         // Datenbank Statement vorbereiten
         $statement = $pdo->prepare("
-
+        
             SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
             SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
             SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
@@ -46,8 +46,6 @@
             `name` VARCHAR(45) NULL,
             `description` LONGTEXT NULL,
             `length` INT NULL,
-            `date` DATETIME NULL,
-            `participants` INT NULL,
             `maxParticipants` INT NULL,
             `eventManager` VARCHAR(12) NOT NULL,
             PRIMARY KEY (`eventId`),
@@ -61,25 +59,65 @@
             
             
             -- -----------------------------------------------------
-            -- Table `".$db."`.`UserPerEvent`
+            -- Table `".$db."`.`ProjectWeek`
             -- -----------------------------------------------------
-            CREATE TABLE IF NOT EXISTS `".$db."`.`UserPerEvent` (
+            CREATE TABLE IF NOT EXISTS `".$db."`.`ProjectWeek` (
+            `year` INT NOT NULL,
+            `week` INT NOT NULL,
+            `from` DATETIME NULL,
+            `until` DATETIME NULL,
+            PRIMARY KEY (`year`, `week`))
+            ENGINE = InnoDB;
+            
+            
+            -- -----------------------------------------------------
+            -- Table `".$db."`.`ProjectWeekEntry`
+            -- -----------------------------------------------------
+            CREATE TABLE IF NOT EXISTS `".$db."`.`ProjectWeekEntry` (
             `eventId` INT NOT NULL,
-            `username` VARCHAR(12) NOT NULL,
-            `priority` INT NULL DEFAULT 0,
-            `registration` DATETIME NULL,
-            `approved` TINYINT NULL,
-            PRIMARY KEY (`eventId`, `username`),
-            INDEX `fk_BenutzerProVeranstaltung_Veranstaltung_idx` (`eventId` ASC),
-            INDEX `fk_BenutzerProVeranstaltung_Benutzer1_idx` (`username` ASC),
-            CONSTRAINT `fk_BenutzerProVeranstaltung_Veranstaltung`
+            `year` INT NOT NULL,
+            `week` INT NOT NULL,
+            `position` INT NOT NULL,
+            `participants` INT NOT NULL,
+            `maxParticipants` INT NOT NULL,
+            PRIMARY KEY (`eventId`, `year`, `week`),
+            INDEX `fk_ProjectWeekEntry_Event1_idx` (`eventId` ASC),
+            INDEX `fk_ProjectWeekEntry_ProjectWeek1_idx` (`year` ASC, `week` ASC),
+            CONSTRAINT `fk_ProjectWeekEntry_Event1`
                 FOREIGN KEY (`eventId`)
                 REFERENCES `".$db."`.`Event` (`eventId`)
                 ON DELETE NO ACTION
                 ON UPDATE NO ACTION,
+            CONSTRAINT `fk_ProjectWeekEntry_ProjectWeek1`
+                FOREIGN KEY (`year` , `week`)
+                REFERENCES `".$db."`.`ProjectWeek` (`year` , `week`)
+                ON DELETE NO ACTION
+                ON UPDATE NO ACTION)
+            ENGINE = InnoDB;
+            
+            
+            -- -----------------------------------------------------
+            -- Table `".$db."`.`UserPerEvent`
+            -- -----------------------------------------------------
+            CREATE TABLE IF NOT EXISTS `".$db."`.`UserPerEvent` (
+            `username` VARCHAR(12) NOT NULL,
+            `priority` INT NULL DEFAULT 0,
+            `registration` DATETIME NULL,
+            `approved` TINYINT NULL,
+            `eventId` INT NOT NULL,
+            `year` INT NOT NULL,
+            `week` INT NOT NULL,
+            PRIMARY KEY (`username`, `eventId`, `year`, `week`),
+            INDEX `fk_BenutzerProVeranstaltung_Benutzer1_idx` (`username` ASC),
+            INDEX `fk_UserPerEvent_ProjectWeekEntry1_idx` (`eventId` ASC, `year` ASC, `week` ASC),
             CONSTRAINT `fk_BenutzerProVeranstaltung_Benutzer1`
                 FOREIGN KEY (`username`)
                 REFERENCES `".$db."`.`User` (`name`)
+                ON DELETE NO ACTION
+                ON UPDATE NO ACTION,
+            CONSTRAINT `fk_UserPerEvent_ProjectWeekEntry1`
+                FOREIGN KEY (`eventId` , `year` , `week`)
+                REFERENCES `".$db."`.`ProjectWeekEntry` (`eventId` , `year` , `week`)
                 ON DELETE NO ACTION
                 ON UPDATE NO ACTION)
             ENGINE = InnoDB;
@@ -92,24 +130,6 @@
             `key` VARCHAR(45) NOT NULL,
             `value` VARCHAR(45) NULL,
             PRIMARY KEY (`key`))
-            ENGINE = InnoDB;
-            
-            
-            -- -----------------------------------------------------
-            -- Table `".$db."`.`ProjectWeekEntry`
-            -- -----------------------------------------------------
-            CREATE TABLE IF NOT EXISTS `".$db."`.`ProjectWeekEntry` (
-            `year` INT NOT NULL,
-            `week` INT NOT NULL,
-            `eventId` INT NOT NULL,
-            `position` INT NOT NULL,
-            PRIMARY KEY (`year`, `week`, `eventId`),
-            INDEX `fk_ProjectWeekEntry_Event1_idx` (`eventId` ASC),
-            CONSTRAINT `fk_ProjectWeekEntry_Event1`
-                FOREIGN KEY (`eventId`)
-                REFERENCES `".$db."`.`Event` (`eventId`)
-                ON DELETE NO ACTION
-                ON UPDATE NO ACTION)
             ENGINE = InnoDB;
             
             CREATE USER 'Admin';
@@ -125,8 +145,8 @@
             
             SET SQL_MODE=@OLD_SQL_MODE;
             SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-            SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-                
+            SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;        
+                    
         ");
 
         // Datenbank Statement ausführen
@@ -151,7 +171,7 @@
 
             // Installationsdatei löschen
             unlink('./installation.php');
-            unlink('./install_database.php');
+            unlink('./installDatabase.php');
 
             // Erfolgsmeldung ausgebens
             echo '<h1>Installation Erfolgreich</h1>';
