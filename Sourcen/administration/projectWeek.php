@@ -22,15 +22,19 @@
         function __construct($id = NULL) {
             $this->databaseHandler = new PDOHandler();
             
-            // if($id == NULL) {
-            //     $this->createCurrentWeek();
-            // } else {
-            //     $this->load($id);
-            // }
+            if($id == NULL) {
+                $this->createCurrentWeek();
+            } else {
+                $this->load($id);
+            }
         }
 
         private function createCurrentWeek() {
-            $currentCalendarWeek = $this->getCurrentCalendarWeek();
+
+            $this->year = $this->getCurrentCalendarYear();
+            $this->week = $this->getCurrentCalendarWeek();
+            $this->from = $this->getCurrentStartDate();
+            $this->until = $this->getCurrentEndDate();
 
             $values = [
                 new ColumnItem('year', $this->year),
@@ -39,7 +43,7 @@
                 new ColumnItem('until', $this->until)
             ];
 
-            $this->databaseHandler->insert(self::TABLE, $values);
+            $result = $this->databaseHandler->insert(self::TABLE, $values);
         }
 
         public function loadAllEvents() {
@@ -56,7 +60,7 @@
         public function getCurrentCalendarWeek() {
             $calendarWeek = 0;
             $calendarWeek = date('W', time());
-            return $kw;
+            return $calendarWeek;
         }
 
         public function getCurrentCalendarYear() {
@@ -67,17 +71,16 @@
 
         public function getCurrentStartDate() {
             $day = date('w');
-            return date('d-m-Y', strtotime('-'.($day+1).' days'));
+            return date("Y-m-d", strtotime('monday this week'));
         }
 
         public function getCurrentEndDate() {
             $day = date('w');
-            return date('d-m-Y', strtotime('+'.(5-$day).' days'));
+            return date("Y-m-d", strtotime('friday this week'));
         }
     }
 
     $projectWeek = new ProjectWeek();
-    echo $projectWeek->getCurrentStartDate();
 ?>
 
     <!-- Wrapper -->

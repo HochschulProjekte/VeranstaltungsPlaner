@@ -41,7 +41,7 @@
                     $value_string = $value_string.', ';
                 }
 
-                $sql_string .= $column_item->name;
+                $sql_string .= '`'.$column_item->name.'`';
                 $value_string .= '"'.$column_item->value.'"';
             }
             
