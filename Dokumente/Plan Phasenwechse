@@ -28,7 +28,9 @@ Schleife über MAs
 			wenn nicht leer nächster schleifendurchlauf
 	
 	Set approved = true bei userevent join projectweekentry für eventid wher eventid = (select single eventid from uuserevent where username gleich) and participants > maxparticipants
+    nicht vergessen: sicherstellen dass die veranstaltung erst an der position beginnt (select min auf position und abgleich)
 	participant bei eventid++
+
 
 Ende Schleife Mitarbeiter
 Ende der Schleife Positionen
