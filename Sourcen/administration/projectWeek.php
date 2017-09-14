@@ -1,5 +1,5 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT'].'/vstp/navbar.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/navbar.php';
 ?>
 
 <?php
@@ -11,30 +11,73 @@
         const TABLE = 'ProjectWeek';
 
         private $databaseHandler;
-        private $events = [];
+        private $allEvents = [];
+
+        private $year;
+        private $week;
+
+        private $from;
+        private $until;
 
         function __construct($id = NULL) {
             $this->databaseHandler = new PDOHandler();
             
-           /*  if($id != NULL) {
-                $this->load($id);
-            } */
+            // if($id == NULL) {
+            //     $this->createCurrentWeek();
+            // } else {
+            //     $this->load($id);
+            // }
         }
 
-        function loadAllEvents() {
+        private function createCurrentWeek() {
+            $currentCalendarWeek = $this->getCurrentCalendarWeek();
+
+            $values = [
+                new ColumnItem('year', $this->year),
+                new ColumnItem('week', $this->week),
+                new ColumnItem('from', $this->from),
+                new ColumnItem('until', $this->until)
+            ];
+
+            $this->databaseHandler->insert(self::TABLE, $values);
+        }
+
+        public function loadAllEvents() {
             $result = $this->databaseHandler->select('Event', null);
-            $this->events = [];
+            $this->allEvents = [];
 
             foreach ($result as $row) {
-                array_push($this->events, new Event($row['eventId']));
+                array_push($this->allEvents, new Event($row['eventId']));
             }
 
-            return $this->events;
+            return $this->allEvents;
+        }
+
+        public function getCurrentCalendarWeek() {
+            $calendarWeek = 0;
+            $calendarWeek = date('W', time());
+            return $kw;
+        }
+
+        public function getCurrentCalendarYear() {
+            $year = 0;
+            $year = date('Y');
+            return $year;
+        }
+
+        public function getCurrentStartDate() {
+            $day = date('w');
+            return date('d-m-Y', strtotime('-'.($day+1).' days'));
+        }
+
+        public function getCurrentEndDate() {
+            $day = date('w');
+            return date('d-m-Y', strtotime('+'.(5-$day).' days'));
         }
     }
 
     $projectWeek = new ProjectWeek();
-
+    echo $projectWeek->getCurrentStartDate();
 ?>
 
     <!-- Wrapper -->

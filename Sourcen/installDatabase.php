@@ -7,7 +7,7 @@
     $pass = $_POST['install-password'];
 
     if($host != NULL && $db != NULL && $user != NULL) {
-        $pdo = new PDO('mysql:host='.$host.';dbname='.$db, $user, $pass);
+        $pdo = new PDO('mysql:host='.$host.';', $user, $pass);
         
         // Datenbank Statement vorbereiten
         $statement = $pdo->prepare("
@@ -17,9 +17,11 @@
             SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
             
             -- -----------------------------------------------------
-            -- Schema vstp
+            -- Create Database
             -- -----------------------------------------------------
             
+            CREATE DATABASE IF NOT EXISTS `".$db."`;
+
             -- -----------------------------------------------------
             -- Schema vstp
             -- -----------------------------------------------------
