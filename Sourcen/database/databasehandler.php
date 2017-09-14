@@ -1,7 +1,8 @@
 <?php
 
-    include $_SERVER['DOCUMENT_ROOT'].'/vstp/database/i_databasehandler.php';
-    include $_SERVER['DOCUMENT_ROOT'].'/vstp/database/columnitem.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/database/i_databasehandler.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/database/columnitem.php';
+
 
     class PDOHandler implements DatabaseHandler {
 
