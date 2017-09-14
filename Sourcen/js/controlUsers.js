@@ -230,9 +230,9 @@ $(function() {
         ';
 
         if (user.personnalManager == true) {
-            html += '<td><center><input class="form-check-input" type="checkbox" value="yes" disabled checked></center></td>';
+            html += '<td class="chb-personnal-manager"><center><input class="form-check-input" type="checkbox" value="yes" disabled checked></center></td>';
         } else {
-            html += '<td><center><input class="form-check-input" type="checkbox" value="yes" disabled></center></td>';
+            html += '<td class="chb-personnal-manager"><center><input class="form-check-input" type="checkbox" value="yes" disabled></center></td>';
         }
 
         html += ' \
@@ -285,12 +285,11 @@ $(function() {
         var name = $('#' + id).children('.lbl-name').html();
         var email = $('#' + id).children('.lbl-email').html();
         
-        $('#' + id).children('.lbl-name').html('');
-        $('#' + id).children('.lbl-name').html('<input type="text" class="form-control" name="edit-name" id="edit-name" maxlength="12" value="' + name + '"');
-        $('#' + id).children('.lbl-email').html('<input type="text" class="form-control" name="edit-email" id="edit-email" maxlength="45" value="' + email + '"');
+        $('#' + id).children('.lbl-name').html('<input type="text" class="form-control" name="edit-name" id="edit-name" maxlength="12" value="' + name + '">');
+        $('#' + id).children('.lbl-email').html('<input type="text" class="form-control" name="edit-email" id="edit-email" maxlength="45" value="' + email + '">');
     
         // Enable checkbox personnal manager
-        $('#' + id).children('.form-check-input').attr('disabled', false);
+        $('#' + id).children('.chb-personnal-manager').children().children().attr('disabled', false).attr('id', 'edit-personnal-manager');
     }
 
 
@@ -401,6 +400,8 @@ $(function() {
                     
                     // Update Table to display new user
                     updateTable();
+
+                    editMode = false;
                 }
             },
             error: function(){

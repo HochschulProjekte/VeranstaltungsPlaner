@@ -1,0 +1,18 @@
+<?php
+	session_start();
+	session_regenerate_id();
+ 	include 'includes/functions.php';
+	if (empty($_SESSION['login'])) {
+		header('Location: https://' . $_SERVER['HTTP_HOST'] . '/login.php');
+		exit;
+	} else {
+		include 'includes/connection.php';
+		
+		$query = $pdo->prepare("SELECT gemeinde FROM users WHERE username=:username");
+		$execute = $query->execute(array('username' => $_SESSION['user']['username']));
+		$row = $query->fetch();
+		$gemeinde_user = $row['gemeinde'];
+		
+		$login_status = '<b id="username_show">' . htmlspecialchars($_SESSION['user']['username']) . '</b>';
+	}
+?>

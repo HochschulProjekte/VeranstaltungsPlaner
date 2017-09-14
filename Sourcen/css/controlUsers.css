@@ -40,7 +40,8 @@ input {
 }
 
 .fa.fa-pencil:hover,
-.fa.fa-trash:hover {
+.fa.fa-trash:hover,
+.fa.fa-floppy-o:hover {
     cursor: pointer;
     color: #007bff;
 }
