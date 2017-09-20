@@ -13,7 +13,7 @@
         }
 
         function select($table, $where) {
-            $sql_string = 'SELECT * FROM '.$table;
+            $sql_string = 'SELECT * FROM `'.$table.'`';
 
             if($where != null) {
                 $sql_string .= ' WHERE '.$where.';';
