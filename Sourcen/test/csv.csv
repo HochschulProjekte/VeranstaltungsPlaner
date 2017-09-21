@@ -1,0 +1,21 @@
+Wer;Was;Wozu
+Sachbearbeiter;veranstaltung anlegen;dito
+Sachbearbeiter;veranstaltung löschen;dito
+Sachbearbeiter;veranstaltung bearbeiten;dito
+Sachbearbeiter;nutzer anlegen;damit sich leute registrieren können/ einträge in nutzer pro veranstaltung
+Sachbearbeiter;nutzer löschen;dito
+Sachbearbeiter;sytemeintellungen ändern;dito
+Sachbearbeiter;nutzer bearbeiten;dito
+Sachbearbeiter;Import von Veranstaltungen;für das Nutzen von Daten aus anderern Quellen
+Teilnehmer;prio speichern;zur teilnahme, erstellung/anpassung datensatz in nutzer/veranstaltung
+Teilnehmer;liste ansehen;zugeordente kurse ausgeben lassen
+Teilnehmer;Teilnehmer (selbst) bearbeiten;dito
+Veranstaltung;Teilnehmeranzahl prüfen;Zum checken ob maximum erreicht ist (rückgabe ja/nein niedrigste prio)
+Veranstaltung;nutzerliste ausgeben;dito
+Systemmanager;verfügbarkeit prüfen;prüfen wie viele plätze an jedem halben tag verfügbar sind ( warnung bei zu wenigen)
+Systemmanager;prioeintragung prüfen;prüfen ob jeder teilnehmer für jeden Zeitpunkt ne prio hat (falls nicht mail)
+Systemmanager;mail versenden;an sb wenn zu wenige plätze / an tnm wenn keine prio eingetragen
+Systemmanager;Info phasenwechsel;Parameter neue Phase / sorgt für mails bei den Teilnehmern
+Systemmanager;Teilnehmer zuordnen;Nutzer p. Veran. Durchloopen und zuordnen
+Nutzer;login;login
+Nutzer;logout;logout

@@ -2,10 +2,8 @@
 
 class Import {
 
-    private $fields = [];
-    private $values = [];
-
-    private $file;
+    protected $values;
+    protected $file;
 
     function __construct($file = null) {
         if ($file != null) {
@@ -18,52 +16,34 @@ class Import {
         $this->file = $file;
     }
 
-    public function setFields($fields) {
-        $this->fields = $fields;
-    }
-
-    public function addValues($values) {
-        array_push($this->values, $values);
+    public function setValues($values) {
+        $this->values = $values;
     }
 
     public function getFile() {
         return $this->file;
     }
 
-    public function getFields() {
-        return $this->fields;
-    }
-
     public function getValues() {
-        return $this->values();
+        return $this->values;
     }
 
-    function readFile($file) {
-        $handle = fopen('filename', 'r');
+    public function readFile($file) {
+
         $values = [];
-        $fields = [];
-        $valuesByField = array();
+        $a = [];
 
-        if ($handle) {
+        $values = file($file);
+        
+        foreach($values as &$row) $row = str_getcsv($row, ';');
+        
+        array_walk($values, function(&$a) use ($values) {
+            $a = array_combine($values[0], $a);
+        });
 
-            while (($line = fgets($handle)) !== false) {
-
-                if ($first === true) {
-                    $first = false;
-                    $this->setFields(explode(';', $line));
-                } else {
-                    $fields = $this->getFields();
-                    $values = explode(';', $line);
-                    for ($i = 0; $i < count($fields); $i++) {
-                        $valuesByField[$fields[$i]] = $values[$i]; 
-                    }
-                    $this->addValues($valuesByField);
-                }
-
-            }
-
-            fclose($handle);
-        }
+        array_shift($values);
+        
+        $this->setValues($values);
     }
 
 }

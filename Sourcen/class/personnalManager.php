@@ -20,7 +20,6 @@
             $event->name = $name;
             $event->description = $description;
             $event->length = $length;
-            $event->currentParticipants = 0;
             $event->maxParticipants = $maxParticipants;
             $event->eventManager = $eventManager;
 

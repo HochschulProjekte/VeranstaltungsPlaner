@@ -1,9 +1,11 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/import.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/importEvents.php';
 
-$import = new Import('../../Dokumente/csv.csv');
+$import = new ImportEvents('Veranstaltungen.csv');
 
-var_dump($import->getValues());
+print '<pre>';
+print_r($import->getValues());
+print '</pre>';
 
 ?>
