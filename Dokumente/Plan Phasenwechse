@@ -1,0 +1,37 @@
+Phase1 -> Phase2
+
+zahlTeilnehmer = Select count Username Where sachbearbeiter = 0.
+
+freiePlaetze = new Int
+
+10-Mal Schleife
+	läuft über jeden halbtag ( Position )
+	clear freiePlaetze
+	freiePlaetze = Select Sum(MaxParticipants) from VernstaltungProjektwoche where position = Position
+
+	If (freiePlaetze < zahlTeilnehmer)
+		Nachricht an Sachbearbeiter ( gibt position und fehlende plätze mit)
+
+
+Phase2 -> Phase3
+
+Schleife über Positionen
+
+Zuordnen der mitarbeiter
+
+userevent order by username priority eventid
+
+Schleife über MAs
+	
+	Prüfen ob bereits zugeordnet
+		select from userEvent join projectweekentry where user = username And position = position and approved = true
+			wenn nicht leer nächster schleifendurchlauf
+	
+	Set approved = true bei userevent join projectweekentry für eventid wher eventid = (select single eventid from uuserevent where username gleich) and participants > maxparticipants
+    nicht vergessen: sicherstellen dass die veranstaltung erst an der position beginnt (select min auf position und abgleich)
+	participant bei eventid++
+
+
+Ende Schleife Mitarbeiter
+Ende der Schleife Positionen
+
