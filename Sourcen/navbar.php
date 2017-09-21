@@ -33,23 +33,23 @@ echo '
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Startseite</a>
+                    <a class="nav-link" href="../index.php">Startseite</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Veranstaltungsübersicht</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Meine Veranstaltungen</a>
+                    <a class="nav-link" href="../myevents.php">Meine Veranstaltungen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Verwaltung</a>
+                    <a class="nav-link" href="../control.php">Verwaltung</a>
                 </li>
             </ul>
             <span class="nav-item">
-                <a class="nav-link" href="#">Mein Profil</a>
+                <a class="nav-link" href="../myprofile.php">Mein Profil</a>
             </span>
             <span class="nav-item">
-                <a class="nav-link" href="#">Ausloggen</a>
+                <a class="nav-link" href="../logout.php">Ausloggen</a>
             </span>
         </div>
     </nav>

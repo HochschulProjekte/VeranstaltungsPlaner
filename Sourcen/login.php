@@ -1,3 +1,13 @@
+<?php
+
+// Authenticate user
+include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
+
+// include Login-Controller to handle login values
+include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/controller/loginController.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,16 +44,21 @@
             <hr>
 
             <!-- Login Form -->
-            <form id="login-form" action="#" method="post">
+            <form id="login-form" action="login.php" method="post">
 
+              <!-- Message -->
+              <div class="alert alert-<?= $alert['type'] ?>" role="alert"><?= $alert['msg'] ?></div>
+
+              <!-- Name -->
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Username">
+                <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Benutzername">
               </div>
 
+              <!-- Password -->
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-key"></i></div>
-                <input type="text" class="form-control" id="login-password" name="login-password" placeholder="Passwort">
+                <input type="password" class="form-control" id="login-password" name="login-password" placeholder="Passwort">
               </div>
 
               <button type="submit" id="login-btn" class="btn btn-primary">Einloggen</button>
