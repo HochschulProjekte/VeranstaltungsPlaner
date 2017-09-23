@@ -1,0 +1,5 @@
+- es muss eine csv-Datei mit Semikolon-getrennten Feldern sein
+- folgende Zeichen dürfen in den Feldern nicht vorkommen: "äüöß'´;
+- wenn man ein Event importieren möchte müssen in der ersten Zeile folgende Spaltenbeschriftungen vorhanden sein (genauso geschrieben ohne Anführungszeichen): "Name", "Beschreibung", "Laenge", "Max. Teilnehmer", "Verantwortlicher"
+- die Anordnung der Spalten ist egal
+- selbstverständlich sollten in jeder Spalte die Daten, die zur Beschriftung gehören, stehen

@@ -46,7 +46,7 @@
                 <a class="nav-link" href="myprofile.php">Mein Profil</a>
             </span>
             <span class="nav-item">
-                <a class="nav-link" href="#">Ausloggen</a>
+                <a class="nav-link" href="logout.php">Ausloggen</a>
             </span>
         </div>
     </nav>
