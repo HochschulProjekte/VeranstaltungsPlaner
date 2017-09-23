@@ -1,9 +1,8 @@
 <?php
+    // Authenticate user
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
+
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/navbar.php';
-?>
-
-<?php
-
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/personnalManager.php';
 
     $status = 'NONE';

@@ -1,4 +1,8 @@
 <?php
+
+    // Authenticate user
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
+
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/navbar.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/projectWeekHandler.php';
 ?>
