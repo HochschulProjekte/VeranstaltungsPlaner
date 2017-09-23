@@ -1,6 +1,3 @@
-<?php
-echo '
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,9 +12,9 @@ echo '
 
     <!-- CSS Includes -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/custom.css">
-    <link rel="stylesheet" href="../css/mycreateevent.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="./css/mycreateevent.css">
   </head>
 
   <!-- BODY -->
@@ -33,26 +30,24 @@ echo '
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Startseite</a>
+                    <a class="nav-link" href="index.php">Startseite</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Veranstaltungsübersicht</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Meine Veranstaltungen</a>
+                    <a class="nav-link" href="myevents.php">Meine Veranstaltungen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Verwaltung</a>
+                    <a class="nav-link" href="control.php">Verwaltung</a>
                 </li>
             </ul>
             <span class="nav-item">
-                <a class="nav-link" href="#">Mein Profil</a>
+                <a class="nav-link" href="myprofile.php">Mein Profil</a>
             </span>
             <span class="nav-item">
                 <a class="nav-link" href="#">Ausloggen</a>
             </span>
         </div>
     </nav>
-';
-?>
 

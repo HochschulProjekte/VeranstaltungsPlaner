@@ -125,5 +125,13 @@
         public function getWeek() {
             return $this->week;
         }
+
+        public function getFromDate() {
+            return $this->from;
+        }
+
+        public function getUntilDate() {
+            return $this->until;
+        }
     }
 ?>

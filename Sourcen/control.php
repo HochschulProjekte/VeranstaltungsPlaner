@@ -54,7 +54,11 @@
     <!-- Wrapper -->
     <div class="container-fluid" id="wrapper">
         
-        
+    <div class="list-group">
+        <a href="controlUsers.php" class="list-group-item list-group-item-action">Benutzer</a>
+        <a href="controlWeeks.php" class="list-group-item list-group-item-action">Projektwochen</a>
+        <a href="controlEvents.php" class="list-group-item list-group-item-action">Veranstaltungen</a>
+    </div>
 
     </div>
 
