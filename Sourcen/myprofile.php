@@ -46,7 +46,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.ph
                     <a class="nav-link" href="myevents.php">Meine Veranstaltungen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Verwaltung</a>
+                    <a class="nav-link" href="control.php">Verwaltung</a>
                 </li>
             </ul>
             <span class="nav-item active">

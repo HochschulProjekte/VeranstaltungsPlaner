@@ -4,7 +4,7 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/navbar.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/projectWeekHandler.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/pagehandler/controlWeeksHandler.php';
 ?>
 
     <!-- Wrapper -->
@@ -19,7 +19,7 @@
                     <?php
                         echo '
                         <button type="button" onclick="previousWeek('.$projectWeek->getYear().', '.$projectWeek->getWeek().')" class="btn btn-secondary"><</button>
-                        <a>Woche: '.$projectWeek->getWeek().' - '.$projectWeek->getFromDate().' - '.$projectWeek->getUntilDate().'</a>
+                        <a style="padding: 0 10px 0 10px">Woche: '.$projectWeek->getWeek().' - '.$projectWeek->getFromDate().' - '.$projectWeek->getUntilDate().'</a>
                         <button type="button" onclick="nextWeek('.$projectWeek->getYear().', '.$projectWeek->getWeek().')" class="btn btn-secondary">></button>
                         ';
                     ?>
@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="modal-body">
 
-                                        <div class="input-group">
+                                        <div class="input-group" style="margin-bottom: 5px">
                                             <div class="input-group-addon"><i class="fa fa-university"></i></div>
                                             <?php
                                             echo '
@@ -49,7 +49,7 @@
                                             <input type="text" class="form-control" id="myprojectweek-position" name="position" placeholder="Position" value="" required>
                                         </div>
 
-                                        <div class="input-group">
+                                        <div class="input-group" style="margin-bottom: 5px">
                                             <div class="input-group-addon"><i class="fa fa-university"></i></div>
                                             <input type="text" class="form-control" id="myprojectweek-participants" name="participants" placeholder="Max. Teilnehmer" value="" required>
                                         </div>
@@ -82,28 +82,25 @@
                                                     }
                                                 ?>
                                             </tbody>
-                                            </table>
-                                    
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                                            <button type="submit" class="btn btn-primary">Hinzufügen</button>
-                                        </div>
+                                        </table>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                                        <button type="submit" class="btn btn-primary">Hinzufügen</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
+                    </div>
 
-                        <table class="table">
+                    <table class="table">
                         <thead>
                             <tr>
+                            <th>#</th>
                             <th>Name</th>
-                            <th>Position</th>
                             <th>Länge</th>
                             <th>Dozent</th>
-                            <th>max.</th>
-                            <th></th>
+                            <th>Max. Nutzer</th>
                             <th></th>
                             </tr>
                         </thead>
@@ -113,12 +110,11 @@
                                 foreach ($projectWeek->getProjectWeekEntries() as $entry) {
                                     echo '
                                     <tr>
-                                        <td>'.$entry->getEvent()->name.'</td>
                                         <td>'.$entry->getPosition().'</td>
+                                        <td>'.$entry->getEvent()->name.'</td>
                                         <td>'.$entry->getEvent()->length.'</td>
                                         <td>'.$entry->getEvent()->eventManager.'</td>
                                         <td>'.$entry->getMaxParticipants().'</td>
-                                        <td>'.$entry->getEvent()->description.'</td>
                                         <td><button type="button" onclick="deleteEvent('.$entry->getEventId().', '.$entry->getYear().', '.$entry->getWeek().', '.$entry->getPosition().')" class="btn btn-secondary">X</button></td>
                                     </tr>
                                     ';

@@ -57,6 +57,18 @@
                 return $this->databaseHandler->update(self::TABLE, $values, 'eventId = '.$this->id);
             }
         }
+
+        function delete() {
+            $where = 'eventId = '.$this->id;
+            if($this->databaseHandler->delete(self::TABLE, $where)) {
+                $this->id = NULL;
+                $this->name = NULL;
+                $this->description = NULL;
+                $this->length = NULL;
+                $this->maxParticipants = NULL;
+                $this->eventManager = NULL;
+            }
+        }
     }
 
 ?>
