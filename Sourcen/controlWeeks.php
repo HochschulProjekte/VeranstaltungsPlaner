@@ -3,7 +3,10 @@
     // Authenticate user
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
 
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/navbar.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/userInterface.php';
+    $ui = new UserInterface('controlWeeks');
+    $ui->renderHeader();
+
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/controller/controlWeeksController.php';
 ?>
 
@@ -133,7 +136,7 @@
     </div>
 
 <?php
-    include $_SERVER['DOCUMENT_ROOT'].'/vstp/footer.php';
+    $ui->renderFooter();
 ?>
 
 <script>

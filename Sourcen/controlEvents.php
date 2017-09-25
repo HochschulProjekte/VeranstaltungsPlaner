@@ -2,7 +2,10 @@
     // Authenticate user
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
 
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/navbar.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/userInterface.php';
+    $ui = new UserInterface('controlEvents');
+    $ui->renderHeader();
+
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/controller/controlEventsController.php';
 
 ?>
@@ -131,7 +134,7 @@
     </div>
 
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/footer.php';
+    $ui->renderFooter();
 ?>
 
 <script>
