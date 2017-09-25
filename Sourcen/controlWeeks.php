@@ -3,6 +3,12 @@
     // Authenticate user
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
 
+    // Check, if user is personnal manager
+    if (!$myUser->isPersonnalManager()) {
+        header('Location: https://' . $_SERVER['HTTP_HOST'] . '/vstp/index.php');
+        exit();
+    }
+
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/userInterface.php';
     $ui = new UserInterface('controlWeeks');
     $ui->renderHeader();
