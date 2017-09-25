@@ -11,10 +11,14 @@ freiePlaetze = new Int
 
 	If (freiePlaetze < zahlTeilnehmer)
 		Nachricht an Sachbearbeiter ( gibt position und fehlende plätze mit)
+		keinPhasenwechsel = true
+
+If Check keinPhasenwechsel = false
+	Phasenwechsel anstoßen
 
 
 Phase2 -> Phase3
-
+ 
 Schleife über Positionen
 
 Zuordnen der mitarbeiter
@@ -29,7 +33,7 @@ Schleife über MAs
 	
 	Set approved = true bei userevent join projectweekentry für eventid wher eventid = (select single eventid from uuserevent where username gleich) and participants > maxparticipants
     nicht vergessen: sicherstellen dass die veranstaltung erst an der position beginnt (select min auf position und abgleich)
-	participant bei eventid++
+	wenn das so ist, participant bei eventid++, sonst nächster schleifendurchlauf
 
 
 Ende Schleife Mitarbeiter
