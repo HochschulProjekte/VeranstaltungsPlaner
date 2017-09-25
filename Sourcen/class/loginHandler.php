@@ -37,7 +37,7 @@ class LoginHandler {
         $ret['err'] = false;
         $ret['type'] = 'info';
         $ret['msg'] = '';
-
+        
         // Password and Username filled?
         if ($this->checkEmptyUsernamePassword($username, $password) == true) {
             $ret['err'] = true;
@@ -64,7 +64,7 @@ class LoginHandler {
 
         // Start session and set session variable
         $this->setSession($username);
-
+    
         // Redirect user to index.php
         $this->redirect('vstp/index.php');
 
@@ -79,6 +79,7 @@ class LoginHandler {
     // Redirect user to a page
     public function redirect($page) {
         header('Location: https://' . $_SERVER['HTTP_HOST'] . '/' . $page);
+        exit();
     }
 
     // Check, if user is logged in
@@ -148,8 +149,12 @@ class LoginHandler {
 
     // Check, if user is logged in session
     private function checkLogin() {
-        if (    $_SESSION['login'] == true) {
-            return true;
+        if (    isset($_SESSION['login'])){
+            if (    $_SESSION['login'] == true) {
+                return true;
+            } else {
+                return false;
+            }   
         } else {
             return false;
         }

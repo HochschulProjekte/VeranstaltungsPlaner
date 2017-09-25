@@ -1,4 +1,5 @@
 <?php
+//error_reporting(E_ALL);
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/loginHandler.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/user.php';
@@ -17,7 +18,6 @@ if ($lh->isUserLoggedIn() == true) {
     $actualLink = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     if ($actualLink == 'https://' . $_SERVER['HTTP_HOST'] . '/vstp/login.php') {
         $lh->redirect('vstp/index.php');
-        exit();
     }
 } else {
     // => user is not logged in
@@ -26,7 +26,6 @@ if ($lh->isUserLoggedIn() == true) {
     $actualLink = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     if ($actualLink != 'https://' . $_SERVER['HTTP_HOST'] . '/vstp/login.php') {
         $lh->redirect('vstp/login.php');
-        exit();
     }
 }
 
