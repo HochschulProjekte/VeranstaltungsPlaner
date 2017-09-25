@@ -4,7 +4,7 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/navbar.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/pagehandler/controlWeeksHandler.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/controller/controlWeeksController.php';
 ?>
 
     <!-- Wrapper -->
