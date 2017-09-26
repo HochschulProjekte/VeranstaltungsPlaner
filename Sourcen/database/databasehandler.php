@@ -8,7 +8,7 @@
         private $pdo;
 
         function __construct() {
-            include $_SERVER['DOCUMENT_ROOT'].'/vstp/database/credentials.php';
+            include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/database/credentials.php';
             $this->pdo = new PDO('mysql:host='.$host.';dbname='.$db, $user, $pass);
         }
 

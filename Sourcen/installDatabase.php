@@ -161,14 +161,12 @@
 
             // Erstellung der DB-Informations-Dateis
             $fhandler = fopen('./database/credentials.php', 'w');
-            $content = '
-                <?php
+            $content = '<?php
                     $host = "'.$host.'";
                     $db = "'.$db.'";
                     $user = "'.$user.'";
                     $pass = "'.$pass.'";
-                ?>
-            ';
+                ?>';
 
             // DB-Datei schliessen
             fwrite($fhandler, $content);
