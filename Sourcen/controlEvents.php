@@ -8,9 +8,13 @@
         exit();
     }
 
+    // User Interface
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/userInterface.php';
-    $ui = new UserInterface('controlEvents');
-    $ui->renderHeader();
+    $userInterface = new UserInterface('controlEvents');
+    $userInterface->addScript('controlEvents');
+
+    // Render Header
+    $userInterface->renderHeader();
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/controller/controlEventsController.php';
 
@@ -140,19 +144,8 @@
     </div>
 
 <?php
-    $ui->renderFooter();
+
+    // Render Footer
+    $userInterface->renderFooter();
 ?>
 
-<script>
-
-    function editEvent(eventId) {
-        $('#edit').append('<input type="hidden" name="id" value="'+ eventId +'" />');
-        $("#edit").submit(); 
-    }
-
-    function deleteEvent(eventId) {
-        $('#delete').append('<input type="hidden" name="id" value="'+ eventId +'" />');
-        $("#delete").submit(); 
-    }
-
-</script>

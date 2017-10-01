@@ -9,9 +9,10 @@
         exit();
     }
 
+    // User Interface
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/userInterface.php';
-    $ui = new UserInterface('controlWeeks');
-    $ui->renderHeader();
+    $userInterface = new UserInterface('controlWeeks');
+    $userInterface->renderHeader();
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/controller/controlWeeksController.php';
 ?>
@@ -142,7 +143,7 @@
     </div>
 
 <?php
-    $ui->renderFooter();
+    $userInterface->renderFooter();
 ?>
 
 <script>
