@@ -6,14 +6,20 @@
     // User Interface
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/userInterface.php';
     $userInterface = new UserInterface('myEvents');
+    $userInterface->addScript('myEvents');
+
     $userInterface->renderHeader();
+
+    // MyEventsController
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/controller/myEventsController.php';
 
 ?>
     <!-- Wrapper -->
     <div class="container-fluid" id="wrapper">
 
         <div class="row">
-        
+
+            
             <!-- Tabs -->
             <ul class="nav nav-tabs" id="view-tab" role="tablist">
                 <li class="nav-item">
@@ -27,15 +33,73 @@
                 </li>
             </ul>
 
+            <!-- Time  period and control -->
+            <div class="period-control">
+                <?php
+                    echo '
+                    <button type="button" onclick="previousWeek('.$myEventsController->getYear().', '.$myEventsController->getWeek().')" class="btn btn-secondary btn-control"><</button>
+                    <a>'.$myEventsController->getWeekStartDate().' - '.$myEventsController->getWeekEndDate().'</a>
+                    <button type="button" onclick="nextWeek('.$myEventsController->getYear().', '.$myEventsController->getWeek().')" class="btn btn-secondary btn-control">></button>
+                    ';
+                ?>
+
+                <!-- Event regristration modal -->
+                <button type="button" class="btn btn-secondary btn-control" data-toggle="modal" data-target="#regrisModal">
+                    Anmeldung
+                </button>
+
+            </div>
+            <form id="projectWeek" method="POST" action="#"></form>
+
+            <!-- Modal event regristration-->
+            <div class="modal fade" id="regrisModal" tabindex="-1" role="dialog" aria-labelledby="regrisModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <form id="registration" method="POST" action="#">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Veranstaltungsanmeldung</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-sm">
+                        <thead><tr>
+                                <th>#</th><th>Name</th>
+                                <th>Länge</th><th>Verantwortlicher</th>
+                        </tr></thead>
+                        <tbody>
+                    <?php
+                        $events = $myEventsController->getWeekEntries();
+
+                        foreach($events as $event) {
+                            echo '
+                            
+                        <tr>
+                            <td><input type="radio" name="eventId" value="'.$event->getEvent()->id.'" /></td>
+                            <td>'.$event->getEvent()->name.'</td>
+                            <td>'.$event->getEvent()->length.'</td>
+                            <td>'.$event->getEvent()->eventManager.'</td>
+
+                        </tr>
+                            
+                            ';
+                        }
+                    ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="button" class="btn btn-primary">Anmelden</button>
+                </div>
+                </form>
+                </div>
+            </div>
+            </div>
+
             <!-- Tab Content -->
             <div class="tab-content">
-
-                <!-- Time period and control -->
-                <div class="period-control">
-                    <span class="period">04.09.2017 - 08.09.2017</span>
-                    <a class="btn btn-light btn-back" href="#" role="button"><</a>
-                    <a class="btn btn-light btn-forward" href="#" role="button">></a>
-                </div>
                 
                 <!-- Calender -->
                 <div class="tab-pane fade show active" id="calender" role="tabpanel" aria-labelledby="calender-tab">

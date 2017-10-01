@@ -94,13 +94,13 @@
             return $this->entries;
         }
 
-        public function getCurrentCalendarWeek() {
+        public static function getCurrentCalendarWeek() {
             $calendarWeek = 0;
             $calendarWeek = date('W', time());
             return $calendarWeek;
         }
 
-        public function getCurrentCalendarYear() {
+        public static function getCurrentCalendarYear() {
             $year = 0;
             $year = date('Y');
             return $year;
