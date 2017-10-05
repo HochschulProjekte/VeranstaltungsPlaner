@@ -21,11 +21,8 @@ function submitWeek(year, week) {
     $("#projectWeek").submit(); 
 }
 
-function deleteEvent(id, year, week, position) {
-    $('#delete').append('<input type="hidden" name="eventId" value="'+ id +'" />');
-    $('#delete').append('<input type="hidden" name="year" value="'+ year +'" />');
-    $('#delete').append('<input type="hidden" name="week" value="'+ week +'" />');
-    $('#delete').append('<input type="hidden" name="position" value="'+ position +'" />');
+function deleteEvent(id) {
+    $('#delete').append('<input type="hidden" name="projectWeekEntryId" value="'+ id +'" />');
     $('#delete').append('<input type="hidden" name="delete" value="X" />');
     $("#delete").submit(); 
 }

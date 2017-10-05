@@ -67,6 +67,7 @@
                         <thead><tr>
                                 <th>#</th><th>Name</th>
                                 <th>Länge</th><th>Verantwortlicher</th>
+                                <th>Teiln.</th><th>max. Teiln.</th>
                         </tr></thead>
                         <tbody>
                     <?php
@@ -75,12 +76,15 @@
                         foreach($events as $event) {
                             echo '
                             
+                        <input type="hidden" name="eventId" value="'.$events.'" />
+                        
                         <tr>
-                            <td><input type="radio" name="eventId" value="'.$event->getEvent()->id.'" /></td>
+                            <td><input type="radio" name="position" value="'.$event->getPosition().'" /></td>
                             <td>'.$event->getEvent()->name.'</td>
                             <td>'.$event->getEvent()->length.'</td>
                             <td>'.$event->getEvent()->eventManager.'</td>
-
+                            <td>'.$event->getParticipants().'</td>
+                            <td>'.$event->getMaxParticipants().'</td>
                         </tr>
                             
                             ';
@@ -91,7 +95,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                    <button type="button" class="btn btn-primary">Anmelden</button>
+                    <button type="submit" class="btn btn-primary">Anmelden</button>
                 </div>
                 </form>
                 </div>

@@ -86,9 +86,8 @@
 
             foreach ($result as $entry) {
                 array_push($this->entries, 
-                    new ProjectWeekEntry($entry['year'], $entry['week'], 
-                                            $entry['eventId'], $entry['position'],
-                                            $entry['participants'], $entry['maxParticipants']));
+                    new ProjectWeekEntry($entry['projectWeekEntryId'])
+                );
             }
 
             return $this->entries;

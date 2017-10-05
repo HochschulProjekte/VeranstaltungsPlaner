@@ -93,7 +93,7 @@ class User {
 
         // Get user data from database
         $result = $this->databaseHandler->select(self::TABLE, 'name = "' . $name . '"');
-        
+
         // Store data in object variables
         $this->setPrimaryKey($result[0]['name']);
         $this->setName($result[0]['name']);

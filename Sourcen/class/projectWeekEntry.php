@@ -6,6 +6,7 @@
 
         const TABLE = 'ProjectWeekEntry';
 
+        private $projectWeekEntryId;
         private $year;
         private $week;
         private $eventId;
@@ -15,19 +16,27 @@
 
         private $event;
 
-        function __construct($year, $week, 
-                             $eventId, $position,
-                             $participants, $maxParticipants) {
+        function __construct($projectWeekEntryId) {
 
-            $this->databaseHandler = new PDOHandler();                    
-            $this->year = $year;
-            $this->week = $week;
-            $this->eventId = $eventId;
-            $this->position = $position;
-            $this->participants = $participants;
-            $this->maxParticipants = $maxParticipants;
+            $this->databaseHandler = new PDOHandler();  
+            $this->projectWeekEntryId = $projectWeekEntryId;
+            
+            if($projectWeekEntryId != NULL) {
+                $this->loadData();
+                $this->loadEvent();
+            }
+        }
 
-            $this->loadEvent();
+        private function loadData() {
+            $where = 'projectWeekEntryId = '.$this->projectWeekEntryId;
+            $result = $this->databaseHandler->select(self::TABLE, $where);
+
+            $this->year = $result[0]['year'];
+            $this->week = $result[0]['week'];
+            $this->eventId = $result[0]['eventId'];
+            $this->position = $result[0]['position'];
+            $this->participants = $result[0]['participants'];
+            $this->maxParticipants = $result[0]['maxParticipants'];
         }
 
         private function loadEvent() {
@@ -45,11 +54,9 @@
                 new ColumnItem('maxParticipants', $this->maxParticipants)
             ];
 
-            $where = 'eventId = '.$this->eventId.' AND year = '.$this->year.' AND week = '.$this->week.' AND position = '.$this->position;
+            if($this->projectWeekEntryId != NULL) {
 
-            $exists = $this->databaseHandler->select(self::TABLE, $where);
-
-            if(count($exists) > 0) {
+                $where = 'projectWeekEntryId = '.$this->projectWeekEntryId;                
                 $this->databaseHandler->update(self::TABLE, $values, $where);
             } else {
                 $this->databaseHandler->insert(self::TABLE, $values);
@@ -57,32 +64,60 @@
         }
 
         public function delete() {
-            $where = 'eventId = '.$this->eventId.' AND year = '.$this->year.' AND week = '.$this->week.' AND position = '.$this->position;
+            $where = 'projectWeekEntryId = '.$this->projectWeekEntryId;
             $this->databaseHandler->delete(self::TABLE, $where);
+        }
+
+        public function getProjectWeekEntryId() {
+            return $this->projectWeekEntryId;
         }
 
         public function getYear() {
             return $this->year;
         }
 
+        public function setYear($year) {
+            $this->year = $year;
+        }
+
         public function getWeek() {
             return $this->week;
+        }
+
+        public function setWeek($week) {
+            $this->week = $week;
         }
 
         public function getEventId() {
             return $this->eventId;
         }
 
+        public function setEventId($eventId) {
+            $this->eventId = $eventId;
+        }
+
         public function getPosition() {
             return $this->position;
+        }
+
+        public function setPosition($position) {
+            $this->position = $position;
         }
 
         public function getParticipants() {
             return $this->participants;
         }
 
+        public function setParticipants($participants) {
+            $this->participants = $participants;
+        }
+
         public function getMaxParticipants() {
             return $this->maxParticipants;
+        }
+
+        public function setMaxParticipants($maxParticipants) {
+            $this->maxParticipants = $maxParticipants;
         }
 
         public function getEvent() {

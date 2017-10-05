@@ -53,7 +53,7 @@
                                             <div class="input-group-addon"><i class="fa fa-university"></i></div>
                                             <?php
                                             echo '
-                                                <input type="hidden" name="addevent" value="X" />
+                                                <input type="hidden" name="add" value="X" />
                                                 <input type="hidden" name="year" value="'.$projectWeek->getYear().'" />
                                                 <input type="hidden" name="week" value="'.$projectWeek->getWeek().'" />
                                             ';
@@ -63,7 +63,7 @@
 
                                         <div class="input-group" style="margin-bottom: 5px">
                                             <div class="input-group-addon"><i class="fa fa-university"></i></div>
-                                            <input type="text" class="form-control" id="myprojectweek-participants" name="participants" placeholder="Max. Teilnehmer" value="" required>
+                                            <input type="text" class="form-control" id="myprojectweek-participants" name="maxParticipants" placeholder="Max. Teilnehmer" value="" required>
                                         </div>
 
                                         <table class="table table-sm">
@@ -127,7 +127,7 @@
                                         <td>'.$entry->getEvent()->length.'</td>
                                         <td>'.$entry->getEvent()->eventManager.'</td>
                                         <td>'.$entry->getMaxParticipants().'</td>
-                                        <td><button type="button" onclick="deleteEvent('.$entry->getEventId().', '.$entry->getYear().', '.$entry->getWeek().', '.$entry->getPosition().')" class="btn btn-secondary">X</button></td>
+                                        <td><button type="button" onclick="deleteEvent('.$entry->getProjectWeekEntryId().')" class="btn btn-secondary">X</button></td>
                                     </tr>
                                     ';
                                 }
