@@ -5,15 +5,27 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/projectWeek.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/projectWeekEntry.php';
 
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/eventRegistration.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/eventRegistrationCollection.php';
+
     class MyEventsController {
         
         private $user;
         private $projectWeek;
+        private $eventRegistrationCollection;
 
+        /**
+         * MyEventsController constructor.
+         * @param $POST_ARRAY
+         */
         function __construct($POST_ARRAY) {
             $this->parsePostArray($POST_ARRAY);
         }
 
+        /**
+         * Parse POST input
+         * @param $POST_ARRAY
+         */
         private function parsePostArray($POST_ARRAY) {
             
             // ProjectWeek
@@ -21,30 +33,83 @@
             $week = NULL;
             
             if(
-                isset($_POST['year'])
-                && isset($_POST['week'])
+                isset($POST_ARRAY['year'])
+                && isset($POST_ARRAY['week'])
             ) {
-                $year = $_POST['year'];
-                $week = $_POST['week'];
+                $year = $POST_ARRAY['year'];
+                $week = $POST_ARRAY['week'];
             } else {
                 $year = ProjectWeek::getCurrentCalendarYear();
                 $week = ProjectWeek::getCurrentCalendarWeek();
             }
 
+            // set project week
             $this->createProjectWeek($year, $week);
 
-            // TODO: User wird noch statisch gesetzt.
-            // User
-            $this->createUser('test');
+            // set user
+            $this->createUserObject($_SESSION['username']);
+
+            // ProjectWeekEntry - User registration
+            if(
+                isset($POST_ARRAY['registration'])
+                && isset($POST_ARRAY['projectWeekEntryId'])
+                && isset($POST_ARRAY['priority'])
+            ) {
+                $this->registerToEvent($POST_ARRAY['projectWeekEntryId'], $POST_ARRAY['priority']);
+            }
+
+            // Alle Anmeldungen zu Events eines Nutzers laden
+            $this->createEventRegistrationCollection();
         }
 
+        /**
+         * Create a projectweek object
+         * @param $year
+         * @param $calendarWeek
+         */
         private function createProjectWeek($year, $calendarWeek) {
             $this->projectWeek = new ProjectWeek($year, $calendarWeek);
         }
 
-        private function createUser($username) {
+        /**
+         * Create an user object
+         * @param $username
+         */
+        private function createUserObject($username) {
             $this->user = new User($username);
         }
+
+        /**
+         * Register an user to a specific projectweek entry
+         * @param $projectWeekEntryId
+         * @param $priority
+         */
+        private function registerToEvent($projectWeekEntryId, $priority) {
+
+            $eventRegistration = new EventRegistration(NULL);
+
+            $eventRegistration->setUsername($this->user->getName());
+            $eventRegistration->setProjectWeekEntry(new ProjectWeekEntry($projectWeekEntryId));
+            $eventRegistration->setPriority($priority);
+            $eventRegistration->setApproved('0');
+            $eventRegistration->setRegistrationDate(date('Y-m-d H:i:s'));
+
+            $eventRegistration->save();
+        }
+
+        /**
+         * Create a collection of EventRegistrations for a specific user and projectweek combination
+         */
+        private function createEventRegistrationCollection() {
+            $this->eventRegistrationCollection = new EventRegistrationCollection(
+                $this->user->getName(),
+                $this->projectWeek
+            );
+        }
+
+        /***********************************************************************************/
+        /*   Getter functions                                                              */
+        /***********************************************************************************/
 
         public function getWeekStartDate() {
             return $this->projectWeek->getFromDate();
@@ -67,7 +132,7 @@
         }
     }
 
-    // Controller-Creation
+    // Create Controller
     $myEventsController = new MyEventsController($_POST);
 
 ?>

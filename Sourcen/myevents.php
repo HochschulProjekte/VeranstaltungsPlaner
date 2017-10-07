@@ -37,14 +37,14 @@
             <div class="period-control">
                 <?php
                     echo '
-                    <button type="button" onclick="previousWeek('.$myEventsController->getYear().', '.$myEventsController->getWeek().')" class="btn btn-secondary btn-control"><</button>
-                    <a>'.$myEventsController->getWeekStartDate().' - '.$myEventsController->getWeekEndDate().'</a>
-                    <button type="button" onclick="nextWeek('.$myEventsController->getYear().', '.$myEventsController->getWeek().')" class="btn btn-secondary btn-control">></button>
+                    <button type="button" onclick="previousWeek('.$myEventsController->getYear().', '.$myEventsController->getWeek().')" class="btn btn-secondary btn-control projectweek-nav"><</button>
+                    <a class="projectweek-text">'.$myEventsController->getWeekStartDate().' - '.$myEventsController->getWeekEndDate().'</a>
+                    <button type="button" onclick="nextWeek('.$myEventsController->getYear().', '.$myEventsController->getWeek().')" class="btn btn-secondary btn-control projectweek-nav">></button>
                     ';
                 ?>
 
                 <!-- Event regristration modal -->
-                <button type="button" class="btn btn-secondary btn-control" data-toggle="modal" data-target="#regrisModal">
+                <button type="button" class="btn btn-secondary btn-control projectweek-nav" data-toggle="modal" data-target="#regrisModal">
                     Anmeldung
                 </button>
 
@@ -56,47 +56,62 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <form id="registration" method="POST" action="#">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Veranstaltungsanmeldung</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-sm">
-                        <thead><tr>
-                                <th>#</th><th>Name</th>
-                                <th>Länge</th><th>Verantwortlicher</th>
-                                <th>Teiln.</th><th>max. Teiln.</th>
-                        </tr></thead>
-                        <tbody>
-                    <?php
-                        $events = $myEventsController->getWeekEntries();
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Veranstaltungsanmeldung</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
 
-                        foreach($events as $event) {
-                            echo '
-                            
-                        <input type="hidden" name="eventId" value="'.$events.'" />
-                        
-                        <tr>
-                            <td><input type="radio" name="position" value="'.$event->getPosition().'" /></td>
-                            <td>'.$event->getEvent()->name.'</td>
-                            <td>'.$event->getEvent()->length.'</td>
-                            <td>'.$event->getEvent()->eventManager.'</td>
-                            <td>'.$event->getParticipants().'</td>
-                            <td>'.$event->getMaxParticipants().'</td>
-                        </tr>
-                            
-                            ';
-                        }
-                    ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                    <button type="submit" class="btn btn-primary">Anmelden</button>
-                </div>
+                        <input type="hidden" name="registration" value="X" />
+
+                        <div class="form-group" class="priority-label">
+                            <label for="priority">Priorität</label>
+                            <select class="form-control" id="priority" name="priority">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                            </select>
+                        </div>
+
+                        <table class="table table-sm">
+                            <thead><tr>
+                                    <th>#</th><th>Name</th>
+                                    <th>Länge</th><th>Teiln.</th>
+                                    <th>max. Teiln.</th>
+                            </tr></thead>
+                            <tbody>
+                        <?php
+                            $events = $myEventsController->getWeekEntries();
+
+                            foreach($events as $event) {
+                                echo '
+                            <tr>
+                                <td><input type="radio" name="projectWeekEntryId" value="'.$event->getProjectWeekEntryId().'" text="" /></td>
+                                <td>'.$event->getEvent()->name.'</td>
+                                <td>'.$event->getEvent()->length.'</td>
+                                <td>'.$event->getParticipants().'</td>
+                                <td>'.$event->getMaxParticipants().'</td>
+                            </tr>
+                                
+                                ';
+                            }
+                        ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                        <button type="submit" class="btn btn-primary">Anmelden</button>
+                    </div>
                 </form>
                 </div>
             </div>
