@@ -12,6 +12,8 @@
         private $id;
         private $username;
         private $projectWeekEntry;
+        private $year;
+        private $week;
         private $priority;
         private $approved;
         private $registrationDate;
@@ -32,7 +34,9 @@
 
             $this->id = $result[0]['eventRegistrationId'];
             $this->username = $result[0]['username'];
-            $this->projectWeekEntry = new ProjectWeekEntry($result[0]['eventRegistrationId']);
+            $this->projectWeekEntry = new ProjectWeekEntry($result[0]['projectWeekEntryId']);
+            $this->year = $result[0]['year'];
+            $this->week = $result[0]['week'];
             $this->priority = $result[0]['priority'];
             $this->approved = $result[0]['approved'];
             $this->registrationDate = $result[0]['registrationDate'];
@@ -43,6 +47,8 @@
             $values = [
                 new ColumnItem('username', $this->username),
                 new ColumnItem('projectWeekEntryId', $this->projectWeekEntry->getProjectWeekEntryId()),
+                new ColumnItem('year', $this->projectWeekEntry->getYear()),
+                new ColumnItem('week', $this->projectWeekEntry->getWeek()),
                 new ColumnItem('priority', $this->priority),
                 new ColumnItem('approved', $this->approved),
                 new ColumnItem('registrationDate', $this->registrationDate)

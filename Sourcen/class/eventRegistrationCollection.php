@@ -20,23 +20,28 @@ class EventRegistrationCollection {
 
         $this->username = $username;
         $this->projectWeek = $projectWeek;
+
+        $this->load();
     }
 
     private function load() {
-        $where = 'username = '.$this->username.' AND year = '.$this->projectWeek->getYear().' AND week = '.$this->projectWeek->getWeek();
+        $where = 'username = "'.$this->username.'" AND year = '.$this->projectWeek->getYear().' AND week = '.$this->projectWeek->getWeek();
 
         $result = $this->databaseHandler->select(self::TABLE, $where);
 
         foreach($result as $eventRegistration) {
-            array_push(
-              $this->eventRegistrations, new EventRegistration($eventRegistration['eventRegistrationId'])
-            );
+            $this->add(new EventRegistration($eventRegistration['eventRegistrationId']));
         }
     }
 
     public function add($eventRegistration) {
         array_push($this->eventRegistrations, $eventRegistration);
     }
+
+    public function getEventRegistrations() {
+        return $this->eventRegistrations;
+    }
+
 }
 
 ?>

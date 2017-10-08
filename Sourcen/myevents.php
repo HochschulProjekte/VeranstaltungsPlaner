@@ -235,43 +235,36 @@
 
                                 <thead>
                                     <tr style="background-color: #FFF; border-bottom: 3px solid #333;">
-                                        <th>Datum</th>
-                                        <th>Zeit</th>
-                                        <th>Bezeichnung</th>
+                                        <th>Position</th>
+                                        <th>Veranstaltung</th>
                                         <th>Anz. Teilnehmer</th>
                                         <th>Verantwortlicher</th>
+                                        <th>Priorität</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    <tr style="background-color: #EEE;">
-                                        <th scope="row">04.09.2017</th>
-                                        <td>08:00 Uhr - 12:00 Uhr</td>
-                                        <td>Veranstaltungsbezeichnung</td>
-                                        <td>12</td>
-                                        <td>Mitarbeiter XY</td>
-                                    </tr>
-                                    <tr style="background-color: #FFF;">
-                                        <th scope="row">04.09.2017</th>
-                                        <td>08:00 Uhr - 12:00 Uhr</td>
-                                        <td>Veranstaltungsbezeichnung</td>
-                                        <td>12</td>
-                                        <td>Mitarbeiter XY</td>
-                                    </tr>
-                                    <tr style="background-color: #EEE;">
-                                        <th scope="row">04.09.2017</th>
-                                        <td>08:00 Uhr - 12:00 Uhr</td>
-                                        <td>Veranstaltungsbezeichnung</td>
-                                        <td>12</td>
-                                        <td>Mitarbeiter XY</td>
-                                    </tr>
-                                    <tr style="background-color: #FFF;">
-                                        <th scope="row">04.09.2017</th>
-                                        <td>08:00 Uhr - 12:00 Uhr</td>
-                                        <td>Veranstaltungsbezeichnung</td>
-                                        <td>12</td>
-                                        <td>Mitarbeiter XY</td>
-                                    </tr>
+                                    <?php
+
+                                        $eventRegistrationColleciton = $myEventsController->getEventRegistrationCollection();
+
+                                        foreach($eventRegistrationColleciton->getEventRegistrations() as $index => $eventRegistration) {
+
+                                            echo '
+                                            <tr style="background-color: '.($index % 2 == 0 ? "#EEE" : "#FFF").';">
+                                                
+                                                <td>'.$eventRegistration->getProjectWeekEntry()->getPosition().'</td>
+                                                <td>'.$eventRegistration->getProjectWeekEntry()->getEvent()->name.'</td>
+                                                <td>'.$eventRegistration->getProjectWeekEntry()->getParticipants().'</td>
+                                                <td>'.$eventRegistration->getProjectWeekEntry()->getEvent()->eventManager.'</td>
+                                                <td>'.$eventRegistration->getPriority().'</td>
+                                            
+                                            </tr>
+
+                                            ';
+                                        }
+
+                                    ?>
                                 </tbody>
 
                             </table>

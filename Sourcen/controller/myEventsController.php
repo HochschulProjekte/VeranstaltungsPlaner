@@ -130,6 +130,11 @@
         public function getWeekEntries() {
             return $this->projectWeek->getProjectWeekEntries();
         }
+
+        public function getEventRegistrationCollection()
+        {
+            return $this->eventRegistrationCollection;
+        }
     }
 
     // Create Controller
