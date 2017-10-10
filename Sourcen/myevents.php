@@ -18,15 +18,11 @@
     <div class="container-fluid" id="wrapper">
 
         <div class="row">
-
             
             <!-- Tabs -->
             <ul class="nav nav-tabs" id="view-tab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="calender-tab" data-toggle="tab" href="#calender" role="tab" aria-controls="calender" aria-expanded="true">Kalender</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list">Liste</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="table-tab" data-toggle="tab" href="#table" role="tab" aria-controls="table">Tabelle</a>
@@ -164,66 +160,6 @@
 
                 </div>
 
-                <!-- List -->
-                <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
-                    
-                    <div class="row justify-content-center">
-
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-6 tab-col">
-
-                            <!-- List Item (One day) -->
-                            <ul class="list-group event-list">
-
-                                <!-- Date -->
-                                <li class="list-group-item active" style="background-color: #1348AB; border-color: #1348AB; font-size: 1.5rem; color:#FFF">Montag, 04.09.2017</li>
-
-                                <!-- Event 1 -->
-                                <li class="list-group-item">
-                                    <span class="event-title">Veranstaltungsbezeichnung</span>
-                                    <table class="event-information">
-                                        <tr><td><strong>Datum:</strong></td><td>04.09.2017</td></tr>
-                                        <tr><td><strong>Zeit:</strong></td><td>08:00 Uhr - 12:00 Uhr</td></tr>
-                                        <tr><td><strong>Anz. Teilnehmer:</strong></td><td>12</td></tr>
-                                        <tr><td><strong>Verantwortlicher:</strong></td><td>Mitarbeiter XY</td></tr>
-                                    </table>
-                                </li>
-
-                                <!-- Event 2 -->
-                                <li class="list-group-item">
-                                    <span class="event-title">Veranstaltungsbezeichnung</span>
-                                    <table class="event-information">
-                                        <tr><td><strong>Datum:</strong></td><td>04.09.2017</td></tr>
-                                        <tr><td><strong>Zeit:</strong></td><td>12:00 Uhr - 16:00 Uhr</td></tr>
-                                        <tr><td><strong>Anz. Teilnehmer:</strong></td><td>12</td></tr>
-                                        <tr><td><strong>Verantwortlicher:</strong></td><td>Mitarbeiter XY</td></tr>
-                                    </table>
-                                </li>
-
-                            </ul>
-
-                            <!-- List Item (Another day) -->
-                            <ul class="list-group event-list">
-
-                                <li class="list-group-item active" style="background-color: #1348AB; border-color: #1348AB; font-size: 1.5rem; color:#FFF">Dienstag, 05.09.2017</li>
-
-                                <li class="list-group-item">
-                                    <span class="event-title">Veranstaltungsbezeichnung</span>
-                                    <table class="event-information">
-                                        <tr><td><strong>Datum:</strong></td><td>05.09.2017</td></tr>
-                                        <tr><td><strong>Zeit:</strong></td><td>08:00 Uhr - 16:00 Uhr</td></tr>
-                                        <tr><td><strong>Anz. Teilnehmer:</strong></td><td>12</td></tr>
-                                        <tr><td><strong>Verantwortlicher:</strong></td><td>Mitarbeiter XY</td></tr>
-                                    </table>
-                                </li>
-
-                            </ul>
-                        
-                        </div>
-
-                    </div>
-
-                </div>
-                
                 <!-- Table -->
                 <div class="tab-pane fade" id="table" role="tabpanel" aria-labelledby="table-tab">
                     
