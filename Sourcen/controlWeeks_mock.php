@@ -43,7 +43,7 @@
                 </li>
             </ul>
             <span class="nav-item">
-                <a class="nav-link" href="myprofile.php">Mein Profil</a>
+                <a class="nav-link" href="myProfile.php">Mein Profil</a>
             </span>
             <span class="nav-item">
                 <a class="nav-link" href="#">Ausloggen</a>

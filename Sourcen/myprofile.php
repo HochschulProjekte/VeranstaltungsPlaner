@@ -32,7 +32,7 @@
 
                     <hr>
 
-                    <form action="myprofile.php" method="post">
+                    <form action="myProfile.php" method="post">
 
                         <h2 class="display-3 h2">E-Mail ändern</h2>
 
