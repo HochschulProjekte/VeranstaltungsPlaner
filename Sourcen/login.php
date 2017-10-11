@@ -1,10 +1,10 @@
 <?php
 
 // Authenticate user
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
+include_once './administration/authenticateUser.php';
 
 // include Login-Controller to handle login values
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/controller/loginController.php';
+include_once './controller/loginController.php';
 
 ?>
 

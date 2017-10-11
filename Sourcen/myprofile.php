@@ -1,13 +1,13 @@
 <?php
 
     // Authenticate user
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
+    include_once './administration/authenticateUser.php';
 
     // Controller
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/controller/myprofileController.php';
+    include_once './controller/myProfileController.php';
 
     // Userinterface
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/userInterface.php';
+    include_once './class/userInterface.php';
     $userInterface = new UserInterface('myProfile');
     $userInterface->renderHeader();
 

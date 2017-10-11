@@ -1,7 +1,7 @@
 <?php
 
 // Includes
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/user.php';
+include_once __DIR__.'/../class/user.php';
 
 class MyProfileController {
 

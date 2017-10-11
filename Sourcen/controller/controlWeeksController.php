@@ -1,6 +1,6 @@
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/projectWeek.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/projectWeekEntry.php';
+    include_once __DIR__.'/../class/projectWeek.php';
+    include_once __DIR__.'/../class/projectWeekEntry.php';
 
     if (isset($_POST['add'])
         && isset($_POST['year'])

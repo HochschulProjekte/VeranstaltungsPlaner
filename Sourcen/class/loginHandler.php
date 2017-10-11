@@ -1,7 +1,7 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/database/databasehandler.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/user.php';
+include_once __DIR__.'/../database/databasehandler.php';
+include_once __DIR__.'/../class/user.php';
 
 class LoginHandler {
 
@@ -66,7 +66,7 @@ class LoginHandler {
         $this->setSession($username);
     
         // Redirect user to index.php
-        $this->redirect('vstp/index.php');
+        $this->redirect('index.php');
 
         return $ret;
     }
@@ -78,7 +78,7 @@ class LoginHandler {
 
     // Redirect user to a page
     public function redirect($page) {
-        header('Location: https://' . $_SERVER['HTTP_HOST'] . '/' . $page);
+        header('Location: ./' . $page);
         exit();
     }
 

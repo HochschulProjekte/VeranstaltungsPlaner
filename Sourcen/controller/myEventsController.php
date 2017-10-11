@@ -1,12 +1,12 @@
 <?php
 
     // Includes
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/user.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/projectWeek.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/projectWeekEntry.php';
+    include_once __DIR__.'/../class/user.php';
+    include_once __DIR__.'/../class/projectWeek.php';
+    include_once __DIR__.'/../class/projectWeekEntry.php';
 
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/eventRegistration.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/eventRegistrationCollection.php';
+    include_once __DIR__.'/../class/eventRegistration.php';
+    include_once __DIR__.'/../class/eventRegistrationCollection.php';
 
     class MyEventsController {
         

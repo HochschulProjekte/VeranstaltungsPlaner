@@ -1,7 +1,7 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/import.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/event.php';
+include_once __DIR__.'/../class/import.php';
+include_once __DIR__.'/../class/event.php';
 
 class ImportEvents extends Import {
 

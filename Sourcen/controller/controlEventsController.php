@@ -1,6 +1,6 @@
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/personnalManager.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/projectWeek.php';
+    include_once __DIR__.'/../class/personnalManager.php';
+    include_once __DIR__.'/../class/projectWeek.php';
 
     $status = 'NONE';
     $event = new Event();

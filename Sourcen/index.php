@@ -1,10 +1,10 @@
 <?php
 
     // Authenticate user
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
+    include_once './administration/authenticateUser.php';
 
     // User Interface
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/userInterface.php';
+    include_once './class/userInterface.php';
     $userInterface = new UserInterface('index');
     $userInterface->renderHeader();
 

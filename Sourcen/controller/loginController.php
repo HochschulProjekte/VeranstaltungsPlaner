@@ -1,6 +1,6 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/loginHandler.php';
+include_once __DIR__.'/../class/loginHandler.php';
 
 // Check, if inputs are filled
 if (isset($_POST['login-username']) && isset($_POST['login-password'])) {

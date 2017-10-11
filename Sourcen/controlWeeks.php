@@ -1,7 +1,7 @@
 <?php
 
     // Authenticate user
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/administration/authenticateUser.php';
+    include_once './administration/authenticateUser.php';
 
     // Check, if user is personnal manager
     if (!$myUser->isPersonnalManager()) {
@@ -10,13 +10,13 @@
     }
 
     // User Interface
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/userInterface.php';
+    include_once './class/userInterface.php';
     $userInterface = new UserInterface('controlWeeks');
     $userInterface->addScript('controlWeeks');
 
     $userInterface->renderHeader();
 
-    include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/controller/controlWeeksController.php';
+    include_once './controller/controlWeeksController.php';
 ?>
 
     <!-- Wrapper -->

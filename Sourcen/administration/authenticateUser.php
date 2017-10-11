@@ -1,8 +1,8 @@
 <?php
 //error_reporting(E_ALL);
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/loginHandler.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/vstp/class/user.php';
+include_once __DIR__.'/../class/loginHandler.php';
+include_once __DIR__.'/../class/user.php';
 
 // Create login handler
 $lh = new LoginHandler();
@@ -16,16 +16,18 @@ if ($lh->isUserLoggedIn() == true) {
     
     // Redirect user to index page if he is on login
     $actualLink = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    if ($actualLink == 'https://' . $_SERVER['HTTP_HOST'] . '/vstp/login.php') {
-        $lh->redirect('vstp/index.php');
+
+    if(strpos($actualLink, 'login.php') > 0) {
+        $lh->redirect('index.php');
     }
 } else {
     // => user is not logged in
 
     // Redirect user to login page if he is not already there
     $actualLink = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    if ($actualLink != 'https://' . $_SERVER['HTTP_HOST'] . '/vstp/login.php') {
-        $lh->redirect('vstp/login.php');
+
+    if(strpos($actualLink, 'login.php') == 0) {
+        $lh->redirect('login.php');
     }
 }
 
