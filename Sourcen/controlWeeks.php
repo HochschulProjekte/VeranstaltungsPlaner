@@ -11,7 +11,7 @@
 
     // User Interface
     include_once './class/userInterface.php';
-    $userInterface = new UserInterface('controlWeeks');
+    $userInterface = new UserInterface($myUser,'controlWeeks');
     $userInterface->addScript('controlWeeks');
 
     $userInterface->renderHeader();

@@ -8,7 +8,7 @@
 
     // Userinterface
     include_once './class/userInterface.php';
-    $userInterface = new UserInterface('myProfile');
+    $userInterface = new UserInterface($myUser,'myProfile');
     $userInterface->renderHeader();
 
 ?>

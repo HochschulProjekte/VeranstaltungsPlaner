@@ -2,10 +2,13 @@
 
     class UserInterface {
 
+        private $user;
+
         private $fileName;
         private $script = NULL;
 
-        function __construct($fileName) {
+        function __construct($user, $fileName) {
+            $this->user = $user;
             $this->fileName = $fileName;
         }
 
@@ -56,9 +59,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="myEvents.php">Meine Veranstaltungen</a>
                             </li>
-                            <li class="nav-item">
+                            '.($this->user->isPersonnalManager() ? '<li class="nav-item">
                                 <a class="nav-link" href="control.php">Verwaltung</a>
-                            </li>
+                            </li>' : '').'
                         </ul>
                         <span class="nav-item">
                             <a class="nav-link" href="myProfile.php">Mein Profil</a>

@@ -11,7 +11,7 @@
 
     // User Interface
     include_once './class/userInterface.php';
-    $userInterface = new UserInterface('controlUsers');
+    $userInterface = new UserInterface($myUser,'controlUsers');
 
     $userInterface->addScript('controlUsers');
 

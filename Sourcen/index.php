@@ -5,7 +5,7 @@
 
     // User Interface
     include_once './class/userInterface.php';
-    $userInterface = new UserInterface('index');
+    $userInterface = new UserInterface($myUser,'index');
     $userInterface->renderHeader();
 
 ?>

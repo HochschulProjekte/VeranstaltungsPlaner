@@ -11,7 +11,7 @@
 
     // User Interface
     include_once './class/userInterface.php';
-    $userInterface = new UserInterface('control');
+    $userInterface = new UserInterface($myUser,'control');
     $userInterface->renderHeader();
 
     echo $_SERVER['REQUEST_URI'];

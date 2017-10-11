@@ -10,7 +10,7 @@
 
     // User Interface
     include_once './class/userInterface.php';
-    $userInterface = new UserInterface('controlEvents');
+    $userInterface = new UserInterface($myUser,'controlEvents');
     $userInterface->addScript('controlEvents');
 
     // Render Header

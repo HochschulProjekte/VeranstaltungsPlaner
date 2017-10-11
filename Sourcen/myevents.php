@@ -5,7 +5,7 @@
 
     // User Interface
     include_once './class/userInterface.php';
-    $userInterface = new UserInterface('myEvents');
+    $userInterface = new UserInterface($myUser,'myEvents');
     $userInterface->addScript('myEvents');
 
     $userInterface->renderHeader();
