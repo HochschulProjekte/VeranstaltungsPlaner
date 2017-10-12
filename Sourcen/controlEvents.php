@@ -40,30 +40,30 @@
                         }
 
                         echo '
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-university"></i></div>
+                        <div class="input-group event-input-group">
+                            <div class="input-group-addon event-input-icon"><i class="fa fa-university"></i></div>
                             <input type="text" class="form-control" id="myevent-name" name="myevent-name" placeholder="Name" value="'.$event->name.'" required>
                         </div>
 
-                        <div class="input-group secound-group">
-                            <div class="input-group-addon"><i class="fa fa-file-text-o"></i></div>
+                        <div class="input-group secound-group event-input-group">
+                            <div class="input-group-addon event-input-icon"><i class="fa fa-file-text-o"></i></div>
                             <input type="text" class="form-control" id="myevent-description" name="myevent-description" placeholder="Beschreibung" value="'.$event->description.'" required>
                         </div>
 
-                        <div class="input-group secound-group">
-                            <div class="input-group-addon"><i class="fa fa-long-arrow-right"></i></div>
+                        <div class="input-group secound-group event-input-group">
+                            <div class="input-group-addon event-input-icon"><i class="fa fa-long-arrow-right"></i></div>
                             <input type="text" class="form-control" id="myevent-length" name="myevent-length" placeholder="Länge" value="'.$event->length.'" required>
                         </div>
 
-                        <div class="input-group secound-group">
-                            <div class="input-group-addon"><i class="fa fa-users"></i></div>
+                        <div class="input-group secound-group event-input-group">
+                            <div class="input-group-addon event-input-icon"><i class="fa fa-users"></i></div>
                             <input type="text" class="form-control" id="myevent-maxParticipants" name="myevent-maxParticipants" placeholder="Max. Teilnehmer" value="'.$event->maxParticipants.'" required>
                         </div>
 
                         <hr>
 
                         <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-user-md"></i></div>
+                            <div class="input-group-addon event-input-icon"><i class="fa fa-user-md"></i></div>
                             <input type="text" class="form-control" id="myevent-eventManager" name="myevent-eventManager" placeholder="Dozent" value="'.$event->eventManager.'" required>
                         </div>
                         ';

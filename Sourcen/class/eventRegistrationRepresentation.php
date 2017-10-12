@@ -18,7 +18,7 @@
             return '
                 <td style="border: 3px solid #EEE;">
                     <center>
-                        <div class="calender-event '.$this->color.'" 
+                        <div class="calender-event '.$this->color.($this->eventRegistration->getApproved() ? '' : ' not-approved').'" 
                              data-toggle="tooltip" data-placement="auto" data-html="true" 
                              title="<strong>'.$this->eventRegistration->getProjectWeekEntry()->getEvent()->name.'</strong><table><tr><td><strong>Beschreibung:</strong></td><td>'.$this->eventRegistration->getProjectWeekEntry()->getEvent()->description.'</td></tr><tr><td><strong>Teilnehmer:</strong></td><td><span>'.$this->eventRegistration->getProjectWeekEntry()->getParticipants().'</span></td></tr><tr><td><strong>Verantw.:</strong></td><td><span>'.$this->eventRegistration->getProjectWeekEntry()->getEvent()->eventManager.'</span></td></tr></table>" >
                              '.$this->eventRegistration->getProjectWeekEntry()->getEvent()->name.'

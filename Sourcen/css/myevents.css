@@ -95,32 +95,122 @@
 .calender-event.one {
     background-color: salmon;
 }
+.calender-event.one.not-approved {
+    background: repeating-linear-gradient(
+            45deg,
+            salmon,
+            #fdd3ce 10px,
+            salmon 10px,
+            #fdd3ce 20px
+    );
+}
 .calender-event.two {
     background-color: lightpink;
+}
+.calender-event.two.not-approved {
+    background: repeating-linear-gradient(
+            45deg,
+            #ff667d,
+            lightpink 10px,
+            #ff667d 10px,
+            lightpink 20px
+    );
 }
 .calender-event.three {
     background-color: coral;
 }
+.calender-event.three.not-approved {
+    background: repeating-linear-gradient(
+            45deg,
+            coral,
+            #ffdacc 10px,
+            coral 10px,
+            #ffdacc 20px
+    );
+}
 .calender-event.four {
     background-color: khaki;
+}
+.calender-event.four.not-approved {
+    background: repeating-linear-gradient(
+            45deg,
+            khaki,
+            #f9f5d2 10px,
+            khaki 10px,
+            #f9f5d2 20px
+    );
 }
 .calender-event.five {
     background-color: plum;
 }
+.calender-event.five.not-approved {
+    background: repeating-linear-gradient(
+            45deg,
+            plum,
+            #f2d9f2 10px,
+            plum 10px,
+            #f2d9f2 20px
+    );
+}
 .calender-event.six {
     background-color: palegreen;
+}
+.calender-event.six.not-approved {
+    background: repeating-linear-gradient(
+            45deg,
+            palegreen,
+            #cefdce 10px,
+            palegreen 10px,
+            #cefdce 20px
+    );
 }
 .calender-event.seven {
     background-color: olive;
 }
+.calender-event.seven.not-approved {
+    background: repeating-linear-gradient(
+            45deg,
+            olive,
+            #cccc00 10px,
+            olive 10px,
+            #cccc00 20px
+    );
+}
 .calender-event.eight {
     background-color: paleturquoise;
+}
+.calender-event.eight.not-approved {
+    background: repeating-linear-gradient(
+            45deg,
+            paleturquoise,
+            #d5f6f6 10px,
+            paleturquoise 10px,
+            #d5f6f6 20px
+    );
 }
 .calender-event.nine {
     background-color: lightskyblue;
 }
+.calender-event.nine.not-approved {
+    background: repeating-linear-gradient(
+            45deg,
+            lightskyblue,
+            #ceebfd 10px,
+            lightskyblue 10px,
+            #ceebfd 20px
+    );
+}
 .calender-event.ten {
     background-color: burlywood;
+}
+.calender-event.ten.not-approved {
+    background: repeating-linear-gradient(
+            45deg,
+            burlywood,
+            #f4e7d7 10px,
+            burlywood 10px,
+            #f4e7d7 20px
+    );
 }
 
 .tooltip-inner td strong, .tooltip-inner td span {
