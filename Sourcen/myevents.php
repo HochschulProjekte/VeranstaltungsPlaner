@@ -128,28 +128,69 @@
                                 <thead>
                                     <tr style="background-color: #FFF;">
                                         <th style="text-align: center;border: 3px solid #EEE;"></th>
-                                        <th style="text-align: center;border: 3px solid #EEE;">04.09.2017</th>
-                                        <th style="text-align: center;border: 3px solid #EEE;">05.09.2017</th>
-                                        <th style="text-align: center;border: 3px solid #EEE;">06.09.2017</th>
-                                        <th style="text-align: center;border: 3px solid #EEE;">07.09.2017</th>
-                                        <th style="text-align: center;border: 3px solid #EEE;">08.09.2017</th>
+                                        <?php
+
+                                            $weekDays = $myEventsController->getWeekDays();
+
+                                            foreach($weekDays as $weekday) {
+                                                echo '
+                                                    <th style="text-align: center;border: 3px solid #EEE;">'.$weekday.'</th>
+                                                ';
+                                            }
+
+                                        ?>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <tr style="background-color: #FFF;">
                                         <td style="vertical-align: middle; text-align: center;border: 3px solid #EEE;">1. Halbtag<br>(08:00 Uhr - 12:00 Uhr)</td>
-                                        <td style="border: 3px solid #EEE;"><center><div class="calender-event one">Veranstaltungsbezeichnung</div></center></td>
-                                        <td style="border: 3px solid #EEE;" rowspan="2"><center><div class="calender-event three two-rows" data-toggle="tooltip" data-placement="auto" data-html="true" title="<strong>Veranstaltungsübersicht</strong><table><tr><td><strong>Datum:</strong></td><td><span>05.09.2017</span></td></tr><tr><td><strong>Zeit:</strong></td><td><span>08:00 Uhr -</span><span>16:00 Uhr</span></td></tr><tr><td><strong>Teilnehmer:</strong></td><td><span>12</span></td></tr><tr><td><strong>Verantw.:</strong></td><td><span>Mitarbeiter XY</span></td></tr></table>">Veranstaltungsbezeichnung</div></center></td>
-                                        <td style="border: 3px solid #EEE;"><center><div class="calender-event five">Veranstaltungsbezeichnung</div></center></td>
-                                        <td style="border: 3px solid #EEE;" rowspan="2"><center><div class="calender-event seven two-rows">Veranstaltungsbezeichnung</div></center></td>
-                                        <td style="border: 3px solid #EEE;" rowspan="2"><center><div class="calender-event seven two-rows">Veranstaltungsbezeichnung</div></center></td>
+                                        <?php
+
+                                            for($i = 1; $i < 10; $i += 2) {
+                                                $eventRepresentation = $myEventsController->getEventRegistrationRepresentationAtPosition($i);
+
+                                                if($eventRepresentation == NULL) {
+                                                    echo '<td style="border: 3px solid #EEE;">
+                                                        <center>
+                                                            <div class="calender-event" 
+                                                                 data-toggle="tooltip" 
+                                                                 data-placement="auto" 
+                                                                 data-html="true">-</div>
+                                                        </center>
+                                                      </td>';
+                                                } else {
+                                                    echo $eventRepresentation->getHTML();
+                                                }
+                                            }
+
+                                        ?>
                                     </tr>
+
                                     <tr style="background-color: #FFF;">
                                         <td style="vertical-align: middle; text-align: center;border: 3px solid #EEE;">2. Halbtag<br>(12:00 Uhr - 16:00 Uhr)</td>
-                                        <td style="border: 3px solid #EEE;"><center><div class="calender-event two">Veranstaltungsbezeichnung</div></center></td>
-                                        <td style="border: 3px solid #EEE;"><center><div class="calender-event six">Veranstaltungsbezeichnung</div></center></td>
+                                        <?php
+
+                                        for($i = 2; $i < 11; $i += 2) {
+                                            $eventRepresentation = $myEventsController->getEventRegistrationRepresentationAtPosition($i);
+
+                                            if($eventRepresentation == NULL) {
+                                                echo '<td style="border: 3px solid #EEE;">
+                                                        <center>
+                                                            <div class="calender-event" 
+                                                                 data-toggle="tooltip" 
+                                                                 data-placement="auto" 
+                                                                 data-html="true">-</div>
+                                                        </center>
+                                                      </td>';
+                                            } else {
+                                                echo $eventRepresentation->getHTML();
+                                            }
+                                        }
+
+                                        ?>
                                     </tr>
+
                                 </tbody>
 
                             </table>

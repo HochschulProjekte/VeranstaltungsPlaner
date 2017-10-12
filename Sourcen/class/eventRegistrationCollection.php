@@ -3,6 +3,7 @@
 include_once __DIR__.'/../database/databasehandler.php';
 include_once __DIR__.'/../class/projectWeek.php';
 include_once __DIR__.'/../class/eventRegistration.php';
+include_once __DIR__.'/../class/eventRegistrationRepresentation.php';
 
 class EventRegistrationCollection {
 
@@ -40,6 +41,23 @@ class EventRegistrationCollection {
 
     public function getEventRegistrations() {
         return $this->eventRegistrations;
+    }
+
+    public function getEventRepresentations() {
+
+        $eventRepresentations = [];
+        $colors = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eigth', 'nine', 'ten'];
+
+        foreach($this->eventRegistrations as $eventRegistration) {
+            $length = $eventRegistration->getProjectWeekEntry()->getEvent()->length;
+            $position = $eventRegistration->getProjectWeekEntry()->getPosition();
+
+            for($i = $position; $i < ($position + $length); $i++) {
+                array_push($eventRepresentations, new EventRegistrationRepresentation($eventRegistration, $i, $colors[$position-1]));
+            }
+        }
+
+        return $eventRepresentations;
     }
 
 }

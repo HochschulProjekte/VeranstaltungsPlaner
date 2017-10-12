@@ -1,3 +1,8 @@
+
+$('[data-toggle="tooltip"]').tooltip({
+    container: 'body'
+});
+
 function previousWeek(currentYear, currentWeek) {
     
     if(currentWeek == 1) {

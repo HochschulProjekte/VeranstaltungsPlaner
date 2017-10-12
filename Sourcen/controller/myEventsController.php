@@ -6,6 +6,7 @@
     include_once __DIR__.'/../class/projectWeekEntry.php';
 
     include_once __DIR__.'/../class/eventRegistration.php';
+    include_once __DIR__.'/../class/eventRegistrationRepresentation.php';
     include_once __DIR__.'/../class/eventRegistrationCollection.php';
 
     class MyEventsController {
@@ -110,6 +111,29 @@
         /***********************************************************************************/
         /*   Getter functions                                                              */
         /***********************************************************************************/
+
+        public function getWeekDays() {
+            $day_array = [];
+
+            array_push($day_array, $this->getWeekStartDate());
+            array_push($day_array, date('Y-m-d', strtotime('next tuesday', strtotime($this->getWeekStartDate()))));
+            array_push($day_array, date('Y-m-d', strtotime('next wednesday', strtotime($this->getWeekStartDate()))));
+            array_push($day_array, date('Y-m-d', strtotime('next thursday', strtotime($this->getWeekStartDate()))));
+            array_push($day_array, date('Y-m-d', strtotime('next friday', strtotime($this->getWeekStartDate()))));
+
+            return $day_array;
+        }
+
+        public function getEventRegistrationRepresentationAtPosition($position) {
+
+            foreach($this->eventRegistrationCollection->getEventRepresentations() as $eventRepresentation) {
+                if($eventRepresentation->getPosition() == $position) {
+                    return $eventRepresentation;
+                }
+            }
+
+            return NULL;
+        }
 
         public function getWeekStartDate() {
             return $this->projectWeek->getFromDate();
