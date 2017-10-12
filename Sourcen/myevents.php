@@ -143,53 +143,66 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr style="background-color: #FFF;">
-                                        <td style="vertical-align: middle; text-align: center;border: 3px solid #EEE;">1. Halbtag<br>(08:00 Uhr - 12:00 Uhr)</td>
                                         <?php
 
-                                            for($i = 1; $i < 10; $i += 2) {
+                                            $html_first_row = '
+                                                <tr style="background-color: #FFF;">
+                                                    <td style="vertical-align: middle; text-align: center;border: 3px solid #EEE;">1. Halbtag<br>(08:00 Uhr - 12:00 Uhr)</td>
+                                            ';
+
+                                            $html_second_row = '
+                                                <tr style="background-color: #FFF;">
+                                                    <td style="vertical-align: middle; text-align: center;border: 3px solid #EEE;">2. Halbtag<br>(12:00 Uhr - 16:00 Uhr)</td>
+                                            ';
+
+                                            for($i = 1; $i <= 10; $i++) {
                                                 $eventRepresentation = $myEventsController->getEventRegistrationRepresentationAtPosition($i);
 
-                                                if($eventRepresentation == NULL) {
-                                                    echo '<td style="border: 3px solid #EEE;">
-                                                        <center>
-                                                            <div class="calender-event" 
-                                                                 data-toggle="tooltip" 
-                                                                 data-placement="auto" 
-                                                                 data-html="true">-</div>
-                                                        </center>
-                                                      </td>';
+                                                if($i % 2 == 1) {
+                                                    if($eventRepresentation == NULL) {
+                                                        $html_first_row .= '<td style="border: 3px solid #EEE;">
+                                                            <center>
+                                                                <div class="calender-event" 
+                                                                     data-toggle="tooltip" 
+                                                                     data-placement="auto" 
+                                                                     data-html="true">-</div>
+                                                            </center>
+                                                          </td>';
+                                                    } else {
+
+                                                        $nextEventRepresentation = $myEventsController->getEventRegistrationRepresentationAtPosition($i+1);
+
+                                                        if($nextEventRepresentation->getRegistrationId() == $eventRepresentation->getRegistrationId()) {
+
+                                                            $html_first_row .= $eventRepresentation->getHTML(true);
+                                                            $i++;
+
+                                                        } else {
+                                                            $html_first_row .= $eventRepresentation->getHTML(false);
+                                                        }
+
+                                                    }
+
                                                 } else {
-                                                    echo $eventRepresentation->getHTML();
+                                                    if($eventRepresentation == NULL) {
+                                                        $html_second_row .= '<td style="border: 3px solid #EEE;">
+                                                            <center>
+                                                                <div class="calender-event" 
+                                                                     data-toggle="tooltip" 
+                                                                     data-placement="auto" 
+                                                                     data-html="true">-</div>
+                                                            </center>
+                                                          </td>';
+                                                    } else {
+
+                                                        $html_second_row .= $eventRepresentation->getHTML(false);
+                                                    }
                                                 }
                                             }
 
+                                            echo $html_first_row.'</tr>';
+                                            echo $html_second_row.'</tr>';
                                         ?>
-                                    </tr>
-
-                                    <tr style="background-color: #FFF;">
-                                        <td style="vertical-align: middle; text-align: center;border: 3px solid #EEE;">2. Halbtag<br>(12:00 Uhr - 16:00 Uhr)</td>
-                                        <?php
-
-                                        for($i = 2; $i < 11; $i += 2) {
-                                            $eventRepresentation = $myEventsController->getEventRegistrationRepresentationAtPosition($i);
-
-                                            if($eventRepresentation == NULL) {
-                                                echo '<td style="border: 3px solid #EEE;">
-                                                        <center>
-                                                            <div class="calender-event" 
-                                                                 data-toggle="tooltip" 
-                                                                 data-placement="auto" 
-                                                                 data-html="true">-</div>
-                                                        </center>
-                                                      </td>';
-                                            } else {
-                                                echo $eventRepresentation->getHTML();
-                                            }
-                                        }
-
-                                        ?>
-                                    </tr>
 
                                 </tbody>
 

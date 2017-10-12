@@ -90,7 +90,8 @@
     text-align: center;
 }
 .calender-event.two-rows {
-    height: 326px;
+    height: 365px;
+    line-height: 340px;
 }
 .calender-event.one {
     background-color: salmon;
