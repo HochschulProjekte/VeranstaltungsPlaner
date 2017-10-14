@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__.'/../database/databasehandler.php';
+include_once __DIR__ . '/../database/databaseHandler.php';
 
 class User {
 

@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__.'/../database/databasehandler.php';
+include_once __DIR__ . '/../database/databaseHandler.php';
 include_once __DIR__.'/../class/projectWeek.php';
 include_once __DIR__.'/../class/eventRegistration.php';
 include_once __DIR__.'/../class/eventRegistrationRepresentation.php';
@@ -46,7 +46,7 @@ class EventRegistrationCollection {
     public function getEventRepresentations() {
 
         $eventRepresentations = [];
-        $colors = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eigth', 'nine', 'ten'];
+        $colors = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 
         foreach($this->eventRegistrations as $eventRegistration) {
             $length = $eventRegistration->getProjectWeekEntry()->getEvent()->length;

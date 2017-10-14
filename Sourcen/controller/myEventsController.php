@@ -66,10 +66,10 @@
         /**
          * Create a projectweek object
          * @param $year
-         * @param $calendarWeek
+         * @param $week
          */
-        private function createProjectWeek($year, $calendarWeek) {
-            $this->projectWeek = new ProjectWeek($year, $calendarWeek);
+        private function createProjectWeek($year, $week) {
+            $this->projectWeek = new ProjectWeek($year, $week);
         }
 
         /**
@@ -111,6 +111,12 @@
         /***********************************************************************************/
         /*   Getter functions                                                              */
         /***********************************************************************************/
+
+
+        public function isRegistrationAllowed() {
+            $phase = $this->projectWeek->getPhase();
+            return ($phase == '2');
+        }
 
         public function getWeekDays() {
             $day_array = [];
@@ -160,8 +166,5 @@
             return $this->eventRegistrationCollection;
         }
     }
-
-    // Create Controller
-    $myEventsController = new MyEventsController($_POST);
 
 ?>

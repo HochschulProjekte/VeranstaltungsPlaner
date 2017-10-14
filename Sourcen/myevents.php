@@ -13,6 +13,8 @@
     // MyEventsController
     include_once './controller/myEventsController.php';
 
+    $myEventsController = new MyEventsController($_POST);
+
 ?>
     <!-- Wrapper -->
     <div class="container-fluid" id="wrapper">
@@ -40,9 +42,16 @@
                 ?>
 
                 <!-- Event regristration modal -->
-                <button type="button" class="btn btn-secondary btn-control projectweek-nav" data-toggle="modal" data-target="#regrisModal">
-                    Anmeldung
-                </button>
+                <?php
+                    $registrationAllowed = $myEventsController->isRegistrationAllowed();
+
+                    echo '
+                        <button type="button" class="btn btn-secondary btn-control projectweek-nav" data-toggle="modal" data-target="#regrisModal"'.($registrationAllowed ? '' : ' disabled').'>
+                            Anmeldung
+                        </button>
+                    ';
+                ?>
+
 
             </div>
             <form id="projectWeek" method="POST" action="#"></form>
@@ -65,16 +74,11 @@
                         <div class="form-group" class="priority-label">
                             <label for="priority">Priorität</label>
                             <select class="form-control" id="priority" name="priority">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
+                                <?php
+                                    for($i=1;$i<=10;$i++) {
+                                        echo '<option>'.$i.'</option>';
+                                    }
+                                ?>
                             </select>
                         </div>
 
@@ -172,7 +176,8 @@
 
                                                         $nextEventRepresentation = $myEventsController->getEventRegistrationRepresentationAtPosition($i+1);
 
-                                                        if($nextEventRepresentation->getRegistrationId() == $eventRepresentation->getRegistrationId()) {
+                                                        if($nextEventRepresentation != NULL
+                                                                && $nextEventRepresentation->getRegistrationId() == $eventRepresentation->getRegistrationId()) {
 
                                                             $html_first_row .= $eventRepresentation->getHTML(true);
                                                             $i++;

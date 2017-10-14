@@ -1,6 +1,6 @@
 <?php
 
-    include_once __DIR__.'/../database/databasehandler.php';
+    include_once __DIR__ . '/../database/databaseHandler.php';
     include_once __DIR__.'/../class/event.php';
     include_once __DIR__.'/../class/projectWeekEntry.php';
 
@@ -16,6 +16,8 @@
         private $from;
         private $until;
 
+        private $phase;
+
         private $allEvents = [];
         private $entries = [];
 
@@ -28,7 +30,9 @@
                 $this->from = $this->getCurrentStartDate();
                 $this->until = $this->getCurrentEndDate();
 
-                $this->createWeek();
+                $this->phase = 1;
+
+                $this->create();
             } else {
                 $this->load($year, $week);
             }
@@ -36,7 +40,7 @@
             $this->loadMyEvents();
         }
 
-        private function createWeek() {
+        private function create() {
 
             $values = [
                 new ColumnItem('year', $this->year),
@@ -51,21 +55,34 @@
         private function load($year, $week) {
             $result = $this->databaseHandler->select(self::TABLE, 'year = '.$year.' AND week = '.$week);
 
-            if(count($result == 0)) {
+            if(count($result) == 0) {
                 $this->year = $year;
                 $this->week = $week;
 
                 $this->from = date('Y-m-d', strtotime($year.'W'.$week));
                 $this->until = date( 'Y-m-d', strtotime($year.'W'.$week.' +4 days') );
 
-                $this->createWeek();
+                $this->phase = 1;
+
+                $this->create();
                 return;
             }
 
             $this->year = $result[0]['year'];
             $this->week = $result[0]['week'];
-            $this->from = $result[0]['from'];
-            $this->until = $result[0]['until'];
+            $this->from = date('Y-m-d', strtotime($result[0]['from']));
+            $this->until = date('Y-m-d', strtotime($result[0]['until']));
+            $this->phase = $result[0]['phase'];
+        }
+
+        public function save() {
+
+            $values = [
+                new ColumnItem('phase', $this->phase)
+            ];
+
+            $result = $this->databaseHandler->update(self::TABLE, $values, 'year = '.$this->year.' AND week = '.$this->week);
+
         }
 
         public function loadAllEvents() {
@@ -131,6 +148,14 @@
 
         public function getUntilDate() {
             return $this->until;
+        }
+
+        public function getPhase() {
+            return $this->phase;
+        }
+
+        public function setPhase($phase) {
+            $this->phase = $phase;
         }
     }
 ?>

@@ -1,7 +1,9 @@
 <?php
 
-    // Authenticate user
+    // includes
     include_once './administration/authenticateUser.php';
+    include_once './class/userInterface.php';
+    include_once './controller/projectWeeksController.php';
 
     // Check, if user is personnal manager
     if (!$myUser->isPersonnalManager()) {
@@ -10,13 +12,13 @@
     }
 
     // User Interface
-    include_once './class/userInterface.php';
     $userInterface = new UserInterface($myUser,'controlWeeks');
     $userInterface->addScript('controlWeeks');
-
     $userInterface->renderHeader();
 
-    include_once './controller/controlWeeksController.php';
+    // ProjectWeeksController
+    $myProjectWeeksController = new ProjectWeeksController($_POST);
+
 ?>
 
     <!-- Wrapper -->
@@ -26,18 +28,56 @@
 
             <div class="col-12 col-sm-10 col-md-8 col-lg-8 col-xl-6">
 
+                <?php
+
+                    $changePhaseMessage = $myProjectWeeksController->getChangePhaseMessage();
+
+                    if($changePhaseMessage != NULL) {
+                        if($changePhaseMessage->getStatus() == true) {
+                            echo '
+                            <div class="my-message alert alert-success" role="alert">
+                                Die Anmeldung wurde erfolgreich freigeschaltet.
+                            </div>
+                        ';
+                        } else if($changePhaseMessage->getStatus() == false) {
+                            echo '
+                            <div class="my-message alert alert-danger" role="alert">
+                                Für die Position '.$changePhaseMessage->getPosition().($changePhaseMessage->getMissingUsers() == 1 ? ' wird ':' werden ').$changePhaseMessage->getMissingUsers().($changePhaseMessage->getMissingUsers() == 1 ? ' Platz':' Plätze').' benötigt.
+                            </div>
+                        ';
+                        }
+                    }
+
+                ?>
+
                 <div class="jumbotron create-event">
                     <form id="projectWeek" action="#" method="POST"></form>
-                    <?php
+                    <form method="post" action="#">
+
+                        <?php
+                            echo '
+                            <button type="button" onclick="previousWeek('.$myProjectWeeksController->getProjectWeek()->getYear().', '.$myProjectWeeksController->getProjectWeek()->getWeek().')" class="btn btn-secondary"><</button>
+                            <a style="padding: 0 10px 0 10px">Woche: '.$myProjectWeeksController->getProjectWeek()->getWeek().' - '.$myProjectWeeksController->getProjectWeek()->getFromDate().' - '.$myProjectWeeksController->getProjectWeek()->getUntilDate().'</a>
+                            <button type="button" onclick="nextWeek('.$myProjectWeeksController->getProjectWeek()->getYear().', '.$myProjectWeeksController->getProjectWeek()->getWeek().')" class="btn btn-secondary">></button>
+                            ';
+                        ?>
+
+                        <?php
                         echo '
-                        <button type="button" onclick="previousWeek('.$projectWeek->getYear().', '.$projectWeek->getWeek().')" class="btn btn-secondary"><</button>
-                        <a style="padding: 0 10px 0 10px">Woche: '.$projectWeek->getWeek().' - '.$projectWeek->getFromDate().' - '.$projectWeek->getUntilDate().'</a>
-                        <button type="button" onclick="nextWeek('.$projectWeek->getYear().', '.$projectWeek->getWeek().')" class="btn btn-secondary">></button>
-                        ';
-                    ?>
+                                <input type="hidden" name="changePhase" value="2"/>
+                                <input type="hidden" name="year" value="'.$myProjectWeeksController->getProjectWeek()->getYear().'"/>
+                                <input type="hidden" name="week" value="'.$myProjectWeeksController->getProjectWeek()->getWeek().'"/>
+                                
+                                <button type="submit" class="btn btn-primary">
+                                    Anmeldung freischalten
+                                </button>
+                            ';
+                        ?>
+
+                    </form>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <form action="#" method="post" id="needs-validation">
@@ -54,8 +94,8 @@
                                             <?php
                                             echo '
                                                 <input type="hidden" name="add" value="X" />
-                                                <input type="hidden" name="year" value="'.$projectWeek->getYear().'" />
-                                                <input type="hidden" name="week" value="'.$projectWeek->getWeek().'" />
+                                                <input type="hidden" name="year" value="'.$myProjectWeeksController->getProjectWeek()->getYear().'" />
+                                                <input type="hidden" name="week" value="'.$myProjectWeeksController->getProjectWeek()->getWeek().'" />
                                             ';
                                             ?>
                                             <input type="text" class="form-control" id="myprojectweek-position" name="position" placeholder="Position" value="" required>
@@ -77,7 +117,7 @@
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    $events = $projectWeek->loadAllEvents();
+                                                    $events = $myProjectWeeksController->getProjectWeek()->loadAllEvents();
 
                                                     foreach($events as $event) {
                                                         echo '
@@ -119,7 +159,7 @@
                         <tbody>
                             <form id="delete" action="#" method="POST"></form>
                             <?php
-                                foreach ($projectWeek->getProjectWeekEntries() as $entry) {
+                                foreach ($myProjectWeeksController->getProjectWeek()->getProjectWeekEntries() as $entry) {
                                     echo '
                                     <tr>
                                         <td>'.$entry->getPosition().'</td>
@@ -135,8 +175,7 @@
                         </tbody>
                     </table>
 
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEventModal">
                         Veranstaltung hinzufügen
                     </button>
                 </div>
