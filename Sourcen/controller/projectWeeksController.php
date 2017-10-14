@@ -87,7 +87,5 @@
         public function getChangePhaseMessage() {
             return $this->changePhaseMessage;
         }
-
-
     }
 ?>

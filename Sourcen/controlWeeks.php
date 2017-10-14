@@ -63,13 +63,17 @@
                         ?>
 
                         <?php
+
+                        $phase = $myProjectWeeksController->getProjectWeek()->getPhase();
+                        $nextPhase = $phase + 1;
+
                         echo '
-                                <input type="hidden" name="changePhase" value="2"/>
+                                <input type="hidden" name="changePhase" value="'.$nextPhase.'"/>
                                 <input type="hidden" name="year" value="'.$myProjectWeeksController->getProjectWeek()->getYear().'"/>
                                 <input type="hidden" name="week" value="'.$myProjectWeeksController->getProjectWeek()->getWeek().'"/>
-                                
+
                                 <button type="submit" class="btn btn-primary">
-                                    Anmeldung freischalten
+                                    '.($phase == 1 ? 'Anmeldung freischalten' : 'Veranstaltungen zuweisen').'
                                 </button>
                             ';
                         ?>
@@ -167,7 +171,7 @@
                                         <td>'.$entry->getEvent()->length.'</td>
                                         <td>'.$entry->getEvent()->eventManager.'</td>
                                         <td>'.$entry->getMaxParticipants().'</td>
-                                        <td><button type="button" onclick="deleteEvent('.$entry->getProjectWeekEntryId().')" class="btn btn-secondary">X</button></td>
+                                        <td><button type="button" onclick="deleteEvent('.$entry->getProjectWeekEntryId().')" class="btn btn-secondary"'.($phase != 1 ? ' disabled' : '').'>X</button></td>
                                     </tr>
                                     ';
                                 }
@@ -175,9 +179,15 @@
                         </tbody>
                     </table>
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEventModal">
-                        Veranstaltung hinzufügen
-                    </button>
+                    <?php
+
+                        echo '
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEventModal"'.($phase != 1 ? ' disabled' : '').'>
+                                Veranstaltung hinzufügen
+                            </button>   
+                        ';
+                    ?>
+
                 </div>
             </div>
         </div>
