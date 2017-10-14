@@ -1,5 +1,0 @@
-Server: home653201871.1and1-data.host
-Port: 22
-Protokoll: SFTP
-Benutzername: u86895989-pp_1
-Passwort: ProgProj20!7

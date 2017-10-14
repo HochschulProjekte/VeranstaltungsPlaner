@@ -1,4 +1,0 @@
-Hostname: db695638739.db.1and1.com
-Datenbank: db695638739
-Benutzername: dbo695638739
-Passwort: ProgProj20!7
