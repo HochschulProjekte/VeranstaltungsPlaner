@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/../database/databaseHandler.php';
+include_once __DIR__ .'/../database/databaseHandler.php';
 include_once __DIR__.'/../class/event.php';
 include_once __DIR__.'/../class/projectWeekEntry.php';
 
@@ -45,6 +45,10 @@ class ProjectWeek {
 
         if(count($result) == 0) {
 
+            $this->from = $this->getStartDateOfWeek($year, $week);
+            $this->until = $this->getEndDateOfWeek($year, $week);
+            $this->phase = 1;
+
             $this->create();
         } else {
 
@@ -63,7 +67,8 @@ class ProjectWeek {
             new ColumnItem('year', $this->year),
             new ColumnItem('week', $this->week),
             new ColumnItem('from', $this->from),
-            new ColumnItem('until', $this->until)
+            new ColumnItem('until', $this->until),
+            new ColumnItem('phase', $this->phase)
         ];
 
         $result = $this->databaseHandler->insert(self::TABLE, $values);
@@ -102,6 +107,24 @@ class ProjectWeek {
         }
 
         return $this->entries;
+    }
+
+    public static function getStartDateOfWeek($year, $week) {
+
+        if(strlen($week) == 1) {
+            $week = '0'.$week;
+        }
+
+        return date('Y-m-d', strtotime($year.'W'.$week));
+    }
+
+    public static function getEndDateOfWeek($year, $week) {
+
+        if(strlen($week) == 1) {
+            $week = '0'.$week;
+        }
+
+        return date( 'Y-m-d', strtotime($year.'W'.$week.' +4 days') );
     }
 
     public static function getCurrentCalendarWeek() {

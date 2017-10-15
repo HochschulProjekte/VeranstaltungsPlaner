@@ -152,8 +152,12 @@
             SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
             SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
             
-            INSERT INTO `User` (`name`, `password`, `personnalManager`, `email`) VALUES ('admin', 'admin', '1', 'admin');
+            INSERT INTO `User` (`name`, `password`, `personnalManager`, `email`) VALUES ('admin', 'admin', '1', 'admin'), ('user', 'user', '0', 'user123'), ('prof', 'prof', '1', 'prof');
 
+            INSERT INTO `Event` (`eventId`, `name`, `description`, `length`, `maxParticipants`, `eventManager`) VALUES ('1', 'Mathematik', 'Mathematik is suppa', '2', '20', 'prof'), ('2', 'Deutsch', 'Deutsch ist auch suppa', '4', '25', 'prof');
+            INSERT INTO `Event` (`eventId`, `name`, `description`, `length`, `maxParticipants`, `eventManager`) VALUES ('3', 'Sport', 'is Mord', '1', '15', 'prof'), ('4', 'Informatik', 'Natürlich nur Excel', '1', '25', 'prof');
+            INSERT INTO `Event` (`eventId`, `name`, `description`, `length`, `maxParticipants`, `eventManager`) VALUES ('5', 'Freizeit', 'macht noch mehr Spaß', '1', '15', 'prof'), ('6', 'Biologie', 'doof..', '1', '15', 'prof');
+        
         ");
 
         // Datenbank Statement ausführen
