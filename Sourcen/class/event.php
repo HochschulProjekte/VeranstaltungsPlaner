@@ -1,4 +1,4 @@
-<?
+<?php
     include_once __DIR__ . '/../database/databaseHandler.php';
 
     class Event {
