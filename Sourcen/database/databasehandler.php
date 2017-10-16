@@ -12,14 +12,18 @@ include_once __DIR__.'/../database/columnitem.php';
             $this->pdo = new PDO('mysql:host='.$host.';dbname='.$db, $user, $pass);
         }
 
-        function select($table, $where) {
+        function select($table, $where, $orderBy = NULL) {
             $sql_string = 'SELECT * FROM `'.$table.'`';
 
             if($where != null) {
-                $sql_string .= ' WHERE '.$where.';';
-            } else {
-                $sql_string .= ';';
+                $sql_string .= ' WHERE '.$where;
             }
+
+            if($orderBy != null) {
+                $sql_string .= ' ORDER BY '.$orderBy;
+            }
+
+            $sql_string .= ';';
 
             $response = array();
 

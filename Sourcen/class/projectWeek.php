@@ -96,7 +96,7 @@ class ProjectWeek {
     }
 
     private function loadMyEvents() {
-        $result = $this->databaseHandler->select('ProjectWeekEntry', 'year = '.$this->year.' AND week = '.$this->week);
+        $result = $this->databaseHandler->select('ProjectWeekEntry', 'year = '.$this->year.' AND week = '.$this->week, 'position');
 
         $this->entries = [];
 
