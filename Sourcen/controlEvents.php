@@ -16,7 +16,8 @@
     // Render Header
     $userInterface->renderHeader();
 
-    include_once './controller/controlEventsController.php';
+    include_once './controller/eventsController.php';
+    $eventsController = new EventsController($_POST, $myUser);
 
 ?>
     <!-- Wrapper -->
@@ -35,36 +36,36 @@
                     <form action="#" method="post" id="needs-validation">
                         <?php
 
-                        if($event->id != NULL) {
-                            echo '<input type="hidden" name="myevent-id" value="'.$event->id.'" />';
+                        if($eventsController->getEvent()->id != NULL) {
+                            echo '<input type="hidden" name="myevent-id" value="'.$eventsController->getEvent()->id.'" />';
                         }
 
                         echo '
                         <div class="input-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-university"></i></div>
-                            <input type="text" class="form-control" id="myevent-name" name="myevent-name" placeholder="Name" value="'.$event->name.'" required>
+                            <input type="text" class="form-control" id="myevent-name" name="myevent-name" placeholder="Name" value="'.$eventsController->getEvent()->name.'" required>
                         </div>
 
                         <div class="input-group secound-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-file-text-o"></i></div>
-                            <input type="text" class="form-control" id="myevent-description" name="myevent-description" placeholder="Beschreibung" value="'.$event->description.'" required>
+                            <input type="text" class="form-control" id="myevent-description" name="myevent-description" placeholder="Beschreibung" value="'.$eventsController->getEvent()->description.'" required>
                         </div>
 
                         <div class="input-group secound-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-long-arrow-right"></i></div>
-                            <input type="text" class="form-control" id="myevent-length" name="myevent-length" placeholder="Länge" value="'.$event->length.'" required>
+                            <input type="text" class="form-control" id="myevent-length" name="myevent-length" placeholder="Länge" value="'.$eventsController->getEvent()->length.'" required>
                         </div>
 
                         <div class="input-group secound-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-users"></i></div>
-                            <input type="text" class="form-control" id="myevent-maxParticipants" name="myevent-maxParticipants" placeholder="Max. Teilnehmer" value="'.$event->maxParticipants.'" required>
+                            <input type="text" class="form-control" id="myevent-maxParticipants" name="myevent-maxParticipants" placeholder="Max. Teilnehmer" value="'.$eventsController->getEvent()->maxParticipants.'" required>
                         </div>
 
                         <hr>
 
                         <div class="input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-user-md"></i></div>
-                            <input type="text" class="form-control" id="myevent-eventManager" name="myevent-eventManager" placeholder="Dozent" value="'.$event->eventManager.'" required>
+                            <input type="text" class="form-control" id="myevent-eventManager" name="myevent-eventManager" placeholder="Dozent" value="'.$eventsController->getEvent()->eventManager.'" required>
                         </div>
                         ';
                         ?>
@@ -78,13 +79,13 @@
                     </form>
 
                     <?php
-                        if($status == 'SUCCESS') {
+                        if($eventsController->getStatus() == 'SUCCESS') {
                             echo '
                             <div class="my-message alert alert-success" role="alert">
                                 Die Veranstaltung wurde erfolgreich gespeichert!
                             </div>    
                             ';
-                        } else if($status == 'ERROR') {
+                        } else if($eventsController->getStatus() == 'ERROR') {
                             echo '
                             <div class="my-message alert alert-danger" role="alert">
                                 Es ist ein Fehler aufgetreten!
@@ -115,20 +116,18 @@
                         </thead>
                         <tbody>
                             <?php
-                                $projectWeek = new ProjectWeek();
-                                $events = $projectWeek->loadAllEvents();
 
-                                foreach($events as $event) {
+                                foreach($eventsController->getEvents() as $event) {
                                     echo '
                                 
-                            <tr>
-                                <td>'.$event->name.'</td>
-                                <td>'.$event->length.'</td>
-                                <td>'.$event->maxParticipants.'</td>
-                                <td>'.$event->eventManager.'</td>
-                                <td><button type="button" onclick="editEvent('.$event->id.')">E</button></td>
-                                <td><button type="button" onclick="deleteEvent('.$event->id.')">X</button></td>
-                            </tr>
+                                        <tr>
+                                            <td>'.$event->name.'</td>
+                                            <td>'.$event->length.'</td>
+                                            <td>'.$event->maxParticipants.'</td>
+                                            <td>'.$event->eventManager.'</td>
+                                            <td><button type="button" onclick="editEvent('.$event->id.')">E</button></td>
+                                            <td><button type="button" onclick="deleteEvent('.$event->id.')">X</button></td>
+                                        </tr>
                                 
                                 ';
                             }
