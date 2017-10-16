@@ -1,10 +1,12 @@
 <?php
 
-// Authenticate user
-include_once './administration/authenticateUser.php';
+    // Authenticate user
+    include_once './administration/authenticateUser.php';
 
-// include Login-Controller to handle login values
-include_once './controller/loginController.php';
+    // include Login-Controller to handle login values
+    include_once './controller/loginController.php';
+
+    $loginController = new LoginController($_POST);
 
 ?>
 
