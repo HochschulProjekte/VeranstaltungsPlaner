@@ -4,7 +4,7 @@
 
     // Check, if user is personnal manager
     if (!$myUser->isPersonnalManager()) {
-        header('Location: https://' . $_SERVER['HTTP_HOST'] . '/vstp/index.php');
+        header('Location: ./index.php');
         exit();
     }
 
