@@ -2,6 +2,7 @@
 
     // Authenticate user
     include_once './administration/authenticateUser.php';
+    include_once './class/positionMapping.php';
 
     // User Interface
     include_once './class/userInterface.php';
@@ -84,9 +85,10 @@
 
                         <table class="table table-sm">
                             <thead><tr>
-                                    <th>#</th><th>Name</th>
-                                    <th>Länge</th><th>Teiln.</th>
-                                    <th>max. Teiln.</th>
+                                    <th>#</th>
+                                    <th>Von</th>
+                                    <th>Bis</th>
+                                    <th>Name</th>
                             </tr></thead>
                             <tbody>
                         <?php
@@ -96,10 +98,9 @@
                                 echo '
                             <tr>
                                 <td><input type="radio" name="projectWeekEntryId" value="'.$event->getProjectWeekEntryId().'" text="" /></td>
+                                <td>'.PositionMapping::map($event->getPosition()).'</td>
+                                <td>'.PositionMapping::mapUntil($event->getPosition(), $event->getEvent()->length).'</td>
                                 <td>'.$event->getEvent()->name.'</td>
-                                <td>'.$event->getEvent()->length.'</td>
-                                <td>'.$event->getParticipants().'</td>
-                                <td>'.$event->getMaxParticipants().'</td>
                             </tr>
                                 
                                 ';
@@ -230,9 +231,9 @@
 
                                 <thead>
                                     <tr style="background-color: #FFF; border-bottom: 3px solid #333;">
-                                        <th>Position</th>
+                                        <th>Von</th>
+                                        <th>Bis</th>
                                         <th>Veranstaltung</th>
-                                        <th>Anz. Teilnehmer</th>
                                         <th>Verantwortlicher</th>
                                         <th>Priorität</th>
                                     </tr>
@@ -248,9 +249,9 @@
                                             echo '
                                             <tr style="background-color: '.($index % 2 == 0 ? "#EEE" : "#FFF").';">
                                                 
-                                                <td>'.$eventRegistration->getProjectWeekEntry()->getPosition().'</td>
+                                                <td>'.PositionMapping::map($eventRegistration->getProjectWeekEntry()->getPosition()).'</td>
+                                                <td>'.PositionMapping::mapUntil($eventRegistration->getProjectWeekEntry()->getPosition(), $eventRegistration->getProjectWeekEntry()->getEvent()->length).'</td>
                                                 <td>'.$eventRegistration->getProjectWeekEntry()->getEvent()->name.'</td>
-                                                <td>'.$eventRegistration->getProjectWeekEntry()->getParticipants().'</td>
                                                 <td>'.$eventRegistration->getProjectWeekEntry()->getEvent()->eventManager.'</td>
                                                 <td>'.$eventRegistration->getPriority().'</td>
                                             

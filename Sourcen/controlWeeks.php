@@ -4,6 +4,7 @@
     include_once './administration/authenticateUser.php';
     include_once './class/userInterface.php';
     include_once './controller/projectWeeksController.php';
+    include_once './class/positionMapping.php';
 
     // Check, if user is personnal manager
     if (!$myUser->isPersonnalManager()) {
@@ -42,7 +43,7 @@
                         } else if($changePhaseMessage->getStatus() == false) {
                             echo '
                             <div class="my-message alert alert-danger" role="alert">
-                                Für die Position '.$changePhaseMessage->getPosition().($changePhaseMessage->getMissingUsers() == 1 ? ' wird ':' werden ').$changePhaseMessage->getMissingUsers().($changePhaseMessage->getMissingUsers() == 1 ? ' Platz':' Plätze').' benötigt.
+                                Am '.PositionMapping::map($changePhaseMessage->getPosition()).($changePhaseMessage->getMissingUsers() == 1 ? ' fehlt ':' fehlen ').$changePhaseMessage->getMissingUsers().($changePhaseMessage->getMissingUsers() == 1 ? ' Platz':' Plätze').'.
                             </div>
                         ';
                         }
@@ -102,7 +103,14 @@
                                                 <input type="hidden" name="week" value="'.$myProjectWeeksController->getProjectWeek()->getWeek().'" />
                                             ';
                                             ?>
-                                            <input type="text" class="form-control" id="myprojectweek-position" name="position" placeholder="Position" value="" required>
+                                            <select class="form-control" id="myprojectweek-position" name="position" required>
+                                                <?php
+                                                for($i=1;$i<=10;$i++) {
+                                                    echo '<option value="'.$i.'">'.PositionMapping::map($i).'</option>';
+                                                }
+                                                ?>
+                                            </select>
+
                                         </div>
 
                                         <div class="input-group" style="margin-bottom: 5px">
@@ -152,9 +160,9 @@
                     <table class="table">
                         <thead>
                             <tr>
-                            <th>#</th>
+                            <th>Von</th>
+                            <th>Bis</th>
                             <th>Name</th>
-                            <th>Länge</th>
                             <th>Dozent</th>
                             <th>Max. Nutzer</th>
                             <th></th>
@@ -166,9 +174,9 @@
                                 foreach ($myProjectWeeksController->getProjectWeek()->getProjectWeekEntries() as $entry) {
                                     echo '
                                     <tr>
-                                        <td>'.$entry->getPosition().'</td>
+                                        <td>'.PositionMapping::map($entry->getPosition()).'</td>
+                                        <td>'.PositionMapping::mapUntil($entry->getPosition(), $entry->getEvent()->length).'</td>
                                         <td>'.$entry->getEvent()->name.'</td>
-                                        <td>'.$entry->getEvent()->length.'</td>
                                         <td>'.$entry->getEvent()->eventManager.'</td>
                                         <td>'.$entry->getMaxParticipants().'</td>
                                         <td><button type="button" onclick="deleteEvent('.$entry->getProjectWeekEntryId().')" class="btn btn-secondary"'.($phase != 1 ? ' disabled' : '').'>X</button></td>

@@ -25,6 +25,9 @@
             }
         }
 
+        /**
+         * @param $id
+         */
         function load($id) {
             $result = $this->databaseHandler->select(self::TABLE, 'eventId = '.$id);
             
