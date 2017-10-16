@@ -54,9 +54,6 @@
                                 <a class="nav-link" href="index.php">Startseite</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Veranstaltungsübersicht</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="myEvents.php">Meine Veranstaltungen</a>
                             </li>
                             '.($this->user->isPersonnalManager() ? '<li class="nav-item">

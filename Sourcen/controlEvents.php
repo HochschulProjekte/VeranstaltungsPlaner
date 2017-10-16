@@ -135,6 +135,12 @@
                         </tbody>
                     </table>
 
+                    <center>
+                        <form action="#" method="post">
+                            <input type="hidden" name="import" value="X" />
+                            <button type="submit" class="btn btn-primary">Importieren</button>
+                        </form>
+                    </center>
                 </div>
             
             </div>

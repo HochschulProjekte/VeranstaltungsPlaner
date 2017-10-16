@@ -1,6 +1,7 @@
 <?php
     include_once __DIR__.'/../class/personnalManager.php';
     include_once __DIR__.'/../class/projectWeek.php';
+    include_once __DIR__.'/../class/importEvents.php';
 
     class EventsController {
 
@@ -19,7 +20,15 @@
         }
 
         private function parsePostArray($POST_ARRAY) {
-            // Neues Event anlegen / Vorhandenes Event bearbeiten
+
+            // Import Veranstaltungen.csv file
+            if(
+                isset($POST_ARRAY['import'])
+            ) {
+                $this->importEvents();
+            }
+
+            // Create new event or edit existing event
             if(
                 isset($POST_ARRAY['myevent-name']) &&
                 isset($POST_ARRAY['myevent-description']) &&
@@ -60,6 +69,10 @@
             ) {
                 $this->deleteEvent($POST_ARRAY['id']);
             }
+        }
+
+        private function importEvents() {
+            $import = new ImportEvents('./test/Veranstaltungen.csv');
         }
 
         private function prepareEdit($id) {
