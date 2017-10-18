@@ -3,6 +3,9 @@
     include_once __DIR__.'/../class/loginHandler.php';
 
     class LoginController {
+
+        public $alert;
+
         public function __construct($POST_ARRAY) {
             $this->parsePostArray($POST_ARRAY);
         }
@@ -18,18 +21,18 @@
 
                 // Check, if login was successful
                 if ($ret['err'] == true) {
-                    // => error occured -> set alert
-                    $alert = array();
-                    $alert['type'] = $ret['type'];
-                    $alert['msg'] = $ret['msg'];
+                    // => error occured -> set talert
+                    $this->alert = array();
+                    $this->alert['type'] = $ret['type'];
+                    $this->alert['msg'] = $ret['msg'];
                 } else {
                     // => login successful -> redirect user
                     $loginHandler->redirect('vstp/index.php');
                 }
             } else {
-                $alert = array();
-                $alert['type'] = 'info';
-                $alert['msg'] = 'Bitte geben Sie ihren Benutzernamen und ihr Passwort ein.';
+                $this->alert = array();
+                $this->alert['type'] = 'info';
+                $this->alert['msg'] = 'Bitte geben Sie ihren Benutzernamen und ihr Passwort ein.';
             }
         }
     }

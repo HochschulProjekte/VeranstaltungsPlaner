@@ -49,7 +49,7 @@
             <form id="login-form" action="login.php" method="post">
 
               <!-- Message -->
-              <div class="alert alert-<?= $alert['type'] ?>" role="alert"><?= $alert['msg'] ?></div>
+              <div class="alert alert-<?= $loginController->alert['type'] ?>" role="alert"><?= $loginController->alert['msg'] ?></div>
 
               <!-- Name -->
               <div class="input-group">
