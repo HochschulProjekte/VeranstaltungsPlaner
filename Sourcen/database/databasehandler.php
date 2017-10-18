@@ -124,6 +124,16 @@ include_once __DIR__.'/../database/columnitem.php';
 
             return $response[0]['count'];
         }
+
+        function query($query) {
+            $response = [];
+
+            foreach($this->pdo->query($query) as $row) {
+                array_push($response, $row);
+            }
+
+            return $response;
+        }
     }
 
 ?>

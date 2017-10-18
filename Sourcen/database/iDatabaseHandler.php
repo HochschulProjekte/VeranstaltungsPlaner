@@ -8,6 +8,7 @@
         function delete($table, $where);
 
         function count($table, $column, $where);
+        function query($query);
     }
 
 ?>

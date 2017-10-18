@@ -46,7 +46,7 @@
 
             $values = [
                 new ColumnItem('username', $this->username),
-                new ColumnItem('projectWeekEntryId', $this->projectWeekEntry->getProjectWeekEntryId()),
+                new ColumnItem('projectWeekEntryId', $this->projectWeekEntry->getId()),
                 new ColumnItem('year', $this->projectWeekEntry->getYear()),
                 new ColumnItem('week', $this->projectWeekEntry->getWeek()),
                 new ColumnItem('priority', $this->priority),

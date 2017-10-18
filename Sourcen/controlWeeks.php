@@ -179,7 +179,7 @@
                                         <td>'.$entry->getEvent()->name.'</td>
                                         <td>'.$entry->getEvent()->eventManager.'</td>
                                         <td>'.$entry->getMaxParticipants().'</td>
-                                        <td><button type="button" onclick="deleteEvent('.$entry->getProjectWeekEntryId().')" class="btn btn-secondary"'.($phase != 1 ? ' disabled' : '').'>X</button></td>
+                                        <td><button type="button" onclick="deleteEvent('.$entry->getId().')" class="btn btn-secondary"'.($phase != 1 ? ' disabled' : '').'>X</button></td>
                                     </tr>
                                     ';
                                 }

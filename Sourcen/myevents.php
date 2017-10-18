@@ -97,7 +97,7 @@
                             foreach($events as $event) {
                                 echo '
                             <tr>
-                                <td><input type="radio" name="projectWeekEntryId" value="'.$event->getProjectWeekEntryId().'" text="" /></td>
+                                <td><input type="radio" name="projectWeekEntryId" value="'.$event->getId().'" text="" /></td>
                                 <td>'.PositionMapping::map($event->getPosition()).'</td>
                                 <td>'.PositionMapping::mapUntil($event->getPosition(), $event->getEvent()->length).'</td>
                                 <td>'.$event->getEvent()->name.'</td>

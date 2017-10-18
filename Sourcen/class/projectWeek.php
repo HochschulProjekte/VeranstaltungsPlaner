@@ -151,6 +151,19 @@ class ProjectWeek {
         return $this->entries;
     }
 
+    public function getProjectWeekEntriesAtPosition($position) {
+
+        $entriesAtPosition = [];
+
+        foreach($this->entries as $entry) {
+            if($entry->getPosition() == $position) {
+                array_push($entriesAtPosition, $entry);
+            }
+        }
+
+        return $entriesAtPosition;
+    }
+
     public function getYear() {
         return $this->year;
     }

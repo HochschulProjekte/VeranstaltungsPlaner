@@ -68,7 +68,7 @@
             $this->databaseHandler->delete(self::TABLE, $where);
         }
 
-        public function getProjectWeekEntryId() {
+        public function getId() {
             return $this->projectWeekEntryId;
         }
 
