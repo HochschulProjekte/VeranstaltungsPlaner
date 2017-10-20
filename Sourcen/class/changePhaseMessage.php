@@ -1,11 +1,20 @@
 <?php
 
+    /**
+     * Class ChangePhaseMessage
+     */
     class ChangePhaseMessage {
 
         private $status;
         private $position;
         private $missingUsers;
 
+        /**
+         * ChangePhaseMessage constructor.
+         * @param $status
+         * @param int $position
+         * @param int $missingUsers
+         */
         public function __construct($status, $position = 0, $missingUsers = 0){
             $this->status = $status;
             $this->position = $position;

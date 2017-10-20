@@ -1,17 +1,30 @@
 <?php
 
-include_once __DIR__ . '/../database/iDatabaseHandler.php';
-include_once __DIR__.'/../database/columnitem.php';
+    include_once __DIR__ . '/../database/iDatabaseHandler.php';
+    include_once __DIR__.'/../database/columnitem.php';
 
+    /**
+     * Class PDOHandler
+     */
     class PDOHandler implements DatabaseHandler {
 
         private $pdo;
 
+        /**
+         * PDOHandler constructor.
+         */
         function __construct() {
             include __DIR__.'/../database/credentials.php';
             $this->pdo = new PDO('mysql:host='.$host.';dbname='.$db, $user, $pass);
         }
 
+        /**
+         * PDO select.
+         * @param $table
+         * @param $where
+         * @param null $orderBy
+         * @return array
+         */
         function select($table, $where, $orderBy = NULL) {
             $sql_string = 'SELECT * FROM `'.$table.'`';
 
@@ -34,6 +47,12 @@ include_once __DIR__.'/../database/columnitem.php';
             return $response;
         }
 
+        /**
+         * PDO insert.
+         * @param $table
+         * @param $column_items
+         * @return bool
+         */
         function insert($table, $column_items) {
             $sql_string = 'INSERT INTO '.$table.' (';
             $value_string = '';
@@ -64,6 +83,13 @@ include_once __DIR__.'/../database/columnitem.php';
             return false;
         }
 
+        /**
+         * PDO update.
+         * @param $table
+         * @param $column_items
+         * @param $where
+         * @return bool
+         */
         function update($table, $column_items, $where) {
             $sql_string = 'UPDATE '.$table.' SET';
 
@@ -91,6 +117,12 @@ include_once __DIR__.'/../database/columnitem.php';
             return false;
         }
 
+        /**
+         * PDO delete.
+         * @param $table
+         * @param $where
+         * @return bool
+         */
         function delete($table, $where) {
             $sql_string = 'DELETE FROM '.$table.' WHERE '.$where.';';
 
@@ -107,6 +139,13 @@ include_once __DIR__.'/../database/columnitem.php';
             return false;
         }
 
+        /**
+         * PDO count.
+         * @param $table
+         * @param $column
+         * @param $where
+         * @return mixed
+         */
         function count($table, $column, $where) {
             $sql_string = 'SELECT COUNT('.$column.') as count FROM '.$table;
 
@@ -125,6 +164,11 @@ include_once __DIR__.'/../database/columnitem.php';
             return $response[0]['count'];
         }
 
+        /**
+         * PDO query.
+         * @param $query
+         * @return array
+         */
         function query($query) {
             $response = [];
 

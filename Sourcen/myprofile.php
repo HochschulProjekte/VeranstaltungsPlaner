@@ -1,15 +1,16 @@
 <?php
 
-    // Authenticate user
+    // Includes
     include_once './administration/authenticateUser.php';
-
-    // Controller
     include_once './controller/myProfileController.php';
+    include_once './class/userInterface.php';
 
     // Userinterface
-    include_once './class/userInterface.php';
     $userInterface = new UserInterface($myUser,'myProfile');
     $userInterface->renderHeader();
+
+    // Controller
+    $myProfileController = new MyProfileController($_POST, $myUser);
 
 ?>
 
@@ -20,7 +21,7 @@
 
             <div class="col-12 col-sm-10 col-md-8 col-lg-8 col-xl-6">
         
-                <?= $myprofileController->getMessages(); ?>
+                <?= $myProfileController->getMessages(); ?>
 
                 <div class="jumbotron">
                     
@@ -28,7 +29,7 @@
 
                     <hr>
 
-                    <label>Username: <?= $myprofileController->getUsername(); ?></label>
+                    <label>Username: <?= $myProfileController->getUsername(); ?></label>
 
                     <hr>
 
@@ -38,7 +39,7 @@
 
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                            <input type="email" class="form-control" id="myprofile-email" name="myprofile-email" placeholder="E-Mail" value="<?= $myprofileController->getEmail(); ?>">
+                            <input type="email" class="form-control" id="myprofile-email" name="myprofile-email" placeholder="E-Mail" value="<?= $myProfileController->getEmail(); ?>">
                         </div>
 
                         <hr>

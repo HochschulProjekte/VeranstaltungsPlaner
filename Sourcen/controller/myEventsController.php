@@ -1,6 +1,5 @@
 <?php
 
-    // Includes
     include_once __DIR__.'/../class/user.php';
     include_once __DIR__.'/../class/projectWeek.php';
     include_once __DIR__.'/../class/projectWeekEntry.php';
@@ -9,6 +8,9 @@
     include_once __DIR__.'/../class/eventRegistrationRepresentation.php';
     include_once __DIR__.'/../class/eventRegistrationCollection.php';
 
+    /**
+     * Class MyEventsController
+     */
     class MyEventsController {
         
         private $user;
@@ -107,11 +109,6 @@
                 $this->projectWeek
             );
         }
-
-        /***********************************************************************************/
-        /*   Getter functions                                                              */
-        /***********************************************************************************/
-
 
         public function isRegistrationAllowed() {
             $phase = $this->projectWeek->getPhase();

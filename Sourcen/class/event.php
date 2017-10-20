@@ -1,6 +1,9 @@
 <?php
     include_once __DIR__ . '/../database/databaseHandler.php';
 
+    /**
+     * Class Event
+     */
     class Event {
 
         const TABLE = 'Event';
@@ -16,6 +19,10 @@
 
         public $eventManager;
 
+        /**
+         * Event constructor.
+         * @param null $id
+         */
         function __construct($id = NULL) {
 
             $this->databaseHandler = new PDOHandler();
@@ -42,6 +49,10 @@
             
         }
 
+        /**
+         * Save event
+         * @return bool
+         */
         function save() {
 
             $values = [
@@ -61,6 +72,9 @@
             }
         }
 
+        /**
+         * Delete event
+         */
         function delete() {
             $where = 'eventId = '.$this->id;
             if($this->databaseHandler->delete(self::TABLE, $where)) {

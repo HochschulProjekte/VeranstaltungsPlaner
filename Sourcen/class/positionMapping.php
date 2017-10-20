@@ -1,5 +1,8 @@
 <?php
 
+    /**
+     * Class PositionMapping
+     */
     class PositionMapping {
 
         const positions = [
@@ -28,10 +31,19 @@
             'Freitag 16:00'
         ];
 
+        /**
+         * @param $position
+         * @return mixed
+         */
         public static function map($position) {
             return self::positions[$position-1];
         }
 
+        /**
+         * @param $position
+         * @param $length
+         * @return mixed
+         */
         public static function mapUntil($position, $length) {
 
             $untilPos = $position + $length - 1;

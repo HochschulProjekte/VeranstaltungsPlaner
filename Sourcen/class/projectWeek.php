@@ -4,6 +4,9 @@ include_once __DIR__ .'/../database/databaseHandler.php';
 include_once __DIR__.'/../class/event.php';
 include_once __DIR__.'/../class/projectWeekEntry.php';
 
+/**
+ * Class ProjectWeek
+ */
 class ProjectWeek {
 
     const TABLE = 'ProjectWeek';
@@ -21,6 +24,11 @@ class ProjectWeek {
     private $allEvents = [];
     private $entries = [];
 
+    /**
+     * ProjectWeek constructor.
+     * @param null $year
+     * @param null $week
+     */
     function __construct($year = NULL, $week = NULL) {
         $this->databaseHandler = new PDOHandler();
 
@@ -40,6 +48,10 @@ class ProjectWeek {
         $this->loadMyEvents();
     }
 
+    /**
+     * @param $year
+     * @param $week
+     */
     private function load($year, $week) {
         $result = $this->databaseHandler->select(self::TABLE, 'year = '.$year.' AND week = '.$week);
 
@@ -61,6 +73,9 @@ class ProjectWeek {
 
     }
 
+    /**
+     * Create new project week
+     */
     private function create() {
 
         $values = [
@@ -74,6 +89,9 @@ class ProjectWeek {
         $result = $this->databaseHandler->insert(self::TABLE, $values);
     }
 
+    /**
+     * Save existing project week
+     */
     public function save() {
 
         $values = [
@@ -84,6 +102,10 @@ class ProjectWeek {
 
     }
 
+    /**
+     * Load all events
+     * @return array
+     */
     public function loadAllEvents() {
         $result = $this->databaseHandler->select('Event', null);
         $this->allEvents = [];
@@ -95,6 +117,10 @@ class ProjectWeek {
         return $this->allEvents;
     }
 
+    /**
+     * Load project week entries.
+     * @return array
+     */
     private function loadMyEvents() {
         $result = $this->databaseHandler->select('ProjectWeekEntry', 'year = '.$this->year.' AND week = '.$this->week, 'position');
 

@@ -2,6 +2,9 @@
 
     include_once __DIR__.'/../class/eventRegistration.php';
 
+    /**
+     * Class EventRegistrationRepresentation
+     */
     class EventRegistrationRepresentation {
 
         private $eventRegistration;

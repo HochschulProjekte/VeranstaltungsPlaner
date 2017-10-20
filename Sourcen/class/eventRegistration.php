@@ -3,6 +3,9 @@
     include_once __DIR__ . '/../database/databaseHandler.php';
     include_once __DIR__.'/../class/projectWeekEntry.php';
 
+    /**
+     * Class EventRegistration
+     */
     class EventRegistration {
         
         const TABLE = 'EventRegistration';
@@ -18,6 +21,10 @@
         private $approved;
         private $registrationDate;
 
+        /**
+         * EventRegistration constructor.
+         * @param null $id
+         */
         function __construct($id = NULL) {
 
             $this->databaseHandler = new PDOHandler();
@@ -26,7 +33,11 @@
                 $this->load($id);
             }
         }
-        
+
+        /**
+         * Load EventRegistration data from database
+         * @param $id
+         */
         private function load($id) {
             $where = 'eventRegistrationId = '.$id;
 
@@ -42,6 +53,9 @@
             $this->registrationDate = $result[0]['registrationDate'];
         }
 
+        /**
+         * Save EventRegistration
+         */
         public function save() {
 
             $values = [

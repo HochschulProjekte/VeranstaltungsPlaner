@@ -2,6 +2,9 @@
 
     include_once __DIR__.'/../class/event.php';
 
+    /**
+     * Class ProjectWeekEntry
+     */
     class ProjectWeekEntry {
 
         const TABLE = 'ProjectWeekEntry';
@@ -16,18 +19,25 @@
 
         private $event;
 
+        /**
+         * ProjectWeekEntry constructor.
+         * @param $projectWeekEntryId
+         */
         function __construct($projectWeekEntryId) {
 
             $this->databaseHandler = new PDOHandler();  
             $this->projectWeekEntryId = $projectWeekEntryId;
             
             if($projectWeekEntryId != NULL) {
-                $this->loadData();
+                $this->load();
                 $this->loadEvent();
             }
         }
 
-        private function loadData() {
+        /**
+         * Load exisiting project week entry
+         */
+        private function load() {
             $where = 'projectWeekEntryId = '.$this->projectWeekEntryId;
             $result = $this->databaseHandler->select(self::TABLE, $where);
 
@@ -39,10 +49,16 @@
             $this->maxParticipants = $result[0]['maxParticipants'];
         }
 
+        /**
+         * Load event of the existing project week entry
+         */
         private function loadEvent() {
             $this->event = new Event($this->eventId);
         }
 
+        /**
+         * Save project week entry
+         */
         public function save() {
 
             $values = [
@@ -63,6 +79,9 @@
             }
         }
 
+        /**
+         * Delete project week entry
+         */
         public function delete() {
             $where = 'projectWeekEntryId = '.$this->projectWeekEntryId;
             $this->databaseHandler->delete(self::TABLE, $where);

@@ -3,6 +3,9 @@
     include_once __DIR__.'/../class/projectWeek.php';
     include_once __DIR__.'/../class/importEvents.php';
 
+    /**
+     * Class EventsController
+     */
     class EventsController {
 
         private $personnalManager;
@@ -11,6 +14,11 @@
         private $events;
         private $event;
 
+        /**
+         * EventsController constructor.
+         * @param $POST_ARRAY
+         * @param $personnalManager
+         */
         public function __construct($POST_ARRAY, $personnalManager) {
 
             $this->personnalManager = new PersonnalManager($personnalManager->getName(), $personnalManager->getEmail());
@@ -19,6 +27,9 @@
             $this->loadAllEvents();
         }
 
+        /**
+         * @param $POST_ARRAY
+         */
         private function parsePostArray($POST_ARRAY) {
 
             // Import Veranstaltungen.csv file
@@ -71,14 +82,29 @@
             }
         }
 
+        /**
+         * Import events.
+         */
         private function importEvents() {
             $import = new ImportEvents('./test/Veranstaltungen.csv');
         }
 
+        /**
+         * Load existing event.
+         * @param $id
+         */
         private function prepareEdit($id) {
             $this->event = new Event($id);
         }
 
+        /**
+         * Create new event.
+         * @param $name
+         * @param $description
+         * @param $length
+         * @param $maxParticipants
+         * @param $personnalManager
+         */
         private function createEvent($name, $description, $length, $maxParticipants, $personnalManager) {
             $user = new PersonnalManager('Chef', 'chef@boss.de');
 
@@ -89,6 +115,15 @@
             }
         }
 
+        /**
+         * Save existing event.
+         * @param $id
+         * @param $name
+         * @param $description
+         * @param $length
+         * @param $maxParticipants
+         * @param $personnalManager
+         */
         private function saveEvent($id, $name, $description, $length, $maxParticipants, $personnalManager) {
             $event = new Event($id);
             $event->name = $name;
@@ -104,33 +139,31 @@
             }
         }
 
+        /**
+         * Delete existing event.
+         * @param $id
+         */
         private function deleteEvent($id) {
             $event = new Event($id);
             $event->delete();
         }
 
+        /**
+         * Load all events.
+         */
         private function loadAllEvents() {
             $projectWeek = new ProjectWeek();
             $this->events = $projectWeek->loadAllEvents();
         }
 
-        /**
-         * @return string
-         */
         public function getStatus() {
             return $this->status;
         }
 
-        /**
-         * @return mixed
-         */
         public function getEvents() {
             return $this->events;
         }
 
-        /**
-         * @return mixed
-         */
         public function getEvent() {
             return $this->event;
         }

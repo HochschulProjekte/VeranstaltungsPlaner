@@ -5,6 +5,9 @@
     include_once __DIR__.'/../class/eventRegistration.php';
     include_once __DIR__.'/../class/changePhaseMessage.php';
 
+    /**
+     * Class PhaseManager
+     */
     class PhaseManager {
 
         // Object variable for database handling
@@ -12,12 +15,20 @@
 
         private $projectWeek;
 
+        /**
+         * PhaseManager constructor.
+         * @param $projectWeek
+         */
         public function __construct($projectWeek) {
 
             $this->databaseHandler = new PDOHandler();
             $this->projectWeek = $projectWeek;
         }
 
+        /**
+         * @param $newPhase
+         * @return ChangePhaseMessage|null
+         */
         public function changePhase($newPhase) {
             if($newPhase == 2) {
                 return $this->changeToPhaseTwo();
@@ -26,6 +37,9 @@
             }
         }
 
+        /**
+         * @return ChangePhaseMessage
+         */
         private function changeToPhaseTwo() {
             $cntUsers = $this->databaseHandler->count('User', 'name', 'personnalManager = 0');
             $projectWeekEntries = $this->projectWeek->getProjectWeekEntries();
@@ -58,6 +72,9 @@
             return new ChangePhaseMessage(true);
         }
 
+        /**
+         * @return null
+         */
         private function changeToPhaseThree() {
 
             // loop over every position of the projectweek
@@ -142,6 +159,12 @@
             return null;
         }
 
+        /**
+         * @param array $array
+         * @param $value
+         * @param bool $strict
+         * @return array
+         */
         private function unsetValue(array $array, $value, $strict = TRUE) {
             if(($key = array_search($value, $array, $strict)) !== FALSE) {
                 unset($array[$key]);
@@ -156,6 +179,9 @@
             return $newArray;
         }
 
+        /**
+         * @return array
+         */
         private function getAllUsers() {
             $users = [];
 
@@ -169,6 +195,10 @@
             return $users;
         }
 
+        /**
+         * @param $projectWeekEntryId
+         * @return array
+         */
         private function getRegistrationsOfProjectWeekEntry($projectWeekEntryId) {
             $registrations = [];
             $where = 'projectWeekEntryId = '.$projectWeekEntryId.' ORDER BY priority DESC';
@@ -181,6 +211,11 @@
             return $registrations;
         }
 
+        /**
+         * @param $projectWeek
+         * @param $position
+         * @return array
+         */
         private function getUnfilledProjectWeekEntriesAtPosition($projectWeek, $position) {
             $projecWeekEntries = [];
             $sqlString = 'SELECT * FROM ProjectWeekEntry WHERE year = '.$projectWeek->getYear().' AND week = '.$projectWeek->getWeek().' AND position = '.$position.' AND participants < maxParticipants;';

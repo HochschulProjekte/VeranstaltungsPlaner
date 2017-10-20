@@ -1,5 +1,8 @@
 <?php
 
+    /**
+     * Class UserInterface
+     */
     class UserInterface {
 
         private $user;
@@ -7,15 +10,27 @@
         private $fileName;
         private $script = NULL;
 
+        /**
+         * UserInterface constructor.
+         * @param $user
+         * @param $fileName
+         */
         function __construct($user, $fileName) {
             $this->user = $user;
             $this->fileName = $fileName;
         }
 
+        /**
+         * Add javascript to page.
+         * @param $fileName
+         */
         public function addScript($fileName) {
             $this->script = $fileName;
         }
 
+        /**
+         * Render header.
+         */
         public function renderHeader() {
 
             echo '
@@ -71,6 +86,9 @@
             ';
         }
 
+        /**
+         * Render footer.
+         */
         public function renderFooter() {
             echo '
             <!-- Footer -->

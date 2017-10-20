@@ -1,19 +1,30 @@
 <?php
+
     include_once __DIR__.'/../class/projectWeek.php';
     include_once __DIR__.'/../class/projectWeekEntry.php';
-
     include_once __DIR__.'/../class/phaseManager.php';
     include_once __DIR__.'/../class/changePhaseMessage.php';
 
+    /**
+     * Class ProjectWeeksController
+     */
     class ProjectWeeksController {
 
         private $projectWeek;
         private $changePhaseMessage = null;
 
+        /**
+         * ProjectWeeksController constructor.
+         * @param $POST_ARRAY
+         */
         public function __construct($POST_ARRAY) {
             $this->parsePostArray($POST_ARRAY);
         }
 
+        /**
+         * Parse post array and decide which method should be executed.
+         * @param $POST_ARRAY
+         */
         private function parsePostArray($POST_ARRAY) {
 
             // add projectWeekEntry
@@ -51,6 +62,14 @@
             }
         }
 
+        /**
+         * Create new project week entry.
+         * @param $year
+         * @param $week
+         * @param $position
+         * @param $maxParticipants
+         * @param $eventId
+         */
         private function addProjectWeekEntry($year, $week, $position, $maxParticipants, $eventId) {
             $entry = new ProjectWeekEntry(NULL);
 
@@ -64,26 +83,28 @@
             $entry->save();
         }
 
+        /**
+         * Delete existing project week entry.
+         * @param $projectWeekEntryId
+         */
         private function deleteProjectWeekEntry($projectWeekEntryId) {
             $projectWeekEntry = new ProjectWeekEntry($projectWeekEntryId);
             $projectWeekEntry->delete();
         }
 
+        /**
+         * Change phase of the current project week.
+         * @param $newPhase
+         */
         private function changePhase($newPhase) {
             $phaseManager = new PhaseManager($this->projectWeek);
             $this->changePhaseMessage = $phaseManager->changePhase($newPhase);
         }
 
-        /**
-         * @return mixed
-         */
         public function getProjectWeek() {
             return $this->projectWeek;
         }
 
-        /**
-         * @return null
-         */
         public function getChangePhaseMessage() {
             return $this->changePhaseMessage;
         }

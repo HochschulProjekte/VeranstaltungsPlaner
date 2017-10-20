@@ -5,61 +5,83 @@ include_once __DIR__.'/../class/projectWeek.php';
 include_once __DIR__.'/../class/eventRegistration.php';
 include_once __DIR__.'/../class/eventRegistrationRepresentation.php';
 
-class EventRegistrationCollection {
+    /**
+     * Class EventRegistrationCollection
+     */
+    class EventRegistrationCollection {
 
-    const TABLE = 'EventRegistration';
+        const TABLE = 'EventRegistration';
 
-    private $databaseHandler;
+        private $databaseHandler;
 
-    private $username;
-    private $projectWeek;
-    private $eventRegistrations = [];
+        private $username;
+        private $projectWeek;
+        private $eventRegistrations = [];
 
-    public function __construct($username, $projectWeek) {
+        /**
+         * EventRegistrationCollection constructor.
+         * @param $username
+         * @param $projectWeek
+         */
+        public function __construct($username, $projectWeek) {
 
-        $this->databaseHandler = new PDOHandler();
+            $this->databaseHandler = new PDOHandler();
 
-        $this->username = $username;
-        $this->projectWeek = $projectWeek;
+            $this->username = $username;
+            $this->projectWeek = $projectWeek;
 
-        $this->load();
-    }
-
-    private function load() {
-        $where = 'username = "'.$this->username.'" AND year = '.$this->projectWeek->getYear().' AND week = '.$this->projectWeek->getWeek();
-
-        $result = $this->databaseHandler->select(self::TABLE, $where);
-
-        foreach($result as $eventRegistration) {
-            $this->add(new EventRegistration($eventRegistration['eventRegistrationId']));
+            $this->load();
         }
-    }
 
-    public function add($eventRegistration) {
-        array_push($this->eventRegistrations, $eventRegistration);
-    }
+        /**
+         * Load EventRegistrations from database
+         */
+        private function load() {
+            $where = 'username = "'.$this->username.'" AND year = '.$this->projectWeek->getYear().' AND week = '.$this->projectWeek->getWeek();
 
-    public function getEventRegistrations() {
-        return $this->eventRegistrations;
-    }
+            $result = $this->databaseHandler->select(self::TABLE, $where);
 
-    public function getEventRepresentations() {
-
-        $eventRepresentations = [];
-        $colors = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
-
-        foreach($this->eventRegistrations as $eventRegistration) {
-            $length = $eventRegistration->getProjectWeekEntry()->getEvent()->length;
-            $position = $eventRegistration->getProjectWeekEntry()->getPosition();
-
-            for($i = $position; $i < ($position + $length); $i++) {
-                array_push($eventRepresentations, new EventRegistrationRepresentation($eventRegistration, $i, $colors[$position-1]));
+            foreach($result as $eventRegistration) {
+                $this->add(new EventRegistration($eventRegistration['eventRegistrationId']));
             }
         }
 
-        return $eventRepresentations;
-    }
+        /**
+         * Add event-registration to local array
+         * @param $eventRegistration
+         */
+        public function add($eventRegistration) {
+            array_push($this->eventRegistrations, $eventRegistration);
+        }
 
-}
+        /**
+         * Get all event-registrations
+         * @return array
+         */
+        public function getEventRegistrations() {
+            return $this->eventRegistrations;
+        }
+
+        /**
+         * Get all event-registrations as representation objects
+         * @return array
+         */
+        public function getEventRepresentations() {
+
+            $eventRepresentations = [];
+            $colors = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+
+            foreach($this->eventRegistrations as $eventRegistration) {
+                $length = $eventRegistration->getProjectWeekEntry()->getEvent()->length;
+                $position = $eventRegistration->getProjectWeekEntry()->getPosition();
+
+                for($i = $position; $i < ($position + $length); $i++) {
+                    array_push($eventRepresentations, new EventRegistrationRepresentation($eventRegistration, $i, $colors[$position-1]));
+                }
+            }
+
+            return $eventRepresentations;
+        }
+    }
 
 ?>
