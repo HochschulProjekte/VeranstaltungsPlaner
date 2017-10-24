@@ -6,42 +6,49 @@
     class ChangePhaseMessage {
 
         private $status;
+        private $newPhase;
         private $position;
         private $missingUsers;
 
         /**
          * ChangePhaseMessage constructor.
-         * @param $status
+         * @param boolean $status
+         * @param int $newPhase
          * @param int $position
          * @param int $missingUsers
          */
-        public function __construct($status, $position = 0, $missingUsers = 0){
+        public function __construct($status, $newPhase, $position = 0, $missingUsers = 0){
             $this->status = $status;
+            $this->newPhase = $newPhase;
             $this->position = $position;
             $this->missingUsers = $missingUsers;
         }
 
         /**
-         * @return mixed
+         * @return boolean status
          */
-        public function getStatus()
-        {
+        public function getStatus() {
             return $this->status;
         }
 
         /**
-         * @return mixed
+         * @return int new phase
          */
-        public function getPosition()
-        {
+        public function getNewPhase() {
+            return $this->newPhase;
+        }
+
+        /**
+         * @return int position
+         */
+        public function getPosition() {
             return $this->position;
         }
 
         /**
-         * @return mixed
+         * @return int missing user count
          */
-        public function getMissingUsers()
-        {
+        public function getMissingUsers() {
             return $this->missingUsers;
         }
     }

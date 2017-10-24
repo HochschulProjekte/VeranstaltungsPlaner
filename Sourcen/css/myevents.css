@@ -6,6 +6,7 @@
 
 .nav-tabs {
     width: 100%;
+    margin-top: 5px;
 }
 .nav-tabs .nav-item {
     margin-left: 20px;

@@ -61,7 +61,7 @@
                 }
 
                 if($cntUserSpace < $cntUsers) {
-                    return new ChangePhaseMessage(false, $position, ($cntUsers - $cntUserSpace));
+                    return new ChangePhaseMessage(false, 1, $position, ($cntUsers - $cntUserSpace));
                 }
 
                 $cntUserSpace = 0;
@@ -70,7 +70,7 @@
             $this->projectWeek->setPhase(2);
             $this->projectWeek->save();
 
-            return new ChangePhaseMessage(true);
+            return new ChangePhaseMessage(true, 2);
         }
 
         /**
@@ -177,13 +177,12 @@
 
                 // decrease position count of blocked users.
                 $blockedUserCollection->decreaseCount();
-                var_dump($blockedUserCollection);
             }
 
             $this->projectWeek->setPhase(3);
             $this->projectWeek->save();
 
-            return null;
+            return new ChangePhaseMessage(true, 3);
         }
 
         /**

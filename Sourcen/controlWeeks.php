@@ -34,12 +34,23 @@
                     $changePhaseMessage = $myProjectWeeksController->getChangePhaseMessage();
 
                     if($changePhaseMessage != NULL) {
+
                         if($changePhaseMessage->getStatus() == true) {
-                            echo '
-                            <div class="my-message alert alert-success" role="alert">
-                                Die Anmeldung wurde erfolgreich freigeschaltet.
-                            </div>
-                        ';
+
+                            if($changePhaseMessage->getNewPhase() == 2) {
+                                echo '
+                                    <div class="my-message alert alert-success" role="alert">
+                                        Die Anmeldung wurde erfolgreich freigeschaltet.
+                                    </div>
+                                ';
+                            } else {
+                                echo '
+                                    <div class="my-message alert alert-success" role="alert">
+                                        Die Veranstaltungen wurden erfolgreich zugewiesen.
+                                    </div>
+                                ';
+                            }
+
                         } else if($changePhaseMessage->getStatus() == false) {
                             echo '
                             <div class="my-message alert alert-danger" role="alert">
@@ -57,26 +68,34 @@
 
                         <?php
                             echo '
-                            <button type="button" onclick="previousWeek('.$myProjectWeeksController->getProjectWeek()->getYear().', '.$myProjectWeeksController->getProjectWeek()->getWeek().')" class="btn btn-secondary"><</button>
-                            <a style="padding: 0 10px 0 10px">Woche: '.$myProjectWeeksController->getProjectWeek()->getWeek().' - '.$myProjectWeeksController->getProjectWeek()->getFromDate().' - '.$myProjectWeeksController->getProjectWeek()->getUntilDate().'</a>
-                            <button type="button" onclick="nextWeek('.$myProjectWeeksController->getProjectWeek()->getYear().', '.$myProjectWeeksController->getProjectWeek()->getWeek().')" class="btn btn-secondary">></button>
+                            <button type="button" onclick="previousWeek('.$myProjectWeeksController->getProjectWeek()->getYear().', '.$myProjectWeeksController->getProjectWeek()->getWeek().')" class="btn btn-secondary week-controls"><</button>
+                            <a style="padding: 0 10px 0 10px" class="week-controls">Woche: '.$myProjectWeeksController->getProjectWeek()->getWeek().' - '.$myProjectWeeksController->getProjectWeek()->getFromDate().' - '.$myProjectWeeksController->getProjectWeek()->getUntilDate().'</a>
+                            <button type="button" onclick="nextWeek('.$myProjectWeeksController->getProjectWeek()->getYear().', '.$myProjectWeeksController->getProjectWeek()->getWeek().')" class="btn btn-secondary week-controls">></button>
                             ';
                         ?>
 
                         <?php
 
-                        $phase = $myProjectWeeksController->getProjectWeek()->getPhase();
-                        $nextPhase = $phase + 1;
+                            // get current phase
+                            $phase = $myProjectWeeksController->getProjectWeek()->getPhase();
 
-                        echo '
-                                <input type="hidden" name="changePhase" value="'.$nextPhase.'"/>
-                                <input type="hidden" name="year" value="'.$myProjectWeeksController->getProjectWeek()->getYear().'"/>
-                                <input type="hidden" name="week" value="'.$myProjectWeeksController->getProjectWeek()->getWeek().'"/>
+                            // if phase is equal three, than don't show any button at all.
+                            if($phase != 3) {
 
-                                <button type="submit" class="btn btn-primary">
-                                    '.($phase == 1 ? 'Anmeldung freischalten' : 'Veranstaltungen zuweisen').'
-                                </button>
-                            ';
+                                $nextPhase = $phase + 1;
+
+                                echo '
+                                        <input type="hidden" name="changePhase" value="'.$nextPhase.'"/>
+                                        <input type="hidden" name="year" value="'.$myProjectWeeksController->getProjectWeek()->getYear().'"/>
+                                        <input type="hidden" name="week" value="'.$myProjectWeeksController->getProjectWeek()->getWeek().'"/>
+        
+                                        <button type="submit" class="btn btn-primary week-controls">
+                                            '.($phase == 1 ? 'Anmeldung freischalten' : 'Veranstaltungen zuweisen').'
+                                        </button>
+                                    ';
+
+                            }
+
                         ?>
 
                     </form>

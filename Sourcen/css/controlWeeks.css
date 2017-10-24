@@ -9,6 +9,10 @@
     color: #FFF;
 }
 
+.week-controls {
+    margin-top: 5px;
+}
+
 table thead tr {
     background-color: #EEE;
 }
