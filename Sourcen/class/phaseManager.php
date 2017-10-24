@@ -4,6 +4,7 @@
     include_once __DIR__.'/../class/projectWeekEntry.php';
     include_once __DIR__.'/../class/eventRegistration.php';
     include_once __DIR__.'/../class/changePhaseMessage.php';
+    include_once __DIR__.'/../class/blockedUserCollection.php';
 
     /**
      * Class PhaseManager
@@ -77,6 +78,8 @@
          */
         private function changeToPhaseThree() {
 
+            $blockedUserCollection = new BlockedUserCollection();
+
             // loop over every position of the projectweek
             for($position = 1; $position <= 10; $position++) {
 
@@ -96,6 +99,7 @@
 
                             // remove the registered user of the user-list
                             $approvedUsername = $registrations[0]->getUsername();
+
                             foreach($users as $user) {
                                 if($user == $approvedUsername) {
                                     $users = $this->unsetValue($users, $user);
@@ -103,15 +107,28 @@
                                 }
                             }
 
-                            // approve the registration
-                            $registrations[0]->setApproved(1);
-                            $registrations[0]->save();
+                            // if the user is not blocked, approve the registration
+                            if(!$blockedUserCollection->exists($approvedUsername)) {
 
+                                // approve the registration
+                                $registrations[0]->setApproved(1);
+                                $registrations[0]->save();
+
+                                // if length of the event is longer than 1 position, then block the user for the next position
+                                $eventLength = $registrations[0]->getProjectWeekEntry()->getEvent()->length;
+
+                                if($eventLength > 1) {
+                                    $blockedUserCollection->add(new BlockedUser($approvedUsername, $eventLength));
+                                }
+
+                                // increase participants count
+                                $projectWeekEntry->setParticipants($projectWeekEntry->getParticipants() + 1);
+                                $projectWeekEntry->save();
+                            }
+
+                            // delete the current registration
                             $registrations = $this->unsetValue($registrations, $registrations[0]);
 
-                            // increase participants count
-                            $projectWeekEntry->setParticipants($projectWeekEntry->getParticipants() + 1);
-                            $projectWeekEntry->save();
                         } else {
                             break;
                         }
@@ -130,20 +147,26 @@
                                 break;
                             }
 
-                            // create new user registration
-                            $eventRegistration = new EventRegistration();
-                            $eventRegistration->setUsername($users[0]);
-                            $eventRegistration->setProjectWeekEntry($unfilledProjectWeekEntry);
-                            $eventRegistration->setPriority(1);
-                            $eventRegistration->setApproved(1);
-                            $eventRegistration->setRegistrationDate(date('Y-m-d H:i:s'));
-                            $eventRegistration->save();
+                            // if the user is not blocked, approve the registration
+                            if(!$blockedUserCollection->exists($users[0])) {
+
+                                // create new user registration
+                                $eventRegistration = new EventRegistration();
+                                $eventRegistration->setUsername($users[0]);
+                                $eventRegistration->setProjectWeekEntry($unfilledProjectWeekEntry);
+                                $eventRegistration->setPriority(1);
+                                $eventRegistration->setApproved(1);
+                                $eventRegistration->setRegistrationDate(date('Y-m-d H:i:s'));
+                                $eventRegistration->save();
+
+                                // update current participants count
+                                $unfilledProjectWeekEntry->setParticipants($unfilledProjectWeekEntry->getParticipants() + 1);
+                                $unfilledProjectWeekEntry->save();
+                            } else {
+                                $i--;
+                            }
 
                             $users = $this->unsetValue($users, $users[0]);
-
-                            // update current participants count
-                            $unfilledProjectWeekEntry->setParticipants($unfilledProjectWeekEntry->getParticipants() + 1);
-                            $unfilledProjectWeekEntry->save();
                         }
 
                         if(count($users) == 0) {
@@ -151,6 +174,10 @@
                         }
                     }
                 }
+
+                // decrease position count of blocked users.
+                $blockedUserCollection->decreaseCount();
+                var_dump($blockedUserCollection);
             }
 
             $this->projectWeek->setPhase(3);
