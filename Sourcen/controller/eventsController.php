@@ -174,7 +174,7 @@
          */
         private function loadAllEvents() {
             $projectWeek = new ProjectWeek();
-            $this->events = $projectWeek->loadAllEvents();
+            $this->events = $projectWeek->getEvents();
         }
 
         /**

@@ -2,6 +2,7 @@
 
 include_once __DIR__ .'/../database/databaseHandler.php';
 include_once __DIR__.'/../class/event.php';
+include_once __DIR__.'/../class/eventCollection.php';
 include_once __DIR__.'/../class/projectWeekEntry.php';
 
 /**
@@ -21,7 +22,7 @@ class ProjectWeek {
 
     private $phase;
 
-    private $allEvents = [];
+    private $allEvents;
     private $entries = [];
 
     /**
@@ -104,17 +105,9 @@ class ProjectWeek {
 
     /**
      * Load all events
-     * @return array
      */
-    public function loadAllEvents() {
-        $result = $this->databaseHandler->select('Event', null);
-        $this->allEvents = [];
-
-        foreach ($result as $row) {
-            array_push($this->allEvents, new Event($row['eventId']));
-        }
-
-        return $this->allEvents;
+    private function loadAllEvents() {
+        $this->allEvents->addAllEvents();
     }
 
     /**
@@ -133,6 +126,26 @@ class ProjectWeek {
         }
 
         return $this->entries;
+    }
+
+    /**
+     * Liefert alle Veranstaltung einer Projektwoche die ein Dozent halten muss.
+     * @param int $year
+     * @param int $week
+     * @param string $username
+     * @return array ProjectWeekEntry
+     */
+    public function getProjectWeekEntriesOfPersonnalManager($username) {
+        $entries = [];
+        $result = $this->databaseHandler->query('SELECT * FROM ProjectWeekEntry INNER JOIN Event ON ProjectWeekEntry.eventId = Event.eventId WHERE ProjectWeekEntry.year = '.$this->year.' AND ProjectWeekEntry.week = '.$this->week.' AND Event.eventManager = "'.$username.'" ORDER BY ProjectWeekEntry.position;');
+
+        foreach ($result as $entry) {
+            array_push($entries,
+                new ProjectWeekEntry($entry['projectWeekEntryId'])
+            );
+        }
+
+        return $entries;
     }
 
     public static function getStartDateOfWeek($year, $week) {
@@ -188,6 +201,10 @@ class ProjectWeek {
         }
 
         return $entriesAtPosition;
+    }
+
+    public function getAllEvents() {
+        return $this->allEvents->getEvents();
     }
 
     public function getYear() {
