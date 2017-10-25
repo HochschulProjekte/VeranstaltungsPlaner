@@ -1,0 +1,12 @@
+- User anlegen
+- User bearbeiten
+- User löschen
+
+- Veranstaltung anlegen
+- Veranstaltung bearbeiten
+- Veranstaltung löschen
+- Veranstaltung importieren
+
+- Projektwoche Veranstaltungen hinzufügen/löschen
+- Projektwoche Anmeldungen freischalten
+- Projektwoche Veranstaltungen freischalten
