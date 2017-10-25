@@ -1,11 +1,12 @@
 <?php
 
+    include_once __DIR__.'/../controller/controllerInterface.php';
     include_once __DIR__.'/../class/loginHandler.php';
 
     /**
      * Class LoginController
      */
-    class LoginController {
+    class LoginController implements Controller {
 
         public $alert;
 
@@ -46,6 +47,48 @@
                 $this->alert['msg'] = 'Bitte geben Sie ihren Benutzernamen und ihr Passwort ein.';
             }
         }
+
+        /**
+         * Gibt den Dateinamen der Template-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getTemplate() {
+            return 'loginTemplate';
+        }
+
+        /**
+         * Gibt den Dateinamen der CSS-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getStyleSheet() {
+            return NULL;
+        }
+
+        /**
+         * Ob eine JavaScript-Datei vorhanden ist oder nicht.
+         * @return boolean
+         */
+        public function isScriptFileAvailable() {
+            return NULL;
+        }
+
+        /**
+         * Gibt den Dateinamen der JavaScript-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getScriptFile() {
+            return false;
+        }
+
+        /**
+         * Gibt den angemeldeten User zurueck.
+         * @return User
+         */
+        public function getUser() {
+            return NULL;
+        }
+
+
     }
 
 ?>

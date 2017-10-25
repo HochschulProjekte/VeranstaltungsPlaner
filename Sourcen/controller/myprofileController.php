@@ -1,11 +1,12 @@
 <?php
 
     include_once __DIR__.'/../class/user.php';
+    include_once __DIR__.'/../controller/controllerInterface.php';
 
     /**
      * Class MyProfileController
      */
-    class MyProfileController {
+    class MyProfileController implements Controller {
 
         private $user;
         private $msg_one;
@@ -128,6 +129,46 @@
                         'text' => $text];
                     break;
             }
+        }
+
+        /**
+         * Gibt den Dateinamen der Template-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getTemplate() {
+            return 'myProfileTemplate';
+        }
+
+        /**
+         * Gibt den Dateinamen der CSS-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getStyleSheet() {
+            return 'myProfile';
+        }
+
+        /**
+         * Ob eine JavaScript-Datei vorhanden ist oder nicht.
+         * @return boolean
+         */
+        public function isScriptFileAvailable() {
+            return false;
+        }
+
+        /**
+         * Gibt den Dateinamen der JavaScript-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getScriptFile() {
+            return NULL;
+        }
+
+        /**
+         * Gibt den angemeldeten User zurueck.
+         * @return User
+         */
+        public function getUser() {
+            return $this->user;
         }
 
 

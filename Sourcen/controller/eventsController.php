@@ -2,13 +2,15 @@
     include_once __DIR__.'/../class/personnalManager.php';
     include_once __DIR__.'/../class/projectWeek.php';
     include_once __DIR__.'/../class/importEvents.php';
+    include_once __DIR__.'/../controller/controllerInterface.php';
 
     /**
      * Class EventsController
      */
-    class EventsController {
+    class EventsController implements Controller {
 
         private $personnalManager;
+        private $user;
 
         private $status = 'NONE';
         private $events;
@@ -19,12 +21,29 @@
          * @param $POST_ARRAY
          * @param $personnalManager
          */
-        public function __construct($POST_ARRAY, $FILES, $personnalManager) {
+        public function __construct($POST_ARRAY, $FILES, $user) {
 
-            $this->personnalManager = new PersonnalManager($personnalManager->getName(), $personnalManager->getEmail());
+            $this->user = $user;
+            $this->checkPageAllowed();
+
+            $this->personnalManager = new PersonnalManager($user->getName(), $user->getEmail());
+
             $this->event = new Event();
+
             $this->parsePostArray($POST_ARRAY, $FILES);
             $this->loadAllEvents();
+        }
+
+        /**
+         * Ueberprueft ob der Nutzer genug Rechte hat, um die Seite zu besuchen.
+         */
+        private function checkPageAllowed() {
+
+            if (!$this->user->isPersonnalManager()) {
+
+                header('Location: ./index.php');
+                exit();
+            }
         }
 
         /**
@@ -157,6 +176,47 @@
             $projectWeek = new ProjectWeek();
             $this->events = $projectWeek->loadAllEvents();
         }
+
+        /**
+         * Gibt den Dateinamen der Template-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getTemplate() {
+            return 'controlEventsTemplate';
+        }
+
+        /**
+         * Gibt den Dateinamen der CSS-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getStyleSheet() {
+            return 'controlEvents';
+        }
+
+        /**
+         * Ob eine JavaScript-Datei vorhanden ist oder nicht.
+         * @return boolean
+         */
+        public function isScriptFileAvailable() {
+            return true;
+        }
+
+        /**
+         * Gibt den Dateinamen der JavaScript-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getScriptFile() {
+            return 'controlEvents';
+        }
+
+        /**
+         * Gibt den angemeldeten User zurueck.
+         * @return User
+         */
+        public function getUser() {
+            return $this->user;
+        }
+
 
         public function getStatus() {
             return $this->status;

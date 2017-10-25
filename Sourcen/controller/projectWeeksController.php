@@ -1,5 +1,6 @@
 <?php
 
+    include_once __DIR__.'/../controller/controllerInterface.php';
     include_once __DIR__.'/../class/projectWeek.php';
     include_once __DIR__.'/../class/projectWeekEntry.php';
     include_once __DIR__.'/../class/phaseManager.php';
@@ -8,8 +9,9 @@
     /**
      * Class ProjectWeeksController
      */
-    class ProjectWeeksController {
+    class ProjectWeeksController implements Controller {
 
+        private $user;
         private $projectWeek;
         private $changePhaseMessage = null;
 
@@ -17,8 +19,23 @@
          * ProjectWeeksController constructor.
          * @param $POST_ARRAY
          */
-        public function __construct($POST_ARRAY) {
+        public function __construct($POST_ARRAY, $user) {
+            $this->user = $user;
+            $this->checkPageAllowed();
+
             $this->parsePostArray($POST_ARRAY);
+        }
+
+        /**
+         * Ueberprueft ob der Nutzer genug Rechte hat, um die Seite zu besuchen.
+         */
+        private function checkPageAllowed() {
+
+            if (!$this->user->isPersonnalManager()) {
+
+                header('Location: ./index.php');
+                exit();
+            }
         }
 
         /**
@@ -100,6 +117,47 @@
             $phaseManager = new PhaseManager($this->projectWeek);
             $this->changePhaseMessage = $phaseManager->changePhase($newPhase);
         }
+
+        /**
+         * Gibt den Dateinamen der Template-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getTemplate() {
+            return 'controlProjectWeeksTemplate';
+        }
+
+        /**
+         * Gibt den Dateinamen der CSS-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getStyleSheet() {
+            return 'controlProjectWeeks';
+        }
+
+        /**
+         * Ob eine JavaScript-Datei vorhanden ist oder nicht.
+         * @return boolean
+         */
+        public function isScriptFileAvailable() {
+            return true;
+        }
+
+        /**
+         * Gibt den Dateinamen der JavaScript-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getScriptFile() {
+            return 'controlProjectWeeks';
+        }
+
+        /**
+         * Gibt den angemeldeten User zurueck.
+         * @return User
+         */
+        public function getUser() {
+            return $this->user;
+        }
+
 
         public function getProjectWeek() {
             return $this->projectWeek;

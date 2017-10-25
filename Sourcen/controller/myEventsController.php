@@ -3,6 +3,7 @@
     include_once __DIR__.'/../class/user.php';
     include_once __DIR__.'/../class/projectWeek.php';
     include_once __DIR__.'/../class/projectWeekEntry.php';
+    include_once __DIR__.'/../class/positionMapping.php';
 
     include_once __DIR__.'/../class/eventRegistration.php';
     include_once __DIR__.'/../class/eventRegistrationRepresentation.php';
@@ -11,7 +12,7 @@
     /**
      * Class MyEventsController
      */
-    class MyEventsController {
+    class MyEventsController implements Controller {
         
         private $user;
         private $projectWeek;
@@ -19,9 +20,11 @@
 
         /**
          * MyEventsController constructor.
+         * @param $user
          * @param $POST_ARRAY
          */
-        function __construct($POST_ARRAY) {
+        function __construct($user, $POST_ARRAY) {
+            $this->user = $user;
             $this->parsePostArray($POST_ARRAY);
         }
 
@@ -48,9 +51,6 @@
             // Projektwochen-Objekt erstellen
             $this->createProjectWeek($year, $week);
 
-            // Benutzerobjekt erstellen
-            $this->createUserObject($_SESSION['username']);
-
             // Benutzer an einer Veranstaltung registrierten
             if(
                 isset($POST_ARRAY['registration'])
@@ -71,14 +71,6 @@
          */
         private function createProjectWeek($year, $week) {
             $this->projectWeek = new ProjectWeek($year, $week);
-        }
-
-        /**
-         * Erstellt das User-Objekt zu einem Benutzernamen.
-         * @param string $username
-         */
-        private function createUserObject($username) {
-            $this->user = new User($username);
         }
 
         /**
@@ -154,6 +146,47 @@
 
             return NULL;
         }
+
+        /**
+         * Gibt den Dateinamen der Template-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getTemplate() {
+            return 'myEventsTemplate';
+        }
+
+        /**
+         * Gibt den Dateinamen der CSS-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getStyleSheet() {
+            return 'myEvents';
+        }
+
+        /**
+         * Ob eine JavaScript-Datei vorhanden ist oder nicht.
+         * @return boolean
+         */
+        public function isScriptFileAvailable() {
+            return true;
+        }
+
+        /**
+         * Gibt den Dateinamen der JavaScript-Datei zurueck.
+         * @return string Dateiname
+         */
+        public function getScriptFile() {
+            return 'myEvents';
+        }
+
+        /**
+         * Gibt den angemeldeten User zurueck.
+         * @return User
+         */
+        public function getUser() {
+            return $this->user;
+        }
+
 
         public function getWeekStartDate() {
             return $this->projectWeek->getFromDate();
