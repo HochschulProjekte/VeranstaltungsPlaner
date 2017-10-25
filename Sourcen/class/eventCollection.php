@@ -1,6 +1,7 @@
 <?php
 
     include_once __DIR__.'/../class/event.php';
+    include_once __DIR__.'/../database/databaseHandler.php';
 
     /**
      * Class EventCollection
@@ -8,11 +9,14 @@
     class EventCollection {
 
         private $events = [];
+        private $databaseHandler;
 
         /**
          * EventCollection constructor.
          */
-        public function __construct() {}
+        public function __construct() {
+           $this->databaseHandler = new PDOHandler();
+        }
 
 
         /**

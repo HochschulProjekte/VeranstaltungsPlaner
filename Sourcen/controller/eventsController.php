@@ -1,6 +1,7 @@
 <?php
     include_once __DIR__.'/../class/personnalManager.php';
     include_once __DIR__.'/../class/projectWeek.php';
+    include_once __DIR__.'/../class/eventCollection.php';
     include_once __DIR__.'/../class/importEvents.php';
     include_once __DIR__.'/../controller/controllerInterface.php';
 
@@ -173,8 +174,10 @@
          * Laden aller moeglichen Veranstaltungen
          */
         private function loadAllEvents() {
-            $projectWeek = new ProjectWeek();
-            $this->events = $projectWeek->getEvents();
+            $eventCollection = new EventCollection();
+            $eventCollection->addAllEvents();
+
+            $this->events = $eventCollection->getEvents();
         }
 
         /**

@@ -27,8 +27,8 @@ class ProjectWeek {
 
     /**
      * ProjectWeek constructor.
-     * @param null $year
-     * @param null $week
+     * @param int $year
+     * @param int $week
      */
     function __construct($year = NULL, $week = NULL) {
         $this->databaseHandler = new PDOHandler();
@@ -50,8 +50,9 @@ class ProjectWeek {
     }
 
     /**
-     * @param $year
-     * @param $week
+     * Laden der Projektwoche.
+     * @param int $year
+     * @param int $week
      */
     private function load($year, $week) {
         $result = $this->databaseHandler->select(self::TABLE, 'year = '.$year.' AND week = '.$week);
@@ -75,7 +76,7 @@ class ProjectWeek {
     }
 
     /**
-     * Create new project week
+     * Neue Projektwoche anlegen.
      */
     private function create() {
 
@@ -91,7 +92,7 @@ class ProjectWeek {
     }
 
     /**
-     * Save existing project week
+     * Vorhandene Projektwoche speichern.
      */
     public function save() {
 
@@ -104,7 +105,7 @@ class ProjectWeek {
     }
 
     /**
-     * Load all events
+     * Laden aller Veranstaltungen.
      */
     private function loadAllEvents() {
         $this->allEvents->addAllEvents();
