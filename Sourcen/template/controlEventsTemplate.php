@@ -7,7 +7,7 @@
 
             <div class="jumbotron create-event">
 
-                <h1 class="h2">Verantstaltungen</h1>
+                <h1 class="h2">Veranstaltungen</h1>
 
                 <hr>
 
