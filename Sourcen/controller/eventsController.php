@@ -19,27 +19,28 @@
          * @param $POST_ARRAY
          * @param $personnalManager
          */
-        public function __construct($POST_ARRAY, $personnalManager) {
+        public function __construct($POST_ARRAY, $FILES, $personnalManager) {
 
             $this->personnalManager = new PersonnalManager($personnalManager->getName(), $personnalManager->getEmail());
             $this->event = new Event();
-            $this->parsePostArray($POST_ARRAY);
+            $this->parsePostArray($POST_ARRAY, $FILES);
             $this->loadAllEvents();
         }
 
         /**
+         * POST Eingabe auswerten
          * @param $POST_ARRAY
          */
-        private function parsePostArray($POST_ARRAY) {
+        private function parsePostArray($POST_ARRAY, $FILES) {
 
-            // Import Veranstaltungen.csv file
+            // Excel-Datei importieren
             if(
-                isset($POST_ARRAY['import'])
+                isset($FILES['userfile'])
             ) {
-                $this->importEvents();
+                $this->importEvents($FILES['userfile']['tmp_name']);
             }
 
-            // Create new event or edit existing event
+            // Neue Veranstaltung erstellen oder vorhandene Veranstaltung anpassen
             if(
                 isset($POST_ARRAY['myevent-name']) &&
                 isset($POST_ARRAY['myevent-description']) &&
@@ -83,27 +84,28 @@
         }
 
         /**
-         * Import events.
+         * Importiert Veranstaltungen aus einer hochgeladenen Datei.
+         * @param string $file Dateiname
          */
-        private function importEvents() {
-            $import = new ImportEvents('./test/Veranstaltungen.csv');
+        private function importEvents($file) {
+            $import = new ImportEvents($file);
         }
 
         /**
-         * Load existing event.
-         * @param $id
+         * Veranstaltung laden.
+         * @param int $id Veranstaltungs-ID
          */
         private function prepareEdit($id) {
             $this->event = new Event($id);
         }
 
         /**
-         * Create new event.
-         * @param $name
-         * @param $description
-         * @param $length
-         * @param $maxParticipants
-         * @param $personnalManager
+         * Erstellt ein neue Veranstaltung
+         * @param string $name
+         * @param string $description
+         * @param int $length Halbtage
+         * @param int $maxParticipants
+         * @param string $personnalManager Benutzername des Verantwortlichen
          */
         private function createEvent($name, $description, $length, $maxParticipants, $personnalManager) {
             $user = new PersonnalManager('Chef', 'chef@boss.de');
@@ -116,13 +118,13 @@
         }
 
         /**
-         * Save existing event.
-         * @param $id
-         * @param $name
-         * @param $description
-         * @param $length
-         * @param $maxParticipants
-         * @param $personnalManager
+         * Speichere vorhandene Veranstaltung
+         * @param int $id
+         * @param string $name
+         * @param string $description
+         * @param int $length
+         * @param int $maxParticipants
+         * @param string $personnalManager Benutzername des Verantwortlichen
          */
         private function saveEvent($id, $name, $description, $length, $maxParticipants, $personnalManager) {
             $event = new Event($id);
@@ -140,8 +142,8 @@
         }
 
         /**
-         * Delete existing event.
-         * @param $id
+         * Loesche eine vorhandene Veranstaltung
+         * @param int $id
          */
         private function deleteEvent($id) {
             $event = new Event($id);
@@ -149,7 +151,7 @@
         }
 
         /**
-         * Load all events.
+         * Laden aller moeglichen Veranstaltungen
          */
         private function loadAllEvents() {
             $projectWeek = new ProjectWeek();

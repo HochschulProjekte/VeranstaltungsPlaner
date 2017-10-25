@@ -17,7 +17,7 @@
     $userInterface->renderHeader();
 
     include_once './controller/eventsController.php';
-    $eventsController = new EventsController($_POST, $myUser);
+    $eventsController = new EventsController($_POST, $_FILES, $myUser);
 
 ?>
     <!-- Wrapper -->
@@ -136,8 +136,9 @@
                     </table>
 
                     <center>
-                        <form action="#" method="post">
-                            <input type="hidden" name="import" value="X" />
+                        <form enctype="multipart/form-data" action="#" method="post">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+                            <input name="userfile" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
                             <button type="submit" class="btn btn-primary">Importieren</button>
                         </form>
                     </center>
