@@ -26,12 +26,11 @@
         }
 
         /**
-         * Parse POST input
+         * POST Eingabe auswerten.
          * @param $POST_ARRAY
          */
         private function parsePostArray($POST_ARRAY) {
-            
-            // ProjectWeek
+
             $year = NULL;
             $week = NULL;
             
@@ -46,13 +45,13 @@
                 $week = ProjectWeek::getCurrentCalendarWeek();
             }
 
-            // set project week
+            // Projektwochen-Objekt erstellen
             $this->createProjectWeek($year, $week);
 
-            // set user
+            // Benutzerobjekt erstellen
             $this->createUserObject($_SESSION['username']);
 
-            // ProjectWeekEntry - User registration
+            // Benutzer an einer Veranstaltung registrierten
             if(
                 isset($POST_ARRAY['registration'])
                 && isset($POST_ARRAY['projectWeekEntryId'])
@@ -66,26 +65,26 @@
         }
 
         /**
-         * Create a projectweek object
-         * @param $year
-         * @param $week
+         * Erstellt ein Projektwochen-Objekt
+         * @param int $year
+         * @param int $week
          */
         private function createProjectWeek($year, $week) {
             $this->projectWeek = new ProjectWeek($year, $week);
         }
 
         /**
-         * Create an user object
-         * @param $username
+         * Erstellt das User-Objekt zu einem Benutzernamen.
+         * @param string $username
          */
         private function createUserObject($username) {
             $this->user = new User($username);
         }
 
         /**
-         * Register an user to a specific projectweek entry
-         * @param $projectWeekEntryId
-         * @param $priority
+         * Registiert einen Nutzer an einem spezifischen Projektwochen-Eintrag
+         * @param int $projectWeekEntryId
+         * @param int $priority
          */
         private function registerToEvent($projectWeekEntryId, $priority) {
 
@@ -101,7 +100,8 @@
         }
 
         /**
-         * Create a collection of EventRegistrations for a specific user and projectweek combination
+         * Erstellt eine Liste von Veranstaltungs-Registrierungen fuer einen spezifischen Benutzer
+         * und Projektwochen kombination.
          */
         private function createEventRegistrationCollection() {
             $this->eventRegistrationCollection = new EventRegistrationCollection(
@@ -110,11 +110,19 @@
             );
         }
 
+        /**
+         * Ist die Registeriung erlaubt?
+         * @return bool
+         */
         public function isRegistrationAllowed() {
             $phase = $this->projectWeek->getPhase();
             return ($phase == '2');
         }
 
+        /**
+         * Liefert die Wochentage der aktuellen Projektwoche als Array von Zeichenketten.
+         * @return array Wochentage als Zeichenketten
+         */
         public function getWeekDays() {
             $day_array = [];
 
@@ -129,9 +137,18 @@
 
         public function getEventRegistrationRepresentationAtPosition($position) {
 
+            // Suche der Veranstaltung-Registrierung-Darstellungs-Objekte
             foreach($this->eventRegistrationCollection->getEventRepresentations() as $eventRepresentation) {
+
+                // ist die richtige Position gefunden
                 if($eventRepresentation->getPosition() == $position) {
-                    return $eventRepresentation;
+
+                    // wird ueberprueft ob die Registrierung akzeptiert wurde oder nicht.
+                    if($eventRepresentation->isApproved()) {
+                        return $eventRepresentation;
+                    } else {
+                        return NULL;
+                    }
                 }
             }
 
@@ -158,8 +175,7 @@
             return $this->projectWeek->getProjectWeekEntries();
         }
 
-        public function getEventRegistrationCollection()
-        {
+        public function getEventRegistrationCollection() {
             return $this->eventRegistrationCollection;
         }
     }

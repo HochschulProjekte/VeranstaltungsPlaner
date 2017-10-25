@@ -135,7 +135,7 @@
         /**
          * @return mixed
          */
-        public function getApproved()
+        public function isApproved()
         {
             return $this->approved;
         }

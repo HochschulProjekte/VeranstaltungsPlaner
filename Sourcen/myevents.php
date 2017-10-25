@@ -150,12 +150,12 @@
                                 <tbody>
                                         <?php
 
-                                            $html_first_row = '
+                                            $htmlFirstRow = '
                                                 <tr style="background-color: #FFF;">
                                                     <td style="vertical-align: middle; text-align: center;border: 3px solid #EEE;">1. Halbtag<br>(08:00 Uhr - 12:00 Uhr)</td>
                                             ';
 
-                                            $html_second_row = '
+                                            $htmlSecondRow = '
                                                 <tr style="background-color: #FFF;">
                                                     <td style="vertical-align: middle; text-align: center;border: 3px solid #EEE;">2. Halbtag<br>(12:00 Uhr - 16:00 Uhr)</td>
                                             ';
@@ -165,7 +165,7 @@
 
                                                 if($i % 2 == 1) {
                                                     if($eventRepresentation == NULL) {
-                                                        $html_first_row .= '<td style="border: 3px solid #EEE;">
+                                                        $htmlFirstRow .= '<td style="border: 3px solid #EEE;">
                                                             <center>
                                                                 <div class="calender-event" 
                                                                      data-toggle="tooltip" 
@@ -177,21 +177,24 @@
 
                                                         $nextEventRepresentation = $myEventsController->getEventRegistrationRepresentationAtPosition($i+1);
 
+                                                        // Darstellung ueber zwei Zeilen
                                                         if($nextEventRepresentation != NULL
                                                                 && $nextEventRepresentation->getRegistrationId() == $eventRepresentation->getRegistrationId()) {
 
-                                                            $html_first_row .= $eventRepresentation->getHTML(true);
+                                                            $htmlFirstRow .= $eventRepresentation->getHTML(true);
+
+                                                            // zweite Zeile ueberspringen
                                                             $i++;
 
                                                         } else {
-                                                            $html_first_row .= $eventRepresentation->getHTML(false);
+                                                            $htmlFirstRow .= $eventRepresentation->getHTML(false);
                                                         }
 
                                                     }
 
                                                 } else {
                                                     if($eventRepresentation == NULL) {
-                                                        $html_second_row .= '<td style="border: 3px solid #EEE;">
+                                                        $htmlSecondRow .= '<td style="border: 3px solid #EEE;">
                                                             <center>
                                                                 <div class="calender-event" 
                                                                      data-toggle="tooltip" 
@@ -201,13 +204,13 @@
                                                           </td>';
                                                     } else {
 
-                                                        $html_second_row .= $eventRepresentation->getHTML(false);
+                                                        $htmlSecondRow .= $eventRepresentation->getHTML(false);
                                                     }
                                                 }
                                             }
 
-                                            echo $html_first_row.'</tr>';
-                                            echo $html_second_row.'</tr>';
+                                            echo $htmlFirstRow.'</tr>';
+                                            echo $htmlSecondRow.'</tr>';
                                         ?>
 
                                 </tbody>
@@ -247,7 +250,7 @@
                                         foreach($eventRegistrationColleciton->getEventRegistrations() as $index => $eventRegistration) {
 
                                             echo '
-                                            <tr style="background-color: '.($index % 2 == 0 ? "#EEE" : "#FFF").';">
+                                            <tr style="background-color: '.($eventRegistration->isApproved() ? "#FFF" : "#FF9494").';">
                                                 
                                                 <td>'.PositionMapping::map($eventRegistration->getProjectWeekEntry()->getPosition()).'</td>
                                                 <td>'.PositionMapping::mapUntil($eventRegistration->getProjectWeekEntry()->getPosition(), $eventRegistration->getProjectWeekEntry()->getEvent()->length).'</td>
