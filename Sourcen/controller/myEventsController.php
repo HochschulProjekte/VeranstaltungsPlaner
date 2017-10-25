@@ -152,7 +152,11 @@
          * @return string Dateiname
          */
         public function getTemplate() {
-            return 'myEventsTemplate';
+            if($this->user->isPersonnalManager()) {
+                return 'myEventsPersonnalManagerTemplate';
+            } else {
+                return 'myEventsParticipantsTemplate';
+            }
         }
 
         /**
@@ -187,6 +191,9 @@
             return $this->user;
         }
 
+        public function getProjectWeekEntriesOfPersonnalManager() {
+            return $this->projectWeek->getProjectWeekEntriesOfPersonnalManager($this->user->getName());
+        }
 
         public function getWeekStartDate() {
             return $this->projectWeek->getFromDate();

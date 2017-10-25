@@ -14,6 +14,7 @@
         private $user;
         private $projectWeek;
         private $changePhaseMessage = null;
+        private $allPossibleEvents;
 
         /**
          * ProjectWeeksController constructor.
@@ -22,6 +23,8 @@
         public function __construct($POST_ARRAY, $user) {
             $this->user = $user;
             $this->checkPageAllowed();
+
+            $this->loadAllPossibleEvents();
 
             $this->parsePostArray($POST_ARRAY);
         }
@@ -39,12 +42,12 @@
         }
 
         /**
-         * Parse post array and decide which method should be executed.
+         * POST Eingabe auswerten und entsprechende Funktionen ausfuehren.
          * @param $POST_ARRAY
          */
         private function parsePostArray($POST_ARRAY) {
 
-            // add projectWeekEntry
+            // Projektwochen-Eintrag hinzufuegen
             if(isset($POST_ARRAY['add'])
                 && isset($POST_ARRAY['year'])
                 && isset($POST_ARRAY['week'])
@@ -59,12 +62,12 @@
                 );
             }
 
-            // delete projectWeekEntry
+            // Projektwochen-Eintrag loeschen
             if(isset($POST_ARRAY['delete']) && isset($POST_ARRAY['projectWeekEntryId'])) {
                 $this->deleteProjectWeekEntry($POST_ARRAY['projectWeekEntryId']);
             }
 
-            // create projectWeek
+            // Neue Projektwoche erstellen
             if(isset($POST_ARRAY['year']) && isset($POST_ARRAY['week'])) {
 
                 $this->projectWeek = new ProjectWeek($POST_ARRAY['year'], $POST_ARRAY['week']);
@@ -72,7 +75,7 @@
                 $this->projectWeek = new ProjectWeek();
             }
 
-            // change phase
+            // Phasenwechsel
             if(isset($POST_ARRAY['changePhase'])) {
 
                 $this->changePhase($POST_ARRAY['changePhase']);
@@ -80,12 +83,12 @@
         }
 
         /**
-         * Create new project week entry.
-         * @param $year
-         * @param $week
-         * @param $position
-         * @param $maxParticipants
-         * @param $eventId
+         * Erstellung eines neuen Projektwochen-Eintrags.
+         * @param int $year
+         * @param int $week
+         * @param int $position
+         * @param int $maxParticipants
+         * @param int $eventId
          */
         private function addProjectWeekEntry($year, $week, $position, $maxParticipants, $eventId) {
             $entry = new ProjectWeekEntry(NULL);
@@ -101,8 +104,8 @@
         }
 
         /**
-         * Delete existing project week entry.
-         * @param $projectWeekEntryId
+         * Loeschen eines Projektwochen-Eintrages.
+         * @param int $projectWeekEntryId
          */
         private function deleteProjectWeekEntry($projectWeekEntryId) {
             $projectWeekEntry = new ProjectWeekEntry($projectWeekEntryId);
@@ -110,12 +113,22 @@
         }
 
         /**
-         * Change phase of the current project week.
-         * @param $newPhase
+         * Wechel der Phase der ausgewahlten Projektwoche.
+         * @param int $newPhase
          */
         private function changePhase($newPhase) {
             $phaseManager = new PhaseManager($this->projectWeek);
             $this->changePhaseMessage = $phaseManager->changePhase($newPhase);
+        }
+
+        /**
+         * Laden aller moeglichen Events.
+         */
+        private function loadAllPossibleEvents() {
+            $eventCollection = new EventCollection();
+            $eventCollection->addAllEvents();
+
+            $this->allPossibleEvents = $eventCollection->getEvents();
         }
 
         /**
@@ -158,13 +171,30 @@
             return $this->user;
         }
 
-
+        /**
+         * Liefert die aktuelle Projektwoche.
+         * @return ProjectWeek
+         */
         public function getProjectWeek() {
             return $this->projectWeek;
         }
 
+        /**
+         * Liefert eine Nachricht des Phasenwechsels.
+         * @return ChangePhaseMessage
+         */
         public function getChangePhaseMessage() {
             return $this->changePhaseMessage;
         }
+
+        /**
+         * Liefert alle vorhanden Veranstaltungen
+         * @return array Event
+         */
+        public function getAllPossibleEvents() {
+            return $this->allPossibleEvents;
+        }
+
+
     }
 ?>

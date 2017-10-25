@@ -52,10 +52,10 @@
 
                     <?php
 
-                    // get current phase
+                    // Aktuelle Phase auslesen
                     $phase = $controller->getProjectWeek()->getPhase();
 
-                    // if phase is equal three, than don't show any button at all.
+                    // Falls Phase 3 aktiv ist wird kein Button angezeigt.
                     if($phase != 3) {
 
                         $nextPhase = $phase + 1;
@@ -90,7 +90,7 @@
                                 <div class="modal-body">
 
                                     <div class="input-group" style="margin-bottom: 5px">
-                                        <div class="input-group-addon"><i class="fa fa-university"></i></div>
+                                        <div class="input-group-addon event-input-icon"><i class="fa fa-clock-o"></i></div>
                                         <?php
                                         echo '
                                                 <input type="hidden" name="add" value="X" />
@@ -109,7 +109,7 @@
                                     </div>
 
                                     <div class="input-group" style="margin-bottom: 5px">
-                                        <div class="input-group-addon"><i class="fa fa-university"></i></div>
+                                        <div class="input-group-addon event-input-icon"><i class="fa fa-graduation-cap"></i></div>
                                         <input type="text" class="form-control" id="myprojectweek-participants" name="maxParticipants" placeholder="Max. Teilnehmer" value="" required>
                                     </div>
 
@@ -124,7 +124,7 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $events = $controller->getProjectWeek()->loadAllEvents();
+                                        $events = $controller->getAllPossibleEvents();
 
                                         foreach($events as $event) {
                                             echo '

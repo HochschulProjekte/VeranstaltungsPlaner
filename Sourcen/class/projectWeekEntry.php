@@ -21,7 +21,7 @@
 
         /**
          * ProjectWeekEntry constructor.
-         * @param $projectWeekEntryId
+         * @param int $projectWeekEntryId
          */
         function __construct($projectWeekEntryId) {
 
@@ -35,7 +35,7 @@
         }
 
         /**
-         * Load exisiting project week entry
+         * Daten eines vorhandenen Projektwochen-Eintrages laden.
          */
         private function load() {
             $where = 'projectWeekEntryId = '.$this->projectWeekEntryId;
@@ -50,14 +50,14 @@
         }
 
         /**
-         * Load event of the existing project week entry
+         * Entsprechende Veranstaltung laden.
          */
         private function loadEvent() {
             $this->event = new Event($this->eventId);
         }
 
         /**
-         * Save project week entry
+         * Projektwochen-Eintrag speichern.
          */
         public function save() {
 
@@ -80,7 +80,7 @@
         }
 
         /**
-         * Delete project week entry
+         * Projektwocheneintrag loeschen.
          */
         public function delete() {
             $where = 'projectWeekEntryId = '.$this->projectWeekEntryId;
