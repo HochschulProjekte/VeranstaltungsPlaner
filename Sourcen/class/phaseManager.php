@@ -11,14 +11,12 @@
      */
     class PhaseManager {
 
-        // Object variable for database handling
         private $databaseHandler;
-
         private $projectWeek;
 
         /**
          * PhaseManager constructor.
-         * @param $projectWeek
+         * @param ProjectWeek $projectWeek
          */
         public function __construct($projectWeek) {
 
@@ -27,6 +25,7 @@
         }
 
         /**
+         * Phasenwechsel einleiten.
          * @param $newPhase
          * @return ChangePhaseMessage|null
          */
@@ -39,17 +38,25 @@
         }
 
         /**
+         * Phasenwechsel von der ersten zur zweiten Phase.
          * @return ChangePhaseMessage
          */
         private function changeToPhaseTwo() {
+
+            // benoetigte Veranstaltungsplaetze
             $cntUsers = $this->databaseHandler->count('User', 'name', 'personnalManager = 0');
+
+            // Alle Projektwochen-Eintraege
             $projectWeekEntries = $this->projectWeek->getProjectWeekEntries();
 
-            $cntUserSpace = 0;
-
+            // Schleife ueber jede Position der Woche
             for($position = 1; $position <= 10; $position++) {
 
+                // vorhandene Veranstaltungsplaetze
+                $cntUserSpace = 0;
+
                 foreach($projectWeekEntries as $projectWeekEntry) {
+
                     if($projectWeekEntry->getPosition() == $position
                         || ($projectWeekEntry->getPosition() < $position && ($projectWeekEntry->getPosition() + $projectWeekEntry->getEvent()->length - 1) >= $position)){
 
@@ -60,74 +67,71 @@
                     }
                 }
 
+                // Sind nicht genuegend Veranstaltungsplaetze auf einer Position vorhanden,
+                // wird eine Fehlermeldung ausgegeben und der Phasenwechsel wird abgebrochen.
                 if($cntUserSpace < $cntUsers) {
                     return new ChangePhaseMessage(false, 1, $position, ($cntUsers - $cntUserSpace));
                 }
-
-                $cntUserSpace = 0;
             }
 
-            $this->projectWeek->setPhase(2);
-            $this->projectWeek->save();
-
+            // Phasenwechsel speichern und eine Erfolgsmeldung zurueckgeben.
+            $this->savePhaseChange(2);
             return new ChangePhaseMessage(true, 2);
         }
 
         /**
+         * Phasenwechsel von der zweiten zur dritten Phase.
          * @return null
          */
         private function changeToPhaseThree() {
 
             $blockedUserCollection = new BlockedUserCollection();
 
-            // loop over every position of the projectweek
+            // Schleife ueber jede Position der Woche
             for($position = 1; $position <= 10; $position++) {
 
                 $users = $this->getAllUsers();
                 $projectWeekEntries = $this->projectWeek->getProjectWeekEntriesAtPosition($position);
 
-                // loop over every event of the projectweek-position
+                // Schleife ueber jeden Projektwochen-Eintrag der aktuellen Position
                 foreach ($projectWeekEntries as $projectWeekEntry) {
 
-                    // get all registrations of an event - sorted descending by priority
+                    // laden aller Registrierungen zu einem Projektwochen-Eintrag
+                    // - absteigend Sortiert nach der Prioritaet der Registrierung
                     $registrations = $this->getRegistrationsOfProjectWeekEntry($projectWeekEntry->getId());
 
-                    // register all participants
+                    // Genehmigung aller moeglichen Registrierungen
                     for($i = 0; $i < $projectWeekEntry->getMaxParticipants(); $i++) {
 
                         if(count($registrations) != 0) {
 
-                            // remove the registered user of the user-list
-                            $approvedUsername = $registrations[0]->getUsername();
+                            // Registrierung mit hoechster Prioritaet
+                            $firstRegistration = $registrations[0];
 
-                            foreach($users as $user) {
-                                if($user == $approvedUsername) {
-                                    $users = $this->unsetValue($users, $user);
-                                    break;
-                                }
-                            }
+                            // den registrierten Mitarbeiter aus dem Benutzer-Array entfernenen.
+                            $approvedUsername = $firstRegistration->getUsername();
+                            $users = $this->removeUserOfUserArray($users, $approvedUsername);
 
-                            // if the user is not blocked, approve the registration
+                            // Falls der Mitarbeiter nicht von einer vorherigen Veranstaltung blockiert ist,
+                            // wird ihm die Veranstaltung zugewiesen.
                             if(!$blockedUserCollection->exists($approvedUsername)) {
 
-                                // approve the registration
-                                $registrations[0]->setApproved(1);
-                                $registrations[0]->save();
+                                // Registrierung genehmigen und speichern
+                                $this->approveRegistration($firstRegistration);
 
-                                // if length of the event is longer than 1 position, then block the user for the next position
-                                $eventLength = $registrations[0]->getProjectWeekEntry()->getEvent()->length;
-
+                                // Falls die Veranstaltung laenger als ein Halbtag ist,
+                                // wird der Mitarbeiter fuer die folgenden Zuweisungen gesperrt.
+                                $eventLength = $firstRegistration->getProjectWeekEntry()->getEvent()->length;
                                 if($eventLength > 1) {
                                     $blockedUserCollection->add(new BlockedUser($approvedUsername, $eventLength));
                                 }
 
-                                // increase participants count
-                                $projectWeekEntry->setParticipants($projectWeekEntry->getParticipants() + 1);
-                                $projectWeekEntry->save();
+                                // Teilnehmer-Anzahl der Veranstaltung erhoehen.
+                                $this->increaseParticipantCount($projectWeekEntry);
                             }
 
-                            // delete the current registration
-                            $registrations = $this->unsetValue($registrations, $registrations[0]);
+                            // entfernen der behandelten Registrierung.
+                            $registrations = $this->unsetValue($registrations, $firstRegistration);
 
                         } else {
                             break;
@@ -135,34 +139,36 @@
                     }
                 }
 
-                // create and approve the registrations of the depending users
+                // Zuweisung der fehlenden Mitarbeiter zur aktuellen Position
                 if(count($users) != 0) {
 
+                    // Alle noch nicht gefuellten ProjektWochen-Eintraege zur Position laden
                     $unfilledProjectWeekEntries = $this->getUnfilledProjectWeekEntriesAtPosition($this->projectWeek, $position);
 
                     foreach($unfilledProjectWeekEntries as $unfilledProjectWeekEntry) {
+
+                        // Solange die Veranstaltung nicht vollstaendig gefuellt ist,
+                        // werden (falls vorhanden) weitere Mitarbeiter eingeschrieben.
                         for($i = $unfilledProjectWeekEntry->getParticipants(); $i < $unfilledProjectWeekEntry->getMaxParticipants(); $i++) {
 
                             if(count($users) == 0) {
                                 break;
                             }
 
-                            // if the user is not blocked, approve the registration
-                            if(!$blockedUserCollection->exists($users[0])) {
+                            $firstUser = $users[0];
 
-                                // create new user registration
-                                $eventRegistration = new EventRegistration();
-                                $eventRegistration->setUsername($users[0]);
-                                $eventRegistration->setProjectWeekEntry($unfilledProjectWeekEntry);
-                                $eventRegistration->setPriority(1);
-                                $eventRegistration->setApproved(1);
-                                $eventRegistration->setRegistrationDate(date('Y-m-d H:i:s'));
-                                $eventRegistration->save();
+                            // Falls der Mitarbeiter nicht von einer vorherigen Veranstaltung blockiert ist,
+                            // wird ihm die Veranstaltung zugewiesen.
+                            if(!$blockedUserCollection->exists($firstUser)) {
 
-                                // update current participants count
-                                $unfilledProjectWeekEntry->setParticipants($unfilledProjectWeekEntry->getParticipants() + 1);
-                                $unfilledProjectWeekEntry->save();
+                                // Anlegen einer neuen EventRegistrierung
+                                $this->createEventRegistration($firstUser, $unfilledProjectWeekEntry);
+
+                                // Teilnehmer-Anzahl der Veranstaltung erhoehen.
+                                $this->increaseParticipantCount($unfilledProjectWeekEntry);
+
                             } else {
+                                // Schleifendurchgang mit einem anderen Mitarbeiter erneut durchfuehren
                                 $i--;
                             }
 
@@ -175,14 +181,57 @@
                     }
                 }
 
-                // decrease position count of blocked users.
                 $blockedUserCollection->decreaseCount();
             }
 
-            $this->projectWeek->setPhase(3);
-            $this->projectWeek->save();
+            // Phasenwechsel speichern
+            $this->savePhaseChange(3);
 
+            // Erfolgreichen Status des Phasenwechsels zurueckgeben
             return new ChangePhaseMessage(true, 3);
+        }
+
+        /**
+         * Phasenwechsel speichern.
+         * @param int $newPhase
+         */
+        private function savePhaseChange($newPhase) {
+            $this->projectWeek->setPhase($newPhase);
+            $this->projectWeek->save();
+        }
+
+        /**
+         * Registrierung genehmigen und speichern.
+         * @param EventRegistration $registration
+         */
+        private function approveRegistration($registration) {
+            $registration->setApproved(1);
+            $registration->save();
+        }
+
+        /**
+         * Teilnehmer-Anzahl der Veranstaltung erhoehen.
+         * @param ProjectWeekEntry $projectWeekEntry
+         */
+        private function increaseParticipantCount($projectWeekEntry, $num = 1) {
+            $projectWeekEntry->setParticipants($projectWeekEntry->getParticipants() + $num);
+            $projectWeekEntry->save();
+        }
+
+        /**
+         * Entfernt einen Mitarbeiter aus einem Mitarbeiter-Array.
+         * @param array $users
+         * @param string $approvedUsername
+         * @return array
+         */
+        private function removeUserOfUserArray($users, $approvedUsername) {
+            foreach ($users as $user) {
+                if ($user == $approvedUsername) {
+                    $users = $this->unsetValue($users, $user);
+                    break;
+                }
+            }
+            return $users;
         }
 
         /**
@@ -253,6 +302,20 @@
             }
 
             return $projecWeekEntries;
+        }
+
+        /**
+         * @param $username
+         * @param $projectWeekEntry
+         */
+        private function createEventRegistration($username, $projectWeekEntry) {
+            $eventRegistration = new EventRegistration();
+            $eventRegistration->setUsername($username);
+            $eventRegistration->setProjectWeekEntry($projectWeekEntry);
+            $eventRegistration->setPriority(1);
+            $eventRegistration->setApproved(1);
+            $eventRegistration->setRegistrationDate(date('Y-m-d H:i:s'));
+            $eventRegistration->save();
         }
     }
 
