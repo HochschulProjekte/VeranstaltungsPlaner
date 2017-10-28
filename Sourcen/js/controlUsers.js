@@ -2,12 +2,14 @@
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 
-$(function() {
+// TODO: Kommentare noch auf Englisch.
+
+$(function () {
 
     initControlUsers();
     var editMode = false;
 
-    
+
     /* Base functions */
 
     // Init view at page load
@@ -17,21 +19,27 @@ $(function() {
         $('#new-message').css('display', 'none');
         $('#edit-message').css('display', 'none');
         updateTable();
-        
+
         // Init element Hooks
         initEvents();
     }
 
     // Init events
     function initEvents() {
-        $('#new-submit').click(function(){ startCreateNewUser() });
-        $('.row-user').mouseenter(function() { addEditDeleteButtons($(this).attr('id')) });
-        $('.row-user').mouseleave(function() { removeEditDeleteButtons($(this).attr('id')) });
+        $('#new-submit').click(function () {
+            startCreateNewUser()
+        });
+        $('.row-user').mouseenter(function () {
+            addEditDeleteButtons($(this).attr('id'))
+        });
+        $('.row-user').mouseleave(function () {
+            removeEditDeleteButtons($(this).attr('id'))
+        });
     }
 
     // Create a new user
     function startCreateNewUser() {
-        
+
         var ret = validateFormNew();
 
         // If an error occured, display error message
@@ -55,7 +63,7 @@ $(function() {
 
         // Ask user to validate delete
         if (confirm('Sind Sie sicher, dass Sie "' + id + '" löschen möchten?')) {
-            
+
             deleteUserFromDb(id);
 
         }
@@ -68,7 +76,7 @@ $(function() {
 
         setRowEditMode(id);
 
-        $('.fa-floppy-o').click(function(){
+        $('.fa-floppy-o').click(function () {
             ret = validateFormEdit();
 
             if (ret.err == true) {
@@ -80,12 +88,12 @@ $(function() {
 
                 var data = getDataFromEditUser(id);
 
-                saveEditUser(data); 
+                saveEditUser(data);
             }
         });
     }
 
-    
+
     /* Validation functions */
 
     function validateFormNew() {
@@ -114,7 +122,7 @@ $(function() {
             err = true;
         }
 
-        var ret = {msg:msg, err:err};
+        var ret = {msg: msg, err: err};
 
         return ret;
     }
@@ -129,23 +137,23 @@ $(function() {
             err = true;
         }
 
-        var ret = {msg:msg, err:err};
+        var ret = {msg: msg, err: err};
 
         return ret;
     }
 
     function checkFieldFilled(field) {
-        if ($(field).val().length > 0){
+        if ($(field).val().length > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    
+
     function checkPasswordEqualsPasswordConfirm() {
-        if ($('#new-password').val() == $('#new-password-confirm').val()){
+        if ($('#new-password').val() == $('#new-password-confirm').val()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -168,9 +176,9 @@ $(function() {
         password = $('#new-password').val();
 
         // Personnal Manager
-        if ($('#new-personnal-manager').is(":checked")){
+        if ($('#new-personnal-manager').is(":checked")) {
             personnalManager = true;
-        }else{
+        } else {
             personnalManager = false;
         }
 
@@ -178,7 +186,7 @@ $(function() {
         email = $('#new-email').val();
 
         // Put in array
-        var data = {name:name, password:password, personnalManager:personnalManager, email:email};
+        var data = {name: name, password: password, personnalManager: personnalManager, email: email};
 
         // Convert to JSON
         var dataJson = JSON.stringify(data);
@@ -199,9 +207,9 @@ $(function() {
         name = $('#edit-name').val();
 
         // Personnal Manager
-        if ($('#edit-personnal-manager').is(":checked")){
+        if ($('#edit-personnal-manager').is(":checked")) {
             personnalManager = true;
-        }else{
+        } else {
             personnalManager = false;
         }
 
@@ -209,7 +217,7 @@ $(function() {
         email = $('#edit-email').val();
 
         // Put in array
-        var data = {primaryKey:primaryKey, name:name, personnalManager:personnalManager, email:email};
+        var data = {primaryKey: primaryKey, name: name, personnalManager: personnalManager, email: email};
 
         // Convert to JSON
         var dataJson = JSON.stringify(data);
@@ -217,12 +225,12 @@ $(function() {
         return dataJson;
     }
 
-    
+
     /* Write-data functions */
 
     // Add user to table
     function addUserToTable(data) {
-        
+
         var user = $.parseJSON(data);
         var html = '';
 
@@ -243,7 +251,7 @@ $(function() {
             <td class="lbl-email">' + user.email + '</td> \
             </tr> \
         ';
-        
+
         $('#tbody-users').append(html);
     }
 
@@ -258,22 +266,26 @@ $(function() {
         $('#new-password').val('');
         $('#new-password-confirm').val('');
         $('#new-personnal-manager').prop('checked', false);
-        $('#new-email').val(''); 
+        $('#new-email').val('');
     }
 
     // Add buttons to edit or delete a user
     function addEditDeleteButtons(id) {
-        if (editMode == false){
+        if (editMode == false) {
             $('#' + id).children('.btn-edit').html('<i class="fa fa-pencil"></i>');
             $('#' + id).children('.btn-delete').html('<i class="fa fa-trash"></i>');
-            $('.fa-trash').click(function(){ deleteUser($(this).parent().parent().attr('id')) });
-            $('.fa-pencil').click(function(){ editUser($(this).parent().parent().attr('id')) });
-        }        
+            $('.fa-trash').click(function () {
+                deleteUser($(this).parent().parent().attr('id'))
+            });
+            $('.fa-pencil').click(function () {
+                editUser($(this).parent().parent().attr('id'))
+            });
+        }
     }
 
     // Remove buttons for editing or deleting a user
     function removeEditDeleteButtons(id) {
-        if (editMode == false){
+        if (editMode == false) {
             $('#' + id).children('.btn-edit').html('');
             $('#' + id).children('.btn-delete').html('');
         }
@@ -288,10 +300,10 @@ $(function() {
         // Switch labels to textboxes
         var name = $('#' + id).children('.lbl-name').html();
         var email = $('#' + id).children('.lbl-email').html();
-        
+
         $('#' + id).children('.lbl-name').html('<input type="text" class="form-control" name="edit-name" id="edit-name" maxlength="12" value="' + name + '">');
         $('#' + id).children('.lbl-email').html('<input type="text" class="form-control" name="edit-email" id="edit-email" maxlength="45" value="' + email + '">');
-    
+
         // Enable checkbox personnal manager
         $('#' + id).children('.chb-personnal-manager').children().children().attr('disabled', false).attr('id', 'edit-personnal-manager');
     }
@@ -304,16 +316,16 @@ $(function() {
         $.ajax({
             type: 'POST',
             url: 'administration/ajaxCreateUser.php',
-            data: {data : data},
+            data: {data: data},
             dataType: 'json',
             cache: false,
 
-            success: function(ret){
+            success: function (ret) {
                 if (ret.err == true) {
                     alert(ret.msg);
                 } else {
                     //alert('Der Nutzer wurde erfolgreich angelegt.');
-                    
+
                     // Update Table to display new user
                     updateTable();
 
@@ -321,7 +333,7 @@ $(function() {
                     clearInputs();
                 }
             },
-            error: function(){
+            error: function () {
                 alert('Beim Anlegen des Nutzers ist ein Fehler aufgetreten.');
             }
         });
@@ -336,14 +348,18 @@ $(function() {
             dataType: 'json',
             cache: false,
 
-            success: function(users){
+            success: function (users) {
 
                 // Iterate users
                 for (i in users) {
-                    
+
                     // Create user object
-                    var user = {name:users[i].name, personnalManager:users[i].personnalManager, email:users[i].email};
-                    
+                    var user = {
+                        name: users[i].name,
+                        personnalManager: users[i].personnalManager,
+                        email: users[i].email
+                    };
+
                     // Convert to JSON
                     var userJson = JSON.stringify(user);
 
@@ -351,12 +367,16 @@ $(function() {
                     addUserToTable(userJson);
 
                     // Re-init events
-                    $('.row-user').mouseenter(function() { addEditDeleteButtons($(this).attr('id')) });
-                    $('.row-user').mouseleave(function() { removeEditDeleteButtons($(this).attr('id')) });
+                    $('.row-user').mouseenter(function () {
+                        addEditDeleteButtons($(this).attr('id'))
+                    });
+                    $('.row-user').mouseleave(function () {
+                        removeEditDeleteButtons($(this).attr('id'))
+                    });
                 }
 
             },
-            error: function(){
+            error: function () {
                 alert('Nutzer konnten nicht geladen werden.');
             }
         });
@@ -367,21 +387,21 @@ $(function() {
         $.ajax({
             type: 'POST',
             url: 'administration/ajaxDeleteUser.php',
-            data: {id:id},
+            data: {id: id},
             dataType: 'json',
             cache: false,
 
-            success: function(ret){
+            success: function (ret) {
                 if (ret.err == true) {
                     alert(ret.msg);
                 } else {
                     //alert('Der Nutzer wurde erfolgreich gelöscht.');
-                    
+
                     // Update Table to display new user
                     updateTable();
                 }
             },
-            error: function(){
+            error: function () {
                 alert('Beim Löschen des Nutzers ist ein Fehler aufgetreten.');
             }
         });
@@ -392,23 +412,23 @@ $(function() {
         $.ajax({
             type: 'POST',
             url: 'administration/ajaxEditUser.php',
-            data: {data : data},
+            data: {data: data},
             dataType: 'json',
             cache: false,
 
-            success: function(ret){
+            success: function (ret) {
                 if (ret.err == true) {
                     alert(ret.msg);
                 } else {
                     //alert('Die Änderungen wurden erfolgreich gespeichert.');
-                    
+
                     // Update Table to display new user
                     updateTable();
 
                     editMode = false;
                 }
             },
-            error: function(){
+            error: function () {
                 alert('Beim Speichern des Nutzers ist ein Fehler aufgetreten.');
             }
         });

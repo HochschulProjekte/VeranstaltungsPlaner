@@ -34,6 +34,7 @@
         }
 
         /**
+         * Veranstaltung laden.
          * @param $id
          */
         function load($id) {
@@ -51,7 +52,7 @@
         }
 
         /**
-         * Save event
+         * Veranstaltung speichern.
          * @return bool
          */
         function save() {
@@ -74,7 +75,8 @@
         }
 
         /**
-         * Delete event
+         * Veranstaltung loeschen.
+         * @return bool
          */
         function delete() {
             $where = 'eventId = '.$this->id;
@@ -85,7 +87,11 @@
                 $this->length = NULL;
                 $this->maxParticipants = NULL;
                 $this->eventManager = NULL;
+
+                return true;
             }
+
+            return false;
         }
     }
 

@@ -17,38 +17,48 @@
                     <?php
 
                     if($controller->getEvent()->id != NULL) {
-                        echo '<input type="hidden" name="myevent-id" value="'.$controller->getEvent()->id.'" />';
+                        echo '<input type="hidden" name="id" value="'.$controller->getEvent()->id.'" />';
                     }
 
                     echo '
                         <div class="input-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-university"></i></div>
-                            <input type="text" class="form-control" id="myevent-name" name="myevent-name" placeholder="Name" value="'.$controller->getEvent()->name.'" required>
+                            <input type="text" class="form-control" id="myevent-name" name="name" placeholder="Name" value="'.$controller->getEvent()->name.'" required>
                         </div>
 
                         <div class="input-group secound-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-file-text-o"></i></div>
-                            <input type="text" class="form-control" id="myevent-description" name="myevent-description" placeholder="Beschreibung" value="'.$controller->getEvent()->description.'" required>
+                            <input type="text" class="form-control" id="myevent-description" name="description" placeholder="Beschreibung" value="'.$controller->getEvent()->description.'" required>
                         </div>
 
                         <div class="input-group secound-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-long-arrow-right"></i></div>
-                            <input type="text" class="form-control" id="myevent-length" name="myevent-length" placeholder="Länge" value="'.$controller->getEvent()->length.'" required>
+                            <input type="text" class="form-control" id="myevent-length" name="length" placeholder="Länge" value="'.$controller->getEvent()->length.'" required>
                         </div>
 
                         <div class="input-group secound-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-users"></i></div>
-                            <input type="text" class="form-control" id="myevent-maxParticipants" name="myevent-maxParticipants" placeholder="Max. Teilnehmer" value="'.$controller->getEvent()->maxParticipants.'" required>
+                            <input type="text" class="form-control" id="myevent-maxParticipants" name="maxParticipants" placeholder="Max. Teilnehmer" value="'.$controller->getEvent()->maxParticipants.'" required>
                         </div>
 
                         <hr>
+                        
+                        <div class="form-group" class="personnalManager-label">
+                                <label for="personnalManager">Dozent</label>
+                                <select class="form-control" id="personnalManager" name="personnalManager">
+                    ';
 
-                        <div class="input-group">
-                            <div class="input-group-addon event-input-icon"><i class="fa fa-user-md"></i></div>
-                            <input type="text" class="form-control" id="myevent-eventManager" name="myevent-eventManager" placeholder="Dozent" value="'.$controller->getEvent()->eventManager.'" required>
+                    foreach ($controller->getPersonnalManagers() as $personnalManager) {
+                        echo '<option>'.$personnalManager->getName().'</option>';
+                    }
+
+                    echo '
+                            </select>
                         </div>
-                        ';
+                    ';
+
                     ?>
+
                     <hr>
 
                     <center>
@@ -62,13 +72,13 @@
                 if($controller->getStatus() == 'SUCCESS') {
                     echo '
                             <div class="my-message alert alert-success" role="alert">
-                                Die Veranstaltung wurde erfolgreich gespeichert!
+                                '.$controller->getMessage().'
                             </div>    
                             ';
                 } else if($controller->getStatus() == 'ERROR') {
                     echo '
                             <div class="my-message alert alert-danger" role="alert">
-                                Es ist ein Fehler aufgetreten!
+                                '.$controller->getMessage().'
                             </div>
                             ';
                 }
