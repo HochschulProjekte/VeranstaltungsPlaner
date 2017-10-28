@@ -1,6 +1,6 @@
 <!-- Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
 
- <!-- Wrapper -->
+<!-- Wrapper -->
 <div class="container-fluid" id="wrapper">
 
     <div class="row">
@@ -8,7 +8,8 @@
         <!-- Tabs -->
         <ul class="nav nav-tabs" id="view-tab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="calender-tab" data-toggle="tab" href="#calender" role="tab" aria-controls="calender" aria-expanded="true">Kalender</a>
+                <a class="nav-link active" id="calender-tab" data-toggle="tab" href="#calender" role="tab"
+                   aria-controls="calender" aria-expanded="true">Kalender</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="table-tab" data-toggle="tab" href="#table" role="tab" aria-controls="table">Tabelle</a>
@@ -19,9 +20,9 @@
         <div class="period-control">
             <?php
             echo '
-                <button type="button" onclick="previousWeek('.$controller->getYear().', '.$controller->getWeek().')" class="btn btn-secondary btn-control projectweek-nav"><</button>
-                <a class="projectweek-text">'.$controller->getWeekStartDate().' - '.$controller->getWeekEndDate().'</a>
-                <button type="button" onclick="nextWeek('.$controller->getYear().', '.$controller->getWeek().')" class="btn btn-secondary btn-control projectweek-nav">></button>
+                <button type="button" onclick="previousWeek(' . $controller->getYear() . ', ' . $controller->getWeek() . ')" class="btn btn-secondary btn-control projectweek-nav"><</button>
+                <a class="projectweek-text">' . $controller->getWeekStartDate() . ' - ' . $controller->getWeekEndDate() . '</a>
+                <button type="button" onclick="nextWeek(' . $controller->getYear() . ', ' . $controller->getWeek() . ')" class="btn btn-secondary btn-control projectweek-nav">></button>
                 ';
             ?>
 
@@ -30,7 +31,7 @@
             $registrationAllowed = $controller->isRegistrationAllowed();
 
             echo '
-                    <button type="button" class="btn btn-secondary btn-control projectweek-nav" data-toggle="modal" data-target="#regrisModal"'.($registrationAllowed ? '' : ' disabled').'>
+                    <button type="button" class="btn btn-secondary btn-control projectweek-nav" data-toggle="modal" data-target="#regrisModal"' . ($registrationAllowed ? '' : ' disabled') . '>
                         Anmeldung
                     </button>
                 ';
@@ -41,7 +42,8 @@
         <form id="projectWeek" method="POST" action="#"></form>
 
         <!-- Modal event regristration-->
-        <div class="modal fade" id="regrisModal" tabindex="-1" role="dialog" aria-labelledby="regrisModalLabel" aria-hidden="true">
+        <div class="modal fade" id="regrisModal" tabindex="-1" role="dialog" aria-labelledby="regrisModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <form id="registration" method="POST" action="#">
@@ -53,45 +55,56 @@
                         </div>
                         <div class="modal-body">
 
-                            <input type="hidden" name="registration" value="X" />
+                            <input type="hidden" name="registration" value="X"/>
 
                             <div class="form-group" class="priority-label">
                                 <label for="priority">Priorität</label>
                                 <select class="form-control" id="priority" name="priority">
                                     <?php
-                                    for($i=1;$i<=10;$i++) {
-                                        echo '<option>'.$i.'</option>';
+                                    for ($i = 1; $i <= 10; $i++) {
+                                        echo '<option>' . $i . '</option>';
                                     }
                                     ?>
                                 </select>
                             </div>
 
                             <table class="table table-sm">
-                                <thead><tr>
+                                <thead>
+                                <tr>
                                     <th>#</th>
                                     <th>Von</th>
                                     <th>Bis</th>
                                     <th>Name</th>
-                                </tr></thead>
+                                </tr>
+                                </thead>
                                 <tbody>
                                 <?php
-                                $events = $controller->getWeekEntries();
+                                $events = $controller->getPossibleWeekEntriesOfUser();
 
-                                foreach($events as $event) {
+                                foreach ($events as $event) {
                                     echo '
-                        <tr>
-                            <td><input type="radio" name="projectWeekEntryId" value="'.$event->getId().'" text="" /></td>
-                            <td>'.PositionMapping::map($event->getPosition()).'</td>
-                            <td>'.PositionMapping::mapUntil($event->getPosition(), $event->getEvent()->length).'</td>
-                            <td>'.$event->getEvent()->name.'</td>
-                        </tr>
-                            
-                            ';
+                                        <tr>
+                                            <td><input type="radio" name="projectWeekEntryId" value="' . $event->getId() . '" text="" /></td>
+                                            <td>' . PositionMapping::map($event->getPosition()) . '</td>
+                                            <td>' . PositionMapping::mapUntil($event->getPosition(), $event->getEvent()->length) . '</td>
+                                            <td>' . $event->getEvent()->name . '</td>
+                                        </tr>
+                                            
+                                    ';
                                 }
+
+                                echo '
+                                
+                                        </tbody>
+                                    </table>
+                                    
+                                    <input type="hidden" name="year" value="' . $controller->getYear() . '" />
+                                    <input type="hidden" name="week" value="' . $controller->getWeek() . '" />
+                                ';
+
                                 ?>
-                                </tbody>
-                            </table>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
                             <button type="submit" class="btn btn-primary">Anmelden</button>
@@ -120,9 +133,9 @@
 
                                 $weekDays = $controller->getWeekDays();
 
-                                foreach($weekDays as $weekday) {
+                                foreach ($weekDays as $weekday) {
                                     echo '
-                                                <th style="text-align: center;border: 3px solid #EEE;">'.$weekday.'</th>
+                                                <th style="text-align: center;border: 3px solid #EEE;">' . $weekday . '</th>
                                             ';
                                 }
 
@@ -143,11 +156,11 @@
                                                 <td style="vertical-align: middle; text-align: center;border: 3px solid #EEE;">2. Halbtag<br>(12:00 Uhr - 16:00 Uhr)</td>
                                         ';
 
-                            for($i = 1; $i <= 10; $i++) {
+                            for ($i = 1; $i <= 10; $i++) {
                                 $eventRepresentation = $controller->getEventRegistrationRepresentationAtPosition($i);
 
-                                if($i % 2 == 1) {
-                                    if($eventRepresentation == NULL) {
+                                if ($i % 2 == 1) {
+                                    if ($eventRepresentation == NULL) {
                                         $htmlFirstRow .= '<td style="border: 3px solid #EEE;">
                                                         <center>
                                                             <div class="calender-event" 
@@ -158,10 +171,10 @@
                                                       </td>';
                                     } else {
 
-                                        $nextEventRepresentation = $controller->getEventRegistrationRepresentationAtPosition($i+1);
+                                        $nextEventRepresentation = $controller->getEventRegistrationRepresentationAtPosition($i + 1);
 
                                         // Darstellung ueber zwei Zeilen
-                                        if($nextEventRepresentation != NULL
+                                        if ($nextEventRepresentation != NULL
                                             && $nextEventRepresentation->getRegistrationId() == $eventRepresentation->getRegistrationId()) {
 
                                             $htmlFirstRow .= $eventRepresentation->getHTML(true);
@@ -176,7 +189,7 @@
                                     }
 
                                 } else {
-                                    if($eventRepresentation == NULL) {
+                                    if ($eventRepresentation == NULL) {
                                         $htmlSecondRow .= '<td style="border: 3px solid #EEE;">
                                                         <center>
                                                             <div class="calender-event" 
@@ -192,8 +205,8 @@
                                 }
                             }
 
-                            echo $htmlFirstRow.'</tr>';
-                            echo $htmlSecondRow.'</tr>';
+                            echo $htmlFirstRow . '</tr>';
+                            echo $htmlSecondRow . '</tr>';
                             ?>
 
                             </tbody>
@@ -230,16 +243,16 @@
 
                             $eventRegistrationColleciton = $controller->getEventRegistrationCollection();
 
-                            foreach($eventRegistrationColleciton->getEventRegistrations() as $index => $eventRegistration) {
+                            foreach ($eventRegistrationColleciton->getEventRegistrations() as $index => $eventRegistration) {
 
                                 echo '
-                                        <tr style="background-color: '.($eventRegistration->isApproved() ? "#FFF" : "#FF9494").';">
+                                        <tr style="background-color: ' . ($eventRegistration->isApproved() ? "#FFF" : "#FF9494") . ';">
                                             
-                                            <td>'.PositionMapping::map($eventRegistration->getProjectWeekEntry()->getPosition()).'</td>
-                                            <td>'.PositionMapping::mapUntil($eventRegistration->getProjectWeekEntry()->getPosition(), $eventRegistration->getProjectWeekEntry()->getEvent()->length).'</td>
-                                            <td>'.$eventRegistration->getProjectWeekEntry()->getEvent()->name.'</td>
-                                            <td>'.$eventRegistration->getProjectWeekEntry()->getEvent()->eventManager.'</td>
-                                            <td>'.$eventRegistration->getPriority().'</td>
+                                            <td>' . PositionMapping::map($eventRegistration->getProjectWeekEntry()->getPosition()) . '</td>
+                                            <td>' . PositionMapping::mapUntil($eventRegistration->getProjectWeekEntry()->getPosition(), $eventRegistration->getProjectWeekEntry()->getEvent()->length) . '</td>
+                                            <td>' . $eventRegistration->getProjectWeekEntry()->getEvent()->name . '</td>
+                                            <td>' . $eventRegistration->getProjectWeekEntry()->getEvent()->eventManager . '</td>
+                                            <td>' . $eventRegistration->getPriority() . '</td>
                                         
                                         </tr>
 
