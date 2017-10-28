@@ -15,26 +15,18 @@
 
                 if($changePhaseMessage->getStatus() == true) {
 
-                    if($changePhaseMessage->getNewPhase() == 2) {
-                        echo '
-                                    <div class="my-message alert alert-success" role="alert">
-                                        Die Anmeldung wurde erfolgreich freigeschaltet.
-                                    </div>
-                                ';
-                    } else {
-                        echo '
-                                    <div class="my-message alert alert-success" role="alert">
-                                        Die Veranstaltungen wurden erfolgreich zugewiesen.
-                                    </div>
-                                ';
-                    }
+                    echo '
+                        <div class="my-message alert alert-success" role="alert">
+                            '.$changePhaseMessage->getMessage().'
+                        </div>
+                    ';
 
                 } else if($changePhaseMessage->getStatus() == false) {
                     echo '
-                            <div class="my-message alert alert-danger" role="alert">
-                                Am '.PositionMapping::map($changePhaseMessage->getPosition()).($changePhaseMessage->getMissingUsers() == 1 ? ' fehlt ':' fehlen ').$changePhaseMessage->getMissingUsers().($changePhaseMessage->getMissingUsers() == 1 ? ' Platz':' Plätze').'.
-                            </div>
-                        ';
+                        <div class="my-message alert alert-danger" role="alert">
+                            '.$changePhaseMessage->getMessage().'
+                        </div>
+                    ';
                 }
             }
 
@@ -132,7 +124,7 @@
                                             echo '
                                                         
                                                     <tr>
-                                                        <td><input type="radio" name="eventId" value="'.$event->id.'" /></td>
+                                                        <td><input type="radio" name="eventId" value="'.$event->id.'" onclick="setMaxParticipantsTo('.$event->maxParticipants.')" /></td>
                                                         <td>'.$event->name.'</td>
                                                         <td>'.$event->length.'</td>
                                                         <td>'.$event->eventManager.'</td>

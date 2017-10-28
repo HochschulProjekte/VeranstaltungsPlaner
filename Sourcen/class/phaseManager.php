@@ -63,20 +63,24 @@ class PhaseManager {
                     $cntUserSpace += $projectWeekEntry->getMaxParticipants();
 
                 } else if ($projectWeekEntry->getPosition() < $position) {
-                    $projectWeekEntries = $this->unsetValue($projectWeekEntries, $projectWeekEntry);
+                    $projectWeekEntries = ArrayHelper::unsetValue($projectWeekEntries, $projectWeekEntry);
                 }
             }
 
             // Sind nicht genuegend Veranstaltungsplaetze auf einer Position vorhanden,
             // wird eine Fehlermeldung ausgegeben und der Phasenwechsel wird abgebrochen.
             if ($cntUserSpace < $cntUsers) {
-                return new ChangePhaseMessage(false, 1, $position, ($cntUsers - $cntUserSpace));
+
+                $missingUsers = ($cntUsers - $cntUserSpace);
+                $message = 'Am '.PositionMapping::map($position).($missingUsers == 1 ? ' fehlt ':' fehlen ').$missingUsers.($missingUsers == 1 ? ' Platz':' Plätze').'.';
+
+                return new ChangePhaseMessage(false, 1, $message, $position, $missingUsers);
             }
         }
 
         // Phasenwechsel speichern und eine Erfolgsmeldung zurueckgeben.
         $this->savePhaseChange(2);
-        return new ChangePhaseMessage(true, 2);
+        return new ChangePhaseMessage(true, 2, 'Die Anmeldung wurde erfolgreich freigeschaltet.');
     }
 
     /**
@@ -126,7 +130,7 @@ class PhaseManager {
                         }
 
                         // entfernen der behandelten Registrierungen.
-                        $registrations = $this->unsetValue($registrations, $firstRegistration);
+                        $registrations = ArrayHelper::unsetValue($registrations, $firstRegistration);
 
                     } else {
                         break;
@@ -162,7 +166,7 @@ class PhaseManager {
                             $i--;
                         }
 
-                        $users = $this->unsetValue($users, $users[0]);
+                        $users = ArrayHelper::unsetValue($users, $users[0]);
                     }
 
                     if (count($users) == 0) {
@@ -176,7 +180,7 @@ class PhaseManager {
 
         // Phasenwechsel speichern und Status zurueckgeben
         $this->savePhaseChange(3);
-        return new ChangePhaseMessage(true, 3);
+        return new ChangePhaseMessage(true, 3, 'Die Veranstaltungen wurden erfolgreich zugewiesen.');
     }
 
     /**

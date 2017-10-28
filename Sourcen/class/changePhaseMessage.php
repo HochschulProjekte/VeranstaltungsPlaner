@@ -1,57 +1,70 @@
 <?php
 
+/**
+ * Class ChangePhaseMessage
+ * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+ */
+class ChangePhaseMessage {
+
+    private $status;
+    private $newPhase;
+    private $message;
+    private $position;
+    private $missingUsers;
+
     /**
-     * Class ChangePhaseMessage
-     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+     * ChangePhaseMessage constructor.
+     * @param boolean $status
+     * @param int $newPhase
+     * @param int $position
+     * @param int $missingUsers
      */
-    class ChangePhaseMessage {
-
-        private $status;
-        private $newPhase;
-        private $position;
-        private $missingUsers;
-
-        /**
-         * ChangePhaseMessage constructor.
-         * @param boolean $status
-         * @param int $newPhase
-         * @param int $position
-         * @param int $missingUsers
-         */
-        public function __construct($status, $newPhase, $position = 0, $missingUsers = 0){
-            $this->status = $status;
-            $this->newPhase = $newPhase;
-            $this->position = $position;
-            $this->missingUsers = $missingUsers;
-        }
-
-        /**
-         * @return boolean status
-         */
-        public function getStatus() {
-            return $this->status;
-        }
-
-        /**
-         * @return int new phase
-         */
-        public function getNewPhase() {
-            return $this->newPhase;
-        }
-
-        /**
-         * @return int position
-         */
-        public function getPosition() {
-            return $this->position;
-        }
-
-        /**
-         * @return int missing user count
-         */
-        public function getMissingUsers() {
-            return $this->missingUsers;
-        }
+    public function __construct($status, $newPhase, $message, $position = 0, $missingUsers = 0) {
+        $this->status = $status;
+        $this->newPhase = $newPhase;
+        $this->message = $message;
+        $this->position = $position;
+        $this->missingUsers = $missingUsers;
     }
+
+    /**
+     * @return boolean status
+     */
+    public function getStatus() {
+        return $this->status;
+    }
+
+    /**
+     * Liefert die neue Phase.
+     * @return int
+     */
+    public function getNewPhase() {
+        return $this->newPhase;
+    }
+
+    /**
+     * Liefert eine Nachricht des Phasenwechsels.
+     * @return string
+     */
+    public function getMessage() {
+        return $this->message;
+    }
+
+    /**
+     * Liefert die Position auf Plaetze fuer Veranstaltung fehlen.
+     * @return int
+     */
+    public function getPosition() {
+        return $this->position;
+    }
+
+    /**
+     * Liefert die Anzahl der fehlenden Plaetze.
+     * @return int
+     */
+    public function getMissingUsers() {
+        return $this->missingUsers;
+    }
+}
 
 ?>

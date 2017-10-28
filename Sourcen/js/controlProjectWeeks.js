@@ -30,3 +30,7 @@ function deleteEvent(id) {
     $('#delete').append('<input type="hidden" name="delete" value="X" />');
     $("#delete").submit();
 }
+
+function setMaxParticipantsTo(value) {
+    $('#myprojectweek-participants').val(value);
+}
