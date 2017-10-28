@@ -152,19 +152,34 @@
             SET SQL_MODE=@OLD_SQL_MODE;
             SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
             SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-            
-            INSERT INTO `User` (`name`, `password`, `personnalManager`, `email`) VALUES ('admin', 'admin', '1', 'admin'), ('user', 'user', '0', 'user123'), ('prof', 'prof', '1', 'prof');
-
-            INSERT INTO `Event` (`eventId`, `name`, `description`, `length`, `maxParticipants`, `eventManager`) VALUES ('1', 'Mathematik', 'Mathematik is suppa', '2', '20', 'prof'), ('2', 'Deutsch', 'Deutsch ist auch suppa', '4', '25', 'prof');
-            INSERT INTO `Event` (`eventId`, `name`, `description`, `length`, `maxParticipants`, `eventManager`) VALUES ('3', 'Sport', 'is Mord', '1', '15', 'prof'), ('4', 'Informatik', 'Natürlich nur Excel', '1', '25', 'prof');
-            INSERT INTO `Event` (`eventId`, `name`, `description`, `length`, `maxParticipants`, `eventManager`) VALUES ('5', 'Freizeit', 'macht noch mehr Spaß', '1', '15', 'prof'), ('6', 'Biologie', 'doof..', '1', '15', 'prof');
-        
         ");
 
         // Datenbank Statement ausführen
         if(!$statement->execute()) {
             echo "Query fehlgeschlagen: ".$statement->error;
         } else {
+
+            $statement = $pdo->prepare("
+                INSERT INTO `User` (`name`, `password`, `personnalManager`, `email`) VALUES
+                    ('admin', 'admin', 1, ''),
+                    ('Dozent 1', 'admin', 1, ''),
+                    ('Dozent 2', 'admin', 1, ''),
+                    ('Dozent 3', 'admin', 1, ''),
+                    ('Mitarbeiter1', 'user', 0, ''),
+                    ('Mitarbeiter2', 'user', 0, ''),
+                    ('Mitarbeiter3', 'user', 0, ''),
+                    ('Mitarbeiter4', 'user', 0, ''),
+                    ('Mitarbeiter5', 'user', 0, '');
+                   
+                INSERT INTO `Event` (`eventId`, `name`, `description`, `length`, `maxParticipants`, `eventManager`) VALUES
+                    (1, 'Excel Seminar', 'Lernen Sie MS Excel besser kennen', 4, 4, 'Dozent 1'),
+                    (2, 'Word Seminar', 'Lernen Sie MS Word besser kennen', 2, 10, 'Dozent 2'),
+                    (8, 'Outlook Seminar', 'Lernen Sie MS Outlook besser kennen', 4, 6, 'Dozent 2'),
+                    (9, 'IE Seminar', 'Braucht sowieso niemand', 1, 10, 'Dozent 3'),
+                    (10, 'Editor Seminar', 'Lernen Sie den Editor besser kennen', 1, 10, 'Dozent 3');
+            ");
+
+            $statement->execute();
 
             // Erstellung der DB-Informations-Dateis
             $fhandler = fopen('./database/credentials.php', 'w');
