@@ -1,5 +1,8 @@
 <?php
-//error_reporting(E_ALL);
+
+/**
+ * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+ */
 
 include_once __DIR__.'/../class/loginHandler.php';
 include_once __DIR__.'/../class/user.php';

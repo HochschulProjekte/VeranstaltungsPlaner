@@ -1,3 +1,6 @@
+/**
+ * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+ */
 
 $('[data-toggle="tooltip"]').tooltip({
     container: 'body'

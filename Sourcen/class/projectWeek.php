@@ -7,6 +7,7 @@ include_once __DIR__.'/../class/projectWeekEntry.php';
 
 /**
  * Class ProjectWeek
+ * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class ProjectWeek {
 

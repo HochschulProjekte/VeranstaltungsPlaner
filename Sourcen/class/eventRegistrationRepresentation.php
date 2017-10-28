@@ -4,6 +4,7 @@
 
     /**
      * Class EventRegistrationRepresentation
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class EventRegistrationRepresentation {
 

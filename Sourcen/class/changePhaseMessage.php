@@ -2,6 +2,7 @@
 
     /**
      * Class ChangePhaseMessage
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class ChangePhaseMessage {
 

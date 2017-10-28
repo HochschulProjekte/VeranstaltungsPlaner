@@ -4,6 +4,7 @@
 
     /**
      * Class BlockedUserCollection
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class BlockedUserCollection {
 
@@ -17,6 +18,7 @@
         }
 
         /**
+         * Einen Mitarbeiter hinzufuegen.
          * @param $blockedUser
          */
         public function add($blockedUser) {
@@ -24,8 +26,9 @@
         }
 
         /**
-         * @param $username
-         * @return bool
+         * Ist ein Mitarbeiter blockiert?
+         * @param string $username Mitarbeiter-Name
+         * @return bool ja oder nein
          */
         public function exists($username) {
             foreach($this->blockedUsers as $blockedUser) {
@@ -38,7 +41,7 @@
         }
 
         /**
-         *
+         * Anzahl der gesperrten Positionen um eine Position verringern.
          */
         public function decreaseCount() {
             foreach($this->blockedUsers as $blockedUser) {
@@ -51,8 +54,9 @@
         }
 
         /**
+         * Eintrag aus Array loeschen.
          * @param array $array
-         * @param $value
+         * @param object $value
          * @param bool $strict
          * @return array
          */

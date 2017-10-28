@@ -4,6 +4,7 @@
 
     /**
      * Class User
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class User {
 

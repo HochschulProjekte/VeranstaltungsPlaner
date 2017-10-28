@@ -2,6 +2,10 @@
 
 include __DIR__.'/../class/user.php';
 
+/**
+ * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+ */
+
 $databaseHandler = new PDOHandler();
 $dbUsers = $databaseHandler->select('User', NULL);
 

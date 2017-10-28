@@ -2,6 +2,7 @@
 
     /**
      * Class PositionMapping
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class PositionMapping {
 

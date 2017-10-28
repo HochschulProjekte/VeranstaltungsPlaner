@@ -8,6 +8,7 @@
 
     /**
      * Class ProjectWeeksController
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class ProjectWeeksController implements Controller {
 

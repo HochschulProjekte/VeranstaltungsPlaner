@@ -5,6 +5,7 @@
 
     /**
      * Class PDOHandler
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class PDOHandler implements DatabaseHandler {
 

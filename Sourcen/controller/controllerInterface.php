@@ -1,5 +1,9 @@
 <?php
 
+    /**
+     * Interface Controller
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+     */
     interface Controller {
         /**
          * Gibt den Dateinamen der Template-Datei zurueck.

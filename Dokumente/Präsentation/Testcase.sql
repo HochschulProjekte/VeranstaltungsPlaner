@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 -- Tabellenstruktur für Tabelle `event`
 --
 
-CREATE TABLE IF NOT EXISTS `event` (
+CREATE TABLE IF NOT EXISTS `Event` (
   `eventId` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `description` longtext,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `event` (
 -- Daten für Tabelle `event`
 --
 
-INSERT INTO `event` (`eventId`, `name`, `description`, `length`, `maxParticipants`, `eventManager`) VALUES
+INSERT INTO `Event` (`eventId`, `name`, `description`, `length`, `maxParticipants`, `eventManager`) VALUES
 (1, 'Excel Seminar', 'Lernen Sie MS Excel besser kennen', 4, 4, 'Dozent 1'),
 (2, 'Word Seminar', 'Lernen Sie MS Word besser kennen', 2, 10, 'Dozent 2'),
 (8, 'Outlook Seminar', 'Lernen Sie MS Outlook besser kennen', 4, 6, 'Dozent 2'),
@@ -57,7 +57,7 @@ INSERT INTO `event` (`eventId`, `name`, `description`, `length`, `maxParticipant
 -- Tabellenstruktur für Tabelle `eventregistration`
 --
 
-CREATE TABLE IF NOT EXISTS `eventregistration` (
+CREATE TABLE IF NOT EXISTS `EventRegistration` (
   `eventRegistrationId` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(12) NOT NULL,
   `projectWeekEntryId` int(11) NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `eventregistration` (
 -- Tabellenstruktur für Tabelle `projectweek`
 --
 
-CREATE TABLE IF NOT EXISTS `projectweek` (
+CREATE TABLE IF NOT EXISTS `ProjectWeek` (
   `year` int(11) NOT NULL,
   `week` int(11) NOT NULL,
   `from` datetime DEFAULT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `projectweek` (
 -- Daten für Tabelle `projectweek`
 --
 
-INSERT INTO `projectweek` (`year`, `week`, `from`, `until`, `phase`) VALUES
+INSERT INTO `ProjectWeek` (`year`, `week`, `from`, `until`, `phase`) VALUES
 (2017, 43, '2017-10-23 00:00:00', '2017-10-27 00:00:00', 1),
 (2017, 44, '2017-10-30 00:00:00', '2017-11-03 00:00:00', 2),
 (2017, 45, '2017-11-06 00:00:00', '2017-11-10 00:00:00', 1);
@@ -102,7 +102,7 @@ INSERT INTO `projectweek` (`year`, `week`, `from`, `until`, `phase`) VALUES
 -- Tabellenstruktur für Tabelle `projectweekentry`
 --
 
-CREATE TABLE IF NOT EXISTS `projectweekentry` (
+CREATE TABLE IF NOT EXISTS `ProjectWeekEntry` (
   `projectWeekEntryId` int(11) NOT NULL AUTO_INCREMENT,
   `eventId` int(11) NOT NULL,
   `year` int(11) NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `projectweekentry` (
 -- Daten für Tabelle `projectweekentry`
 --
 
-INSERT INTO `projectweekentry` (`projectWeekEntryId`, `eventId`, `year`, `week`, `position`, `participants`, `maxParticipants`) VALUES
+INSERT INTO `ProjectWeekEntry` (`projectWeekEntryId`, `eventId`, `year`, `week`, `position`, `participants`, `maxParticipants`) VALUES
 (1, 1, 2017, 44, 1, 0, 4),
 (2, 8, 2017, 44, 1, 0, 6),
 (3, 2, 2017, 44, 5, 0, 10),
@@ -137,7 +137,7 @@ INSERT INTO `projectweekentry` (`projectWeekEntryId`, `eventId`, `year`, `week`,
 -- Tabellenstruktur für Tabelle `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE IF NOT EXISTS `User` (
   `name` varchar(12) NOT NULL,
   `password` varchar(45) DEFAULT NULL,
   `personnalManager` tinyint(4) DEFAULT NULL,
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Daten für Tabelle `user`
 --
 
-INSERT INTO `user` (`name`, `password`, `personnalManager`, `email`) VALUES
+INSERT INTO `User` (`name`, `password`, `personnalManager`, `email`) VALUES
 ('admin', 'admin', 1, ''),
 ('Dozent 1', 'admin', 1, ''),
 ('Dozent 2', 'admin', 1, ''),
@@ -167,13 +167,13 @@ INSERT INTO `user` (`name`, `password`, `personnalManager`, `email`) VALUES
 --
 -- Constraints der Tabelle `event`
 --
-ALTER TABLE `event`
+ALTER TABLE `Event`
   ADD CONSTRAINT `fk_Event_User1` FOREIGN KEY (`eventManager`) REFERENCES `user` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints der Tabelle `eventregistration`
 --
-ALTER TABLE `eventregistration`
+ALTER TABLE `EventRegistration`
   ADD CONSTRAINT `fk_BenutzerProVeranstaltung_Benutzer1` FOREIGN KEY (`username`) REFERENCES `user` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_EventRegistration_ProjectWeek1` FOREIGN KEY (`year`,`week`) REFERENCES `projectweek` (`year`, `week`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_UserPerEvent_ProjectWeekEntry1` FOREIGN KEY (`projectWeekEntryId`) REFERENCES `projectweekentry` (`projectWeekEntryId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -181,7 +181,7 @@ ALTER TABLE `eventregistration`
 --
 -- Constraints der Tabelle `projectweekentry`
 --
-ALTER TABLE `projectweekentry`
+ALTER TABLE `ProjectWeekEntry`
   ADD CONSTRAINT `fk_ProjectWeekEntry_Event1` FOREIGN KEY (`eventId`) REFERENCES `event` (`eventId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_ProjectWeekEntry_ProjectWeek1` FOREIGN KEY (`year`,`week`) REFERENCES `projectweek` (`year`, `week`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 SET FOREIGN_KEY_CHECKS=1;

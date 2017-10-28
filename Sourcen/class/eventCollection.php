@@ -5,6 +5,7 @@
 
     /**
      * Class EventCollection
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class EventCollection {
 

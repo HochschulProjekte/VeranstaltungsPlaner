@@ -3,6 +3,7 @@
 
     /**
      * Class Event
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class Event {
 

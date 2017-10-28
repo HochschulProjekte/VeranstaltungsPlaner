@@ -1,5 +1,9 @@
 <?php
 
+    /**
+     * Interface DatabaseHandler
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+     */
     interface DatabaseHandler {
 
         function select($table, $where, $orderby = NULL);

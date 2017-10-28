@@ -4,6 +4,7 @@
 
     /**
      * Class ControlPageController
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class ControlPageController implements Controller {
 

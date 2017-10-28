@@ -1,4 +1,6 @@
 <?php
+    // Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+
     // Authenticate user
     include_once './administration/authenticateUser.php';
     include_once './controller/eventsController.php';

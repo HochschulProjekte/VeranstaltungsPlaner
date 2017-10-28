@@ -7,6 +7,7 @@
 
     /**
      * Class EventsController
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class EventsController implements Controller {
 

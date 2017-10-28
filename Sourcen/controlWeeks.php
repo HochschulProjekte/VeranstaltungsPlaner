@@ -1,4 +1,5 @@
 <?php
+    // Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
 
     // includes
     include_once './administration/authenticateUser.php';

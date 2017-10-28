@@ -2,6 +2,7 @@
 
     /**
      * Class ColumnItem
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class ColumnItem {
         public $name;

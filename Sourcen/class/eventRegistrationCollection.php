@@ -7,6 +7,7 @@ include_once __DIR__.'/../class/eventRegistrationRepresentation.php';
 
     /**
      * Class EventRegistrationCollection
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class EventRegistrationCollection {
 

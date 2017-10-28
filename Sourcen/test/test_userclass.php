@@ -1,3 +1,5 @@
+<!-- Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
+
 <?php
 
 include $_SERVER['DOCUMENT_ROOT'].'/programmierprojekt/class/user.php';

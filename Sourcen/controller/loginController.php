@@ -5,6 +5,7 @@
 
     /**
      * Class LoginController
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class LoginController implements Controller {
 

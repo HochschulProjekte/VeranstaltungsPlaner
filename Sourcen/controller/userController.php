@@ -4,6 +4,7 @@
 
     /**
      * Class UserController
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class UserController implements Controller {
 

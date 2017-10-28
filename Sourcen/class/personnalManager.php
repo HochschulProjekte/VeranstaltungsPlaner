@@ -4,6 +4,7 @@
 
     /**
      * Class PersonnalManager
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class PersonnalManager {
 
@@ -21,7 +22,7 @@
         }
 
         /**
-         * Create an event
+         * Erstellen eines neuen Veranstaltung
          * @param $name
          * @param $description
          * @param $length

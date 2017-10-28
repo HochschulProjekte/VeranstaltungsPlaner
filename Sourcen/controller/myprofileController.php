@@ -3,8 +3,11 @@
     include_once __DIR__.'/../class/user.php';
     include_once __DIR__.'/../controller/controllerInterface.php';
 
+    // TODO: Kommentare noch auf Englisch.
+
     /**
      * Class MyProfileController
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class MyProfileController implements Controller {
 

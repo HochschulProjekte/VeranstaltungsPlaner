@@ -11,6 +11,7 @@
 
     /**
      * Class MyEventsController
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class MyEventsController implements Controller {
         

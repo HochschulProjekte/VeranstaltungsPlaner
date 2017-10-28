@@ -1,3 +1,7 @@
+/**
+ * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+ */
+
 $(function() {
 
     initControlUsers();

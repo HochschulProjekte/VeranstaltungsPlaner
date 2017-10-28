@@ -2,6 +2,7 @@
 
     /**
      * Class Import
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class Import {
 

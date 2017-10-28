@@ -1,4 +1,5 @@
 <?php
+    // Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
 
     // Datenbank eingaben einlesen
     $host = $_POST['install-hostname'];

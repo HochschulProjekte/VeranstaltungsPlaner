@@ -4,6 +4,7 @@
 
     /**
      * Class ProjectWeekEntry
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class ProjectWeekEntry {
 

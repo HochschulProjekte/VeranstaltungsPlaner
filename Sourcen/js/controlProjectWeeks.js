@@ -1,3 +1,7 @@
+/**
+ * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+ */
+
 function previousWeek(currentYear, currentWeek) {
 
     if(currentWeek == 1) {

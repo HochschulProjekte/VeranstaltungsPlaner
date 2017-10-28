@@ -5,6 +5,7 @@ include_once __DIR__.'/../class/event.php';
 
     /**
      * Class ImportEvents
+     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
      */
     class ImportEvents extends Import {
 

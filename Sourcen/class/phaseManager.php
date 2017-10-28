@@ -44,21 +44,20 @@
         private function changeToPhaseTwo() {
 
             // benoetigte Veranstaltungsplaetze
-            $cntUsers = $this->databaseHandler->count('User', 'name', 'personnalManager = 0');
+            $cntUsers = $this->getUserCount();
 
             // Alle Projektwochen-Eintraege
             $projectWeekEntries = $this->projectWeek->getProjectWeekEntries();
 
-            // Schleife ueber jede Position der Woche
             for($position = 1; $position <= 10; $position++) {
 
-                // vorhandene Veranstaltungsplaetze
                 $cntUserSpace = 0;
 
                 foreach($projectWeekEntries as $projectWeekEntry) {
 
                     if($projectWeekEntry->getPosition() == $position
-                        || ($projectWeekEntry->getPosition() < $position && ($projectWeekEntry->getPosition() + $projectWeekEntry->getEvent()->length - 1) >= $position)){
+                        || ($projectWeekEntry->getPosition() < $position
+                            && ($projectWeekEntry->getPosition() + $projectWeekEntry->getEvent()->length - 1) >= $position)){
 
                         $cntUserSpace += $projectWeekEntry->getMaxParticipants();
 
@@ -81,19 +80,17 @@
 
         /**
          * Phasenwechsel von der zweiten zur dritten Phase.
-         * @return null
+         * @return ChangePhaseMessage
          */
         private function changeToPhaseThree() {
 
             $blockedUserCollection = new BlockedUserCollection();
 
-            // Schleife ueber jede Position der Woche
             for($position = 1; $position <= 10; $position++) {
 
                 $users = $this->getAllUsers();
                 $projectWeekEntries = $this->projectWeek->getProjectWeekEntriesAtPosition($position);
 
-                // Schleife ueber jeden Projektwochen-Eintrag der aktuellen Position
                 foreach ($projectWeekEntries as $projectWeekEntry) {
 
                     // laden aller Registrierungen zu einem Projektwochen-Eintrag
@@ -112,11 +109,9 @@
                             $approvedUsername = $firstRegistration->getUsername();
                             $users = $this->removeUserOfUserArray($users, $approvedUsername);
 
-                            // Falls der Mitarbeiter nicht von einer vorherigen Veranstaltung blockiert ist,
-                            // wird ihm die Veranstaltung zugewiesen.
+                            // Mitarbeiter nicht blockiert, Registrierung wird bestaetigt.
                             if(!$blockedUserCollection->exists($approvedUsername)) {
 
-                                // Registrierung genehmigen und speichern
                                 $this->approveRegistration($firstRegistration);
 
                                 // Falls die Veranstaltung laenger als ein Halbtag ist,
@@ -126,11 +121,10 @@
                                     $blockedUserCollection->add(new BlockedUser($approvedUsername, $eventLength));
                                 }
 
-                                // Teilnehmer-Anzahl der Veranstaltung erhoehen.
                                 $this->increaseParticipantCount($projectWeekEntry);
                             }
 
-                            // entfernen der behandelten Registrierung.
+                            // entfernen der behandelten Registrierungen.
                             $registrations = $this->unsetValue($registrations, $firstRegistration);
 
                         } else {
@@ -142,7 +136,6 @@
                 // Zuweisung der fehlenden Mitarbeiter zur aktuellen Position
                 if(count($users) != 0) {
 
-                    // Alle noch nicht gefuellten ProjektWochen-Eintraege zur Position laden
                     $unfilledProjectWeekEntries = $this->getUnfilledProjectWeekEntriesAtPosition($this->projectWeek, $position);
 
                     foreach($unfilledProjectWeekEntries as $unfilledProjectWeekEntry) {
@@ -157,14 +150,10 @@
 
                             $firstUser = $users[0];
 
-                            // Falls der Mitarbeiter nicht von einer vorherigen Veranstaltung blockiert ist,
-                            // wird ihm die Veranstaltung zugewiesen.
+                            // Mitarbeiter nicht blockiert, Registrierung wird bestaetigt.
                             if(!$blockedUserCollection->exists($firstUser)) {
 
-                                // Anlegen einer neuen EventRegistrierung
                                 $this->createEventRegistration($firstUser, $unfilledProjectWeekEntry);
-
-                                // Teilnehmer-Anzahl der Veranstaltung erhoehen.
                                 $this->increaseParticipantCount($unfilledProjectWeekEntry);
 
                             } else {
@@ -184,10 +173,8 @@
                 $blockedUserCollection->decreaseCount();
             }
 
-            // Phasenwechsel speichern
+            // Phasenwechsel speichern und Status zurueckgeben
             $this->savePhaseChange(3);
-
-            // Erfolgreichen Status des Phasenwechsels zurueckgeben
             return new ChangePhaseMessage(true, 3);
         }
 
@@ -252,6 +239,14 @@
             }
 
             return $newArray;
+        }
+
+        /**
+         * Liefert die Anzahl der vorhandenen Mitarbeiter
+         * @return int
+         */
+        private function getUserCount() {
+            return $this->databaseHandler->count('User', 'name', 'personnalManager = 0');
         }
 
         /**

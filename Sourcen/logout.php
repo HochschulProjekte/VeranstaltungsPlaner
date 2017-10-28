@@ -1,4 +1,5 @@
 <?php
+    // Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
 
     include_once './class/loginHandler.php';
 
