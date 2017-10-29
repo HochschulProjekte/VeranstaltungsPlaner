@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/../database/databaseHandler.php';
+include_once __DIR__ . '/../database/pdoDatabaseController.php';
 
 // TODO: Sprache Englisch
 
@@ -29,7 +29,7 @@ class User {
      */
     function __construct($name = NULL) {
 
-        $this->databaseHandler = new PDOHandler();
+        $this->databaseHandler = new PDODatabaseController();
 
         if ($name != NULL) {
             $this->load($name);
@@ -55,6 +55,27 @@ class User {
 
     }
 
+    private function setPrimaryKey($primaryKey) {
+        $this->primaryKey = $primaryKey;
+    }
+
+    public function setPersonnalManager($personnalManager) {
+        $this->personnalManager = $personnalManager;
+    }
+
+    /**
+     * Format personnal manager for object
+     * @param $personnalManager
+     * @return bool
+     */
+    private function convertPersonnalManagerForObject($personnalManager) {
+        if ($personnalManager == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Function for creating a new user in the database
      * @return bool
@@ -74,6 +95,47 @@ class User {
         } else {
             return false;
         }
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    /**
+     * Format personnal manager for database
+     * @param $personnalManager
+     * @return int
+     */
+    private function convertPersonnalManagerForDatabase($personnalManager) {
+        if ($personnalManager == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public function isPersonnalManager() {
+        return $this->personnalManager;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
     }
 
     /**
@@ -97,6 +159,10 @@ class User {
         }
     }
 
+    private function getPrimaryKey() {
+        return $this->primaryKey;
+    }
+
     /**
      * Function for deleting a user in the database
      * @return bool
@@ -104,72 +170,6 @@ class User {
     public function delete() {
 
         return $this->databaseHandler->delete(self::TABLE, 'name = "' . $this->getPrimaryKey() . '"');
-    }
-
-    /**
-     * Format personnal manager for object
-     * @param $personnalManager
-     * @return bool
-     */
-    private function convertPersonnalManagerForObject($personnalManager) {
-        if ($personnalManager == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Format personnal manager for database
-     * @param $personnalManager
-     * @return int
-     */
-    private function convertPersonnalManagerForDatabase($personnalManager) {
-        if ($personnalManager == true) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    private function getPrimaryKey() {
-        return $this->primaryKey;
-    }
-
-    public function getName() {
-        return $this->name;
-    }
-
-    public function getPassword() {
-        return $this->password;
-    }
-
-    public function isPersonnalManager() {
-        return $this->personnalManager;
-    }
-
-    public function getEmail() {
-        return $this->email;
-    }
-
-    private function setPrimaryKey($primaryKey) {
-        $this->primaryKey = $primaryKey;
-    }
-
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    public function setPassword($password) {
-        $this->password = $password;
-    }
-
-    public function setPersonnalManager($personnalManager) {
-        $this->personnalManager = $personnalManager;
-    }
-
-    public function setEmail($email) {
-        $this->email = $email;
     }
 }
 

@@ -1,9 +1,9 @@
-<!-- Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
+<!-- Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
 
 <?php
-    include $_SERVER['DOCUMENT_ROOT']."/vstp/database/databaseHandler.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/vstp/database/pdoDatabaseController.php";
 
-    $db = new PDOHandler();
+$db = new PDOHandlerI();
 
 /*     
     // Insert
@@ -30,6 +30,6 @@
     // Delete
     $db->delete('Benutzer', 'name = "test5"');
  */
-    var_dump($db->select('Benutzer', null));
+var_dump($db->select('Benutzer', null));
 
 ?>

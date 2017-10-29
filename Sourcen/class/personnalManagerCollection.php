@@ -1,7 +1,7 @@
 <?php
 
-include_once __DIR__ . '/../database/databaseHandler.php';
 include_once __DIR__ . '/../class/personnalManager.php';
+include_once __DIR__ . '/../database/pdoDatabaseController.php';
 
 /**
  * Class PersonnalManagerCollection
@@ -18,7 +18,7 @@ class PersonnalManagerCollection {
      * PersonnalManagerCollection constructor.
      */
     public function __construct() {
-        $this->databaseHandler = new PDOHandler();
+        $this->databaseHandler = new PDODatabaseController();
         $this->loadAllPersonnalManagers();
     }
 

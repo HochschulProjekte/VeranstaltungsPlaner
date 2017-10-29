@@ -1,20 +1,20 @@
 <?php
 
-include __DIR__.'/../class/user.php';
-
 /**
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 
+include __DIR__ . '/../class/user.php';
+
 if ($_POST['id']) {
 
-    // Get name
+    // Namen des Nutzers auslesen.
     $name = $_POST['id'];
 
-    // Create user object and load user
+    // Benutzer-Objekt erstellen.
     $user = new User($name);
 
-    // Delete user
+    // Benutzer loeschen.
     if ($user->delete() == true) {
         echo json_encode(
             array(
@@ -33,7 +33,7 @@ if ($_POST['id']) {
 
 } else {
 
-    // No data was given
+    // Kein Benutzername wurde uebergeben.
     echo json_encode(
         array(
             'err' => true,

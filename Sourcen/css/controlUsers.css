@@ -1,5 +1,5 @@
 /*
-    Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+    Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 
 #wrapper > .users {
@@ -9,6 +9,7 @@
 table thead tr {
     background-color: #EEE;
 }
+
 table tbody tr {
     background-color: #FFF;
 }

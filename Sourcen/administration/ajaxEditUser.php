@@ -1,25 +1,25 @@
 <?php
 
-include __DIR__.'/../class/user.php';
-
 /**
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 
+include __DIR__ . '/../class/user.php';
+
 if ($_POST['data']) {
 
-    // Decode data into array
+    // JSON in ein assoziatives Array umwandeln.
     $data = json_decode(stripslashes($_POST['data']), true);
 
-    // Create user object and load data
+    // Benutzer-Objekt erstellen.
     $user = new User($data['primaryKey']);
-    
-    // Set user data
+
+    // Benutzername setzen.
     $user->setName($data['name']);
     $user->setPersonnalManager($data['personnalManager']);
     $user->setEmail($data['email']);
 
-    // Update user
+    // User-Objekt updaten.
     if ($user->update() == true) {
         echo json_encode(
             array(
@@ -38,7 +38,7 @@ if ($_POST['data']) {
 
 } else {
 
-    // No data was given
+    // Es wurden keine Daten uebergeben.
     echo json_encode(
         array(
             "err" => true,

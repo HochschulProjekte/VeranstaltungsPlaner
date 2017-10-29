@@ -1,11 +1,12 @@
 /*
-    Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+    Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 
 body {
     background-color: #427BE3;
     height: 100%;
 }
+
 #install-card {
     width: 100%;
     padding: 20px;
@@ -14,6 +15,7 @@ body {
     text-align: center;
     border-radius: 10px;
 }
+
 #install-card > h1 {
     text-align: center;
     text-transform: uppercase;
@@ -28,6 +30,7 @@ body {
 #install-card > #install-form > .input-group {
     margin-bottom: 20px;
 }
+
 #install-card > #install-form > .input-group > .input-group-addon {
     width: 40px;
 }

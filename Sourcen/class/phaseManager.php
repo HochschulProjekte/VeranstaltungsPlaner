@@ -1,14 +1,15 @@
 <?php
 
 include_once __DIR__ . '/../class/arrayHelper.php';
+include_once __DIR__ . '/../class/blockedUserCollection.php';
+include_once __DIR__ . '/../class/changePhaseMessage.php';
+include_once __DIR__ . '/../class/eventRegistration.php';
 include_once __DIR__ . '/../class/projectWeek.php';
 include_once __DIR__ . '/../class/projectWeekEntry.php';
-include_once __DIR__ . '/../class/eventRegistration.php';
-include_once __DIR__ . '/../class/changePhaseMessage.php';
-include_once __DIR__ . '/../class/blockedUserCollection.php';
 
 /**
  * Class PhaseManager
+ * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class PhaseManager {
 
@@ -21,7 +22,7 @@ class PhaseManager {
      */
     public function __construct($projectWeek) {
 
-        $this->databaseHandler = new PDOHandler();
+        $this->databaseHandler = new PDODatabaseController();
         $this->projectWeek = $projectWeek;
     }
 
@@ -72,7 +73,7 @@ class PhaseManager {
             if ($cntUserSpace < $cntUsers) {
 
                 $missingUsers = ($cntUsers - $cntUserSpace);
-                $message = 'Am '.PositionMapping::map($position).($missingUsers == 1 ? ' fehlt ':' fehlen ').$missingUsers.($missingUsers == 1 ? ' Platz':' Plätze').'.';
+                $message = 'Am ' . PositionMapping::map($position) . ($missingUsers == 1 ? ' fehlt ' : ' fehlen ') . $missingUsers . ($missingUsers == 1 ? ' Platz' : ' Plätze') . '.';
 
                 return new ChangePhaseMessage(false, 1, $message, $position, $missingUsers);
             }
@@ -81,6 +82,23 @@ class PhaseManager {
         // Phasenwechsel speichern und eine Erfolgsmeldung zurueckgeben.
         $this->savePhaseChange(2);
         return new ChangePhaseMessage(true, 2, 'Die Anmeldung wurde erfolgreich freigeschaltet.');
+    }
+
+    /**
+     * Liefert die Anzahl der vorhandenen Mitarbeiter
+     * @return int
+     */
+    private function getUserCount() {
+        return $this->databaseHandler->count('User', 'name', 'personnalManager = 0');
+    }
+
+    /**
+     * Phasenwechsel speichern.
+     * @param int $newPhase
+     */
+    private function savePhaseChange($newPhase) {
+        $this->projectWeek->setPhase($newPhase);
+        $this->projectWeek->save();
     }
 
     /**
@@ -184,57 +202,6 @@ class PhaseManager {
     }
 
     /**
-     * Phasenwechsel speichern.
-     * @param int $newPhase
-     */
-    private function savePhaseChange($newPhase) {
-        $this->projectWeek->setPhase($newPhase);
-        $this->projectWeek->save();
-    }
-
-    /**
-     * Registrierung genehmigen und speichern.
-     * @param EventRegistration $registration
-     */
-    private function approveRegistration($registration) {
-        $registration->setApproved(1);
-        $registration->save();
-    }
-
-    /**
-     * Teilnehmer-Anzahl der Veranstaltung erhoehen.
-     * @param ProjectWeekEntry $projectWeekEntry
-     */
-    private function increaseParticipantCount($projectWeekEntry, $num = 1) {
-        $projectWeekEntry->setParticipants($projectWeekEntry->getParticipants() + $num);
-        $projectWeekEntry->save();
-    }
-
-    /**
-     * Entfernt einen Mitarbeiter aus einem Mitarbeiter-Array.
-     * @param array $users
-     * @param string $approvedUsername
-     * @return array
-     */
-    private function removeUserOfUserArray($users, $approvedUsername) {
-        foreach ($users as $user) {
-            if ($user == $approvedUsername) {
-                $users = ArrayHelper::unsetValue($users, $user);
-                break;
-            }
-        }
-        return $users;
-    }
-
-    /**
-     * Liefert die Anzahl der vorhandenen Mitarbeiter
-     * @return int
-     */
-    private function getUserCount() {
-        return $this->databaseHandler->count('User', 'name', 'personnalManager = 0');
-    }
-
-    /**
      * @return array
      */
     private function getAllUsers() {
@@ -264,6 +231,40 @@ class PhaseManager {
         }
 
         return $registrations;
+    }
+
+    /**
+     * Entfernt einen Mitarbeiter aus einem Mitarbeiter-Array.
+     * @param array $users
+     * @param string $approvedUsername
+     * @return array
+     */
+    private function removeUserOfUserArray($users, $approvedUsername) {
+        foreach ($users as $user) {
+            if ($user == $approvedUsername) {
+                $users = ArrayHelper::unsetValue($users, $user);
+                break;
+            }
+        }
+        return $users;
+    }
+
+    /**
+     * Registrierung genehmigen und speichern.
+     * @param EventRegistration $registration
+     */
+    private function approveRegistration($registration) {
+        $registration->setApproved(1);
+        $registration->save();
+    }
+
+    /**
+     * Teilnehmer-Anzahl der Veranstaltung erhoehen.
+     * @param ProjectWeekEntry $projectWeekEntry
+     */
+    private function increaseParticipantCount($projectWeekEntry, $num = 1) {
+        $projectWeekEntry->setParticipants($projectWeekEntry->getParticipants() + $num);
+        $projectWeekEntry->save();
     }
 
     /**

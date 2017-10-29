@@ -1,23 +1,25 @@
 /*
-    Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+    Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 
 #wrapper > .row {
-    margin-right: 0px!important;
-    margin-left: 0px!important;
-    /*padding-top: 75px;*/
+    margin-right: 0 !important;
+    margin-left: 0 !important;
 }
 
 .nav-tabs {
     width: 100%;
     margin-top: 5px;
 }
+
 .nav-tabs .nav-item {
     margin-left: 20px;
 }
+
 .nav-tabs .nav-item .nav-link {
     color: #FFF;
 }
+
 .nav-tabs .nav-item .nav-link.active {
     color: #007bff;
 }
@@ -27,12 +29,14 @@
     margin-top: 10px;
     display: table;
 }
+
 .period-control .period {
     display: table-cell;
     vertical-align: middle;
     font-size: 1.1rem;
     color: #FFF;
 }
+
 .period-control .btn-control {
     margin-right: 5px;
     margin-left: 5px;
@@ -74,13 +78,16 @@
 .list-group {
     margin-bottom: 25px;
 }
+
 .event-list .event-title {
     font-weight: 700;
     font-size: 1.3rem;
 }
+
 .event-list .event-information {
     margin-top: 15px;
 }
+
 .event-list .event-information td:nth-child(2) {
     padding-left: 10px;
 }
@@ -94,13 +101,16 @@
     vertical-align: middle;
     text-align: center;
 }
+
 .calender-event.two-rows {
     height: 365px;
     line-height: 340px;
 }
+
 .calender-event.one {
     background-color: salmon;
 }
+
 .calender-event.one.not-approved {
     background: repeating-linear-gradient(
             45deg,
@@ -110,9 +120,11 @@
             #fdd3ce 20px
     );
 }
+
 .calender-event.two {
     background-color: lightpink;
 }
+
 .calender-event.two.not-approved {
     background: repeating-linear-gradient(
             45deg,
@@ -122,9 +134,11 @@
             lightpink 20px
     );
 }
+
 .calender-event.three {
     background-color: coral;
 }
+
 .calender-event.three.not-approved {
     background: repeating-linear-gradient(
             45deg,
@@ -134,9 +148,11 @@
             #ffdacc 20px
     );
 }
+
 .calender-event.four {
     background-color: khaki;
 }
+
 .calender-event.four.not-approved {
     background: repeating-linear-gradient(
             45deg,
@@ -146,9 +162,11 @@
             #f9f5d2 20px
     );
 }
+
 .calender-event.five {
     background-color: plum;
 }
+
 .calender-event.five.not-approved {
     background: repeating-linear-gradient(
             45deg,
@@ -158,9 +176,11 @@
             #f2d9f2 20px
     );
 }
+
 .calender-event.six {
     background-color: palegreen;
 }
+
 .calender-event.six.not-approved {
     background: repeating-linear-gradient(
             45deg,
@@ -170,9 +190,11 @@
             #cefdce 20px
     );
 }
+
 .calender-event.seven {
     background-color: olive;
 }
+
 .calender-event.seven.not-approved {
     background: repeating-linear-gradient(
             45deg,
@@ -182,9 +204,11 @@
             #cccc00 20px
     );
 }
+
 .calender-event.eight {
     background-color: paleturquoise;
 }
+
 .calender-event.eight.not-approved {
     background: repeating-linear-gradient(
             45deg,
@@ -194,9 +218,11 @@
             #d5f6f6 20px
     );
 }
+
 .calender-event.nine {
     background-color: lightskyblue;
 }
+
 .calender-event.nine.not-approved {
     background: repeating-linear-gradient(
             45deg,
@@ -206,9 +232,11 @@
             #ceebfd 20px
     );
 }
+
 .calender-event.ten {
     background-color: burlywood;
 }
+
 .calender-event.ten.not-approved {
     background: repeating-linear-gradient(
             45deg,
@@ -220,8 +248,9 @@
 }
 
 .tooltip-inner td strong, .tooltip-inner td span {
-    float: left!important;
+    float: left !important;
 }
+
 .tooltip-inner td:nth-child(2) {
     padding-left: 5px;
 }

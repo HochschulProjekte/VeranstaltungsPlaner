@@ -1,4 +1,4 @@
-<!-- Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
+<!-- Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
 
 <!-- Wrapper -->
 <div class="container-fluid" id="wrapper">
@@ -16,29 +16,29 @@
                 <form action="#" method="post" id="needs-validation">
                     <?php
 
-                    if($controller->getEvent()->id != NULL) {
-                        echo '<input type="hidden" name="id" value="'.$controller->getEvent()->id.'" />';
+                    if ($controller->getEvent()->getId() != NULL) {
+                        echo '<input type="hidden" name="id" value="' . $controller->getEvent()->getId() . '" />';
                     }
 
                     echo '
                         <div class="input-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-university"></i></div>
-                            <input type="text" class="form-control" id="myevent-name" name="name" placeholder="Name" value="'.$controller->getEvent()->name.'" required>
+                            <input type="text" class="form-control" id="myevent-name" name="name" placeholder="Name" value="' . $controller->getEvent()->getName() . '" required>
                         </div>
 
                         <div class="input-group secound-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-file-text-o"></i></div>
-                            <input type="text" class="form-control" id="myevent-description" name="description" placeholder="Beschreibung" value="'.$controller->getEvent()->description.'" required>
+                            <input type="text" class="form-control" id="myevent-description" name="description" placeholder="Beschreibung" value="' . $controller->getEvent()->getDescription() . '" required>
                         </div>
 
                         <div class="input-group secound-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-long-arrow-right"></i></div>
-                            <input type="text" class="form-control" id="myevent-length" name="length" placeholder="Länge" value="'.$controller->getEvent()->length.'" required>
+                            <input type="text" class="form-control" id="myevent-length" name="length" placeholder="Länge" value="' . $controller->getEvent()->getLength() . '" required>
                         </div>
 
                         <div class="input-group secound-group event-input-group">
                             <div class="input-group-addon event-input-icon"><i class="fa fa-users"></i></div>
-                            <input type="text" class="form-control" id="myevent-maxParticipants" name="maxParticipants" placeholder="Max. Teilnehmer" value="'.$controller->getEvent()->maxParticipants.'" required>
+                            <input type="text" class="form-control" id="myevent-maxParticipants" name="maxParticipants" placeholder="Max. Teilnehmer" value="' . $controller->getEvent()->getMaxParticipants() . '" required>
                         </div>
 
                         <hr>
@@ -49,7 +49,7 @@
                     ';
 
                     foreach ($controller->getPersonnalManagers() as $personnalManager) {
-                        echo '<option>'.$personnalManager->getName().'</option>';
+                        echo '<option>' . $personnalManager->getName() . '</option>';
                     }
 
                     echo '
@@ -69,16 +69,16 @@
                 </form>
 
                 <?php
-                if($controller->getStatus() == 'SUCCESS') {
+                if ($controller->getStatus() == 'SUCCESS') {
                     echo '
                             <div class="my-message alert alert-success" role="alert">
-                                '.$controller->getMessage().'
+                                ' . $controller->getMessage() . '
                             </div>    
                             ';
-                } else if($controller->getStatus() == 'ERROR') {
+                } else if ($controller->getStatus() == 'ERROR') {
                     echo '
                             <div class="my-message alert alert-danger" role="alert">
-                                '.$controller->getMessage().'
+                                ' . $controller->getMessage() . '
                             </div>
                             ';
                 }
@@ -87,10 +87,10 @@
                 <hr>
 
                 <form id="edit" action="#" method="POST">
-                    <input type="hidden" name="edit" value="X" />
+                    <input type="hidden" name="edit" value="X"/>
                 </form>
                 <form id="delete" action="#" method="POST">
-                    <input type="hidden" name="delete" value="X" />
+                    <input type="hidden" name="delete" value="X"/>
                 </form>
 
                 <table class="table">
@@ -107,16 +107,16 @@
                     <tbody>
                     <?php
 
-                    foreach($controller->getEvents() as $event) {
+                    foreach ($controller->getEvents() as $event) {
                         echo '
                                 
                                         <tr>
-                                            <td>'.$event->name.'</td>
-                                            <td>'.$event->length.'</td>
-                                            <td>'.$event->maxParticipants.'</td>
-                                            <td>'.$event->eventManager.'</td>
-                                            <td><button type="button" onclick="editEvent('.$event->id.')">E</button></td>
-                                            <td><button type="button" onclick="deleteEvent('.$event->id.')">X</button></td>
+                                            <td>' . $event->getName() . '</td>
+                                            <td>' . $event->getLength() . '</td>
+                                            <td>' . $event->getMaxParticipants() . '</td>
+                                            <td>' . $event->getPersonnalManager() . '</td>
+                                            <td><button type="button" onclick="editEvent(' . $event->getId() . ')">E</button></td>
+                                            <td><button type="button" onclick="deleteEvent(' . $event->getId() . ')">X</button></td>
                                         </tr>
                                 
                                 ';
@@ -127,8 +127,9 @@
 
                 <center>
                     <form enctype="multipart/form-data" action="#" method="post">
-                        <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-                        <input name="userfile" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                        <input type="hidden" name="MAX_FILE_SIZE" value="30000"/>
+                        <input name="userfile" type="file"
+                               accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
                         <button type="submit" class="btn btn-primary">Importieren</button>
                     </form>
                 </center>

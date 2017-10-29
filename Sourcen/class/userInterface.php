@@ -1,39 +1,39 @@
 <?php
 
-    include_once __DIR__.'/../controller/controllerInterface.php';
+include_once __DIR__ . '/../controller/controllerInterface.php';
+
+/**
+ * Class UserInterface
+ * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+ */
+class UserInterface {
+
+    private $controller;
 
     /**
-     * Class UserInterface
-     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+     * UserInterface constructor.
+     * @param User $user Benutzer-Objekt
+     * @param string $fileName Dateiname fuer die CSS-Datei
      */
-    class UserInterface {
+    function __construct($controller) {
+        $this->controller = $controller;
+    }
 
-        private $controller;
+    /**
+     * Gibt den Inhalt der gesamten Seite aus.
+     */
+    public function renderPage() {
+        $this->renderHeader();
+        $this->renderContent();
+        $this->renderFooter();
+    }
 
-        /**
-         * UserInterface constructor.
-         * @param User $user Benutzer-Objekt
-         * @param string $fileName Dateiname fuer die CSS-Datei
-         */
-        function __construct($controller) {
-            $this->controller = $controller;
-        }
+    /**
+     * Gibt die Kopfzeile aus.
+     */
+    public function renderHeader() {
 
-        /**
-         * Gibt den Inhalt der gesamten Seite aus.
-         */
-        public function renderPage() {
-            $this->renderHeader();
-            $this->renderContent();
-            $this->renderFooter();
-        }
-
-        /**
-         * Gibt die Kopfzeile aus.
-         */
-        public function renderHeader() {
-
-            echo '
+        echo '
             <!DOCTYPE html>
             <html lang="en">
             
@@ -50,7 +50,7 @@
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
                 <link rel="stylesheet" href="css/font-awesome.min.css">
                 <link rel="stylesheet" href="css/custom.css">
-                <link rel="stylesheet" href="css/'.$this->controller->getStyleSheet().'.css">
+                <link rel="stylesheet" href="css/' . $this->controller->getStyleSheet() . '.css">
               </head>
             
               <!-- BODY -->
@@ -65,12 +65,12 @@
             
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                            '.($this->controller->getUser()->isPersonnalManager() ? '<li class="nav-item">
+                            ' . ($this->controller->getUser()->isPersonnalManager() ? '<li class="nav-item">
                                 <a class="nav-link" href="control.php">Verwaltung</a>
-                            </li>' : '').'
+                            </li>' : '') . '
                         </ul>
                         <span class="nav-item">
-                            <a class="nav-link" href="myProfile.php">Mein Profil</a>
+                            <a class="nav-link" href="profile.php">Mein Profil</a>
                         </span>
                         <span class="nav-item">
                             <a class="nav-link" href="logout.php">Ausloggen</a>
@@ -78,21 +78,21 @@
                     </div>
                 </nav>            
             ';
-        }
+    }
 
-        /**
-         * Gibt den Inhalt der Datei aus.
-         */
-        public function renderContent() {
-            $controller = $this->controller;
-            include __DIR__.'/../template/'.$this->controller->getTemplate().'.php';
-        }
+    /**
+     * Gibt den Inhalt der Datei aus.
+     */
+    public function renderContent() {
+        $controller = $this->controller;
+        include __DIR__ . '/../template/' . $this->controller->getTemplate() . '.php';
+    }
 
-        /**
-         * Gibt die Fusszeile aus.
-         */
-        public function renderFooter() {
-            echo '
+    /**
+     * Gibt die Fusszeile aus.
+     */
+    public function renderFooter() {
+        echo '
             <!-- Footer -->
             <nav class="navbar navbar-bottom navbar-light bg-light">
                 <span class="navbar-text pull-right">by Matthias Fischer, Jonathan Hermsen, Fabian Hagengers</span>
@@ -103,12 +103,12 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin=" anonymous"></script>
             
-            '.(($this->controller->isScriptFileAvailable()) ? '<script src="js/'.$this->controller->getScriptFile().'.js"></script>' : '').'
+            ' . (($this->controller->isScriptFileAvailable()) ? '<script src="js/' . $this->controller->getScriptFile() . '.js"></script>' : '') . '
             </body>
             
             </html>
             ';
-        }
     }
+}
 
 ?>

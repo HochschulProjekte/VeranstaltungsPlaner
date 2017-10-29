@@ -10,7 +10,7 @@ include_once __DIR__ . '/../controller/controllerInterface.php';
  * Class EventsController
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
-class EventsController implements Controller {
+class ControlEventsController implements Controller {
 
     private $personnalManager;
     private $personnalManagerCollection;
@@ -118,11 +118,29 @@ class EventsController implements Controller {
     }
 
     /**
-     * Veranstaltung laden.
-     * @param int $id Veranstaltungs-ID
+     * Speichere vorhandene Veranstaltung
+     * @param int $id
+     * @param string $name
+     * @param string $description
+     * @param int $length
+     * @param int $maxParticipants
+     * @param string $personnalManager Benutzername des Verantwortlichen
      */
-    private function prepareEdit($id) {
-        $this->event = new Event($id);
+    private function saveEvent($id, $name, $description, $length, $maxParticipants, $personnalManager) {
+        $event = new Event($id);
+        $event->setName($name);
+        $event->setDescription($description);
+        $event->setLength($length);
+        $event->setMaxParticipants($maxParticipants);
+        $event->setPersonnalManager($personnalManager);
+
+        if ($event->save()) {
+            $this->status = 'SUCCESS';
+            $this->message = 'Die Veranstaltung "' . $name . '" wurde erfolgreich gespeichert.';
+        } else {
+            $this->status = 'ERROR';
+            $this->message = 'Bei der Bearbeitung der Veranstaltung "' . $name . '" ist ein Fehler aufgetreten.';
+        }
     }
 
     /**
@@ -137,37 +155,19 @@ class EventsController implements Controller {
 
         if ($this->personnalManager->createEvent($name, $description, $length, $maxParticipants, $personnalManager)) {
             $this->status = 'SUCCESS';
-            $this->message = 'Die Veranstaltung "'.$name.'" wurde erfolgreich erstellt.';
+            $this->message = 'Die Veranstaltung "' . $name . '" wurde erfolgreich erstellt.';
         } else {
             $this->status = 'ERROR';
-            $this->message = 'Die Veranstaltung "'.$name.'" konnte nicht erstellt werden.';
+            $this->message = 'Die Veranstaltung "' . $name . '" konnte nicht erstellt werden.';
         }
     }
 
     /**
-     * Speichere vorhandene Veranstaltung
-     * @param int $id
-     * @param string $name
-     * @param string $description
-     * @param int $length
-     * @param int $maxParticipants
-     * @param string $personnalManager Benutzername des Verantwortlichen
+     * Veranstaltung laden.
+     * @param int $id Veranstaltungs-ID
      */
-    private function saveEvent($id, $name, $description, $length, $maxParticipants, $personnalManager) {
-        $event = new Event($id);
-        $event->name = $name;
-        $event->description = $description;
-        $event->length = $length;
-        $event->maxParticipants = $maxParticipants;
-        $event->eventManager = $personnalManager;
-
-        if ($event->save()) {
-            $this->status = 'SUCCESS';
-            $this->message = 'Die Veranstaltung "'.$name.'" wurde erfolgreich gespeichert.';
-        } else {
-            $this->status = 'ERROR';
-            $this->message = 'Bei der Bearbeitung der Veranstaltung "'.$name.'" ist ein Fehler aufgetreten.';
-        }
+    private function prepareEdit($id) {
+        $this->event = new Event($id);
     }
 
     /**
@@ -176,14 +176,14 @@ class EventsController implements Controller {
      */
     private function deleteEvent($id) {
         $event = new Event($id);
-        $eventName = $event->name;
+        $eventName = $event->getName();
 
         if ($event->delete()) {
             $this->status = 'SUCCESS';
-            $this->message = 'Die Veranstaltung "'.$eventName.'" wurde erfolgreich gelöscht.';
+            $this->message = 'Die Veranstaltung "' . $eventName . '" wurde erfolgreich gelöscht.';
         } else {
             $this->status = 'ERROR';
-            $this->message = 'Bei dem Löschen der Veranstaltung "'.$eventName.'" ist ein Fehler aufgetreten.';
+            $this->message = 'Bei dem Löschen der Veranstaltung "' . $eventName . '" ist ein Fehler aufgetreten.';
         }
     }
 

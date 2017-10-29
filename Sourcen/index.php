@@ -1,18 +1,18 @@
 <?php
-    // Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+// Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
 
-    // Includes
-    include_once './administration/authenticateUser.php';
-    include_once './class/userInterface.php';
-    include_once './controller/myEventsController.php';
+// Includes
+include_once './administration/authenticateUser.php';
+include_once './class/userInterface.php';
+include_once './controller/myEventsController.php';
 
 
-    // Controller
-    $myEventsController = new MyEventsController($myUser, $_POST);
+// Controller
+$myEventsController = new MyEventsController($myUser, $_POST);
 
-    // User Interface
-    $userInterface = new UserInterface($myEventsController);
+// User Interface
+$userInterface = new UserInterface($myEventsController);
 
-    // Seite ausgeben
-    $userInterface->renderPage();
+// Seite ausgeben
+$userInterface->renderPage();
 ?>

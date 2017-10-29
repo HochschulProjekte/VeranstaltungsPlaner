@@ -15,7 +15,6 @@ class BlockedUserCollection {
      * BlockedUserCollection constructor.
      */
     public function __construct() {
-
     }
 
     /**

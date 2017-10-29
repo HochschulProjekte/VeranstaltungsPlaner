@@ -1,19 +1,19 @@
 <?php
-    // Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+// Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
 
-    // Includes
-    include_once './administration/authenticateUser.php';
-    include_once './controller/loginController.php';
-    include_once './class/userInterface.php';
+// Includes
+include_once './administration/authenticateUser.php';
+include_once './controller/loginController.php';
+include_once './class/userInterface.php';
 
-    // Controller
-    $loginController = new LoginController($_POST);
+// Controller
+$loginController = new LoginController($_POST);
 
-    // User Interface
-    $userInterface = new UserInterface($loginController);
+// User Interface
+$userInterface = new UserInterface($loginController);
 
-    // Seite ausgeben
-    $userInterface->renderContent();
+// Seite ausgeben
+$userInterface->renderContent();
 
 ?>
 

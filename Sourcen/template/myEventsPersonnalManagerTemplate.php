@@ -1,3 +1,5 @@
+<!-- Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
+
 <!-- Wrapper -->
 <div class="container-fluid" id="wrapper">
 
@@ -9,9 +11,9 @@
         <div class="period-control">
             <?php
             echo '
-                <button type="button" onclick="previousWeek('.$controller->getYear().', '.$controller->getWeek().')" class="btn btn-secondary btn-control projectweek-nav"><</button>
-                <a class="projectweek-text">'.$controller->getWeekStartDate().' - '.$controller->getWeekEndDate().'</a>
-                <button type="button" onclick="nextWeek('.$controller->getYear().', '.$controller->getWeek().')" class="btn btn-secondary btn-control projectweek-nav">></button>
+                <button type="button" onclick="previousWeek(' . $controller->getYear() . ', ' . $controller->getWeek() . ')" class="btn btn-secondary btn-control projectweek-nav"><</button>
+                <a class="projectweek-text">' . $controller->getWeekStartDate() . ' - ' . $controller->getWeekEndDate() . '</a>
+                <button type="button" onclick="nextWeek(' . $controller->getYear() . ', ' . $controller->getWeek() . ')" class="btn btn-secondary btn-control projectweek-nav">></button>
                 ';
             ?>
         </div>
@@ -35,14 +37,14 @@
 
                     $projectWeekEntries = $controller->getProjectWeekEntriesOfPersonnalManager();
 
-                    foreach($projectWeekEntries as $index => $projectWeekEntry) {
+                    foreach ($projectWeekEntries as $index => $projectWeekEntry) {
 
                         echo '
-                                <tr style="background-color: '.($index % 2 == 0 ? "#FFF" : "#DFDFDF").';">
+                                <tr style="background-color: ' . ($index % 2 == 0 ? "#FFF" : "#DFDFDF") . ';">
                                     
-                                    <td>'.PositionMapping::map($projectWeekEntry->getPosition()).'</td>
-                                    <td>'.PositionMapping::mapUntil($projectWeekEntry->getPosition(), $projectWeekEntry->getEvent()->length).'</td>
-                                    <td>'.$projectWeekEntry->getEvent()->name.'</td>
+                                    <td>' . PositionMapping::map($projectWeekEntry->getPosition()) . '</td>
+                                    <td>' . PositionMapping::mapUntil($projectWeekEntry->getPosition(), $projectWeekEntry->getEvent()->getLength()) . '</td>
+                                    <td>' . $projectWeekEntry->getEvent()->getName() . '</td>
                                 </tr>
 
                                 ';

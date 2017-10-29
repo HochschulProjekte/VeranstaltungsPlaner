@@ -1,4 +1,4 @@
-<!-- Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
+<!-- Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
 
 <!-- Wrapper -->
 <div class="container-fluid" id="wrapper">
@@ -86,8 +86,8 @@
                                         <tr>
                                             <td><input type="radio" name="projectWeekEntryId" value="' . $event->getId() . '" text="" /></td>
                                             <td>' . PositionMapping::map($event->getPosition()) . '</td>
-                                            <td>' . PositionMapping::mapUntil($event->getPosition(), $event->getEvent()->length) . '</td>
-                                            <td>' . $event->getEvent()->name . '</td>
+                                            <td>' . PositionMapping::mapUntil($event->getPosition(), $event->getEvent()->getLength()) . '</td>
+                                            <td>' . $event->getEvent()->getName() . '</td>
                                         </tr>
                                             
                                     ';
@@ -249,9 +249,9 @@
                                         <tr style="background-color: ' . ($eventRegistration->isApproved() ? "#FFF" : "#FF9494") . ';">
                                             
                                             <td>' . PositionMapping::map($eventRegistration->getProjectWeekEntry()->getPosition()) . '</td>
-                                            <td>' . PositionMapping::mapUntil($eventRegistration->getProjectWeekEntry()->getPosition(), $eventRegistration->getProjectWeekEntry()->getEvent()->length) . '</td>
-                                            <td>' . $eventRegistration->getProjectWeekEntry()->getEvent()->name . '</td>
-                                            <td>' . $eventRegistration->getProjectWeekEntry()->getEvent()->eventManager . '</td>
+                                            <td>' . PositionMapping::mapUntil($eventRegistration->getProjectWeekEntry()->getPosition(), $eventRegistration->getProjectWeekEntry()->getEvent()->getLength()) . '</td>
+                                            <td>' . $eventRegistration->getProjectWeekEntry()->getEvent()->getName() . '</td>
+                                            <td>' . $eventRegistration->getProjectWeekEntry()->getEvent()->getPersonnalManager() . '</td>
                                             <td>' . $eventRegistration->getPriority() . '</td>
                                         
                                         </tr>

@@ -22,24 +22,24 @@ class PersonnalManager {
     }
 
     /**
-     * Erstellen eines neuen Veranstaltung
+     * Erstellen eines neuen Veranstaltung.
      * @param $name
      * @param $description
      * @param $length
      * @param $maxParticipants
-     * @param $eventManager
+     * @param $personnalManager
      * @return bool
      */
     function createEvent($name, $description,
                          $length, $maxParticipants,
-                         $eventManager) {
+                         $personnalManager) {
         $event = new Event();
 
-        $event->name = $name;
-        $event->description = $description;
-        $event->length = $length;
-        $event->maxParticipants = $maxParticipants;
-        $event->eventManager = $eventManager;
+        $event->setName($name);
+        $event->setDescription($description);
+        $event->setLength($length);
+        $event->setMaxParticipants($maxParticipants);
+        $event->setPersonnalManager($personnalManager);
 
         return $event->save();
     }

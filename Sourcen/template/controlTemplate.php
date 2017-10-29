@@ -1,4 +1,4 @@
-<!-- Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
+<!-- Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
 
 <!-- Wrapper -->
 <div class="container-fluid" id="wrapper">

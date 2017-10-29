@@ -1,10 +1,10 @@
 <?php
-    // Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+// Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
 
-    include_once './class/loginHandler.php';
+include_once './class/loginHandler.php';
 
-    $loginHandler = new LoginHandler();
-    $loginHandler->logout();
-    $loginHandler->redirect('login.php');
+$loginHandler = new LoginHandler();
+$loginHandler->logout();
+$loginHandler->redirect('login.php');
 
 ?>

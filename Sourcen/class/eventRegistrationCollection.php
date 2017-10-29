@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/../database/databaseHandler.php';
+include_once __DIR__ . '/../database/pdoDatabaseController.php';
 include_once __DIR__ . '/../class/projectWeek.php';
 include_once __DIR__ . '/../class/eventRegistration.php';
 include_once __DIR__ . '/../class/eventRegistrationRepresentation.php';
@@ -26,7 +26,7 @@ class EventRegistrationCollection {
      */
     public function __construct($username, $projectWeek) {
 
-        $this->databaseHandler = new PDOHandler();
+        $this->databaseHandler = new PDODatabaseController();
 
         $this->username = $username;
         $this->projectWeek = $projectWeek;
@@ -73,7 +73,7 @@ class EventRegistrationCollection {
         $colors = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 
         foreach ($this->eventRegistrations as $eventRegistration) {
-            $length = $eventRegistration->getProjectWeekEntry()->getEvent()->length;
+            $length = $eventRegistration->getProjectWeekEntry()->getEvent()->getLength();
             $position = $eventRegistration->getProjectWeekEntry()->getPosition();
 
             for ($i = $position; $i < ($position + $length); $i++) {

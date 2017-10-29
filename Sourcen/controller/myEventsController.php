@@ -129,6 +129,10 @@ class MyEventsController implements Controller {
         return $day_array;
     }
 
+    public function getWeekStartDate() {
+        return $this->projectWeek->getFromDate();
+    }
+
     public function getEventRegistrationRepresentationAtPosition($position) {
 
         // Suche der Veranstaltung-Registrierung-Darstellungs-Objekte
@@ -195,10 +199,6 @@ class MyEventsController implements Controller {
 
     public function getProjectWeekEntriesOfPersonnalManager() {
         return $this->projectWeek->getProjectWeekEntriesOfPersonnalManager($this->user->getName());
-    }
-
-    public function getWeekStartDate() {
-        return $this->projectWeek->getFromDate();
     }
 
     public function getWeekEndDate() {

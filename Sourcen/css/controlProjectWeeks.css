@@ -1,10 +1,10 @@
 /*
-    Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+    Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 
 #wrapper > .row {
-    margin-right: 0px!important;
-    margin-left: 0px!important;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
     padding-top: 75px;
 }
 
@@ -20,6 +20,7 @@
 table thead tr {
     background-color: #EEE;
 }
+
 table tbody tr {
     background-color: #FFF;
 }

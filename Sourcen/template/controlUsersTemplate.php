@@ -1,4 +1,4 @@
-<!-- Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
+<!-- Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
 
 <!-- Wrapper -->
 <div class="container-fluid" id="wrapper">
@@ -16,7 +16,9 @@
                 <th></th>
                 <th></th>
                 <th>Name</th>
-                <th><center>Sachbearbeiter</center></th>
+                <th>
+                    <center>Sachbearbeiter</center>
+                </th>
                 <th>E-Mail</th>
             </tr>
             </thead>
@@ -44,26 +46,30 @@
 
         <!-- Password -->
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-2">
-            <input type="password" class="form-control" name="new-password" id="new-password" maxlength="45" placeholder="Passwort">
+            <input type="password" class="form-control" name="new-password" id="new-password" maxlength="45"
+                   placeholder="Passwort">
         </div>
 
         <!-- Confirm Password -->
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-2">
-            <input type="password" class="form-control" name="new-password-confirm" id="new-password-confirm" maxlength="45" placeholder="Passwort bestätigen">
+            <input type="password" class="form-control" name="new-password-confirm" id="new-password-confirm"
+                   maxlength="45" placeholder="Passwort bestätigen">
         </div>
 
         <!-- personnal Manager -->
         <div class="col-12 col-sm-6 col-md-6 col-lg-2 col-xl-2">
             <div class="form-check form-check-inline">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" name="new-personnal-manager" id="new-personnal-manager" value="yes"> Sachbearbeiter
+                    <input class="form-check-input" type="checkbox" name="new-personnal-manager"
+                           id="new-personnal-manager" value="yes"> Sachbearbeiter
                 </label>
             </div>
         </div>
 
         <!-- E-Mail -->
         <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-4">
-            <input type="email" class="form-control" name="new-email" id="new-email" maxlength="45" placeholder="E-Mail (optional)">
+            <input type="email" class="form-control" name="new-email" id="new-email" maxlength="45"
+                   placeholder="E-Mail (optional)">
         </div>
 
         <!-- Submit -->

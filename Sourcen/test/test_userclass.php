@@ -1,8 +1,8 @@
-<!-- Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
+<!-- Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen -->
 
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'].'/programmierprojekt/class/user.php';
+include_once  __DIR__ . '/../class/user.php';
 
 $objUser = new User();
 $objUser->setName('fhagengers');

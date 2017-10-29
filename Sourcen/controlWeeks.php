@@ -1,20 +1,20 @@
 <?php
-    // Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+// Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
 
-    // includes
-    include_once './administration/authenticateUser.php';
-    include_once './class/userInterface.php';
-    include_once './controller/projectWeeksController.php';
-    include_once './class/positionMapping.php';
+// includes
+include_once './administration/authenticateUser.php';
+include_once './class/userInterface.php';
+include_once './controller/projectWeeksController.php';
+include_once './class/positionMapping.php';
 
 
-    // ProjectWeeksController
-    $myProjectWeeksController = new ProjectWeeksController($_POST, $myUser);
+// ProjectWeeksController
+$myProjectWeeksController = new ProjectWeeksController($_POST, $myUser);
 
-    // User Interface
-    $userInterface = new UserInterface($myProjectWeeksController);
+// User Interface
+$userInterface = new UserInterface($myProjectWeeksController);
 
-    // Seite ausgeben
-    $userInterface->renderPage();
+// Seite ausgeben
+$userInterface->renderPage();
 
 ?>

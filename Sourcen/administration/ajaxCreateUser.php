@@ -1,10 +1,10 @@
 <?php
 
-include __DIR__.'/../class/user.php';
-
 /**
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
+
+include __DIR__ . '/../class/user.php';
 
 if ($_POST['data']) {
 
@@ -13,7 +13,7 @@ if ($_POST['data']) {
 
     // Create empty user object
     $user = new User();
-    
+
     // Set user data
     $user->setName($data['name']);
     $user->setPassword($data['password']);

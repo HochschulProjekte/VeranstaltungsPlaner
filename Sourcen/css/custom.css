@@ -1,18 +1,21 @@
 /*
-    Authoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+    Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 
 body {
     background-color: #427BE3;
     height: 100%;
 }
+
 #wrapper {
     margin-top: 56px;
     min-height: 85.5vh;
 }
+
 .navbar-nav .nav-link {
     padding: .5rem 1rem;
 }
+
 .navbar.navbar-bottom {
     position: relative;
     right: 0;
@@ -20,9 +23,11 @@ body {
     left: 0;
     z-index: 1030;
 }
+
 .navbar.navbar-bottom .nav-link {
-    color: rgba(0,0,0,.5);
+    color: rgba(0, 0, 0, .5);
 }
+
 .navbar.navbar-bottom .nav-link:hover {
-    color: rgba(0,0,0,.8);
+    color: rgba(0, 0, 0, .8);
 }

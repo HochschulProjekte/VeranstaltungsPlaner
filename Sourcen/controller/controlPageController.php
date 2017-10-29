@@ -1,75 +1,75 @@
 <?php
 
-    include_once __DIR__.'/../controller/controllerInterface.php';
+include_once __DIR__ . '/../controller/controllerInterface.php';
+
+/**
+ * Class ControlPageController
+ * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+ */
+class ControlPageController implements Controller {
+
+    private $user;
 
     /**
-     * Class ControlPageController
-     * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
+     * ControlPageController constructor.
+     * @param $user
      */
-    class ControlPageController implements Controller {
+    public function __construct($user) {
+        $this->user = $user;
+        $this->checkPageAllowed();
+    }
 
-        private $user;
+    /**
+     * Ueberprueft ob der Nutzer genug Rechte hat, um die Seite zu besuchen.
+     */
+    private function checkPageAllowed() {
 
-        /**
-         * ControlPageController constructor.
-         * @param $user
-         */
-        public function __construct($user) {
-            $this->user = $user;
-            $this->checkPageAllowed();
-        }
+        if (!$this->user->isPersonnalManager()) {
 
-        /**
-         * Ueberprueft ob der Nutzer genug Rechte hat, um die Seite zu besuchen.
-         */
-        private function checkPageAllowed() {
-
-            if (!$this->user->isPersonnalManager()) {
-
-                header('Location: ./index.php');
-                exit();
-            }
-        }
-
-        /**
-         * Gibt den Dateinamen der Template-Datei zurueck.
-         * @return string Dateiname
-         */
-        public function getTemplate() {
-            return 'controlTemplate';
-        }
-
-        /**
-         * Gibt den Dateinamen der CSS-Datei zurueck.
-         * @return string Dateiname
-         */
-        public function getStyleSheet() {
-            return 'control';
-        }
-
-        /**
-         * Ob eine JavaScript-Datei vorhanden ist oder nicht.
-         * @return boolean
-         */
-        public function isScriptFileAvailable() {
-            return false;
-        }
-
-        /**
-         * Gibt den Dateinamen der JavaScript-Datei zurueck.
-         * @return string Dateiname
-         */
-        public function getScriptFile() {
-            return NULL;
-        }
-
-        /**
-         * Gibt den angemeldeten User zurueck.
-         * @return User
-         */
-        public function getUser() {
-            return $this->user;
+            header('Location: ./index.php');
+            exit();
         }
     }
+
+    /**
+     * Gibt den Dateinamen der Template-Datei zurueck.
+     * @return string Dateiname
+     */
+    public function getTemplate() {
+        return 'controlTemplate';
+    }
+
+    /**
+     * Gibt den Dateinamen der CSS-Datei zurueck.
+     * @return string Dateiname
+     */
+    public function getStyleSheet() {
+        return 'control';
+    }
+
+    /**
+     * Ob eine JavaScript-Datei vorhanden ist oder nicht.
+     * @return boolean
+     */
+    public function isScriptFileAvailable() {
+        return false;
+    }
+
+    /**
+     * Gibt den Dateinamen der JavaScript-Datei zurueck.
+     * @return string Dateiname
+     */
+    public function getScriptFile() {
+        return NULL;
+    }
+
+    /**
+     * Gibt den angemeldeten User zurueck.
+     * @return User
+     */
+    public function getUser() {
+        return $this->user;
+    }
+}
 
 ?>

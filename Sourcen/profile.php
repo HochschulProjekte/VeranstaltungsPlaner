@@ -1,17 +1,15 @@
 <?php
 // Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
 
-// Authenticate user
+// Includes
 include_once './administration/authenticateUser.php';
+include_once './controller/profileController.php';
 include_once './class/userInterface.php';
-include_once './controller/userController.php';
 
 // Controller
-$userController = new UserController($myUser);
+$myProfileController = new ProfileController($_POST, $myUser);
 
-// User Interface
-$userInterface = new UserInterface($userController);
-
-// Seite ausgeben
+// Userinterface
+$userInterface = new UserInterface($myProfileController);
 $userInterface->renderPage();
 ?>
