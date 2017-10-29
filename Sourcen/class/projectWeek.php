@@ -7,6 +7,9 @@ include_once __DIR__ . '/../class/projectWeekEntry.php';
 
 /**
  * Class ProjectWeek
+ *
+ * Diese Klasse repraesentiert eine Projektwoche.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class ProjectWeek {

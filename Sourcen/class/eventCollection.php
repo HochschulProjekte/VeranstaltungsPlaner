@@ -5,6 +5,9 @@ include_once __DIR__ . '/../database/pdoDatabaseController.php';
 
 /**
  * Class EventCollection
+ *
+ * Sammlung von Veranstaltungen.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class EventCollection {

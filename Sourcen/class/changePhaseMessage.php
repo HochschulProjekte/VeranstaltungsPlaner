@@ -2,6 +2,10 @@
 
 /**
  * Class ChangePhaseMessage
+ *
+ * Diese Klasse repraesentiert eine Antwort des PhasenManagers.
+ * Diese Nachricht kann auf der Oberflaeche dargestellt werden.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class ChangePhaseMessage {
@@ -16,6 +20,7 @@ class ChangePhaseMessage {
      * ChangePhaseMessage constructor.
      * @param boolean $status
      * @param int $newPhase
+     * @param string $message
      * @param int $position
      * @param int $missingUsers
      */
@@ -28,6 +33,7 @@ class ChangePhaseMessage {
     }
 
     /**
+     * Liefert den Status der Nachricht.
      * @return boolean status
      */
     public function getStatus() {

@@ -5,14 +5,14 @@ include_once __DIR__ . '/../class/user.php';
 
 /**
  * Class LoginHandler
+ *
+ * Diese Klasse uebernimmt das Session-Handling und den entsprechenden Login eines Benutzers.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class LoginHandler {
 
-    // Table for database statements
     const TABLE = 'User';
-
-    // Object variable for database handling
     private $databaseHandler;
 
     /**
@@ -26,8 +26,8 @@ class LoginHandler {
     }
 
     /**
-     * @param $username
-     * @param $password
+     * @param string $username
+     * @param string $password
      * @return array
      */
     public function login($username, $password) {
@@ -36,7 +36,7 @@ class LoginHandler {
         $ret['type'] = 'info';
         $ret['msg'] = '';
 
-        // Password and Username filled?
+        // Wurde der Benutzername und das Passwort uebertragen?
         if ($this->checkEmptyUsernamePassword($username, $password) == true) {
             $ret['err'] = true;
             $ret['type'] = 'info';
@@ -44,7 +44,7 @@ class LoginHandler {
             return $ret;
         }
 
-        // Does the user exist?
+        // Ist der Benutzer vorhanden?
         if ($this->checkUserExists($username) == false) {
             $ret['err'] = true;
             $ret['type'] = 'danger';
@@ -52,7 +52,7 @@ class LoginHandler {
             return $ret;
         }
 
-        // Password correct?
+        // Ist das Passwort korrekt?
         if ($this->checkPasswordCorrect($username, $password) == false) {
             $ret['err'] = true;
             $ret['type'] = 'danger';
@@ -63,16 +63,16 @@ class LoginHandler {
         // Start session and set session variable
         $this->setSession($username);
 
-        // Redirect user to index.php
+        // Weiterleiten zur index.php
         $this->redirect('index.php');
 
         return $ret;
     }
 
     /**
-     * Check, if username or password is empty
-     * @param $username
-     * @param $password
+     * Ueberprueft ob der eingebene Benutzername oder das Passwort leer ist.
+     * @param string $username
+     * @param string $password
      * @return bool
      */
     private function checkEmptyUsernamePassword($username, $password) {
@@ -85,8 +85,8 @@ class LoginHandler {
     }
 
     /**
-     * Check, if user exists in database
-     * @param $username
+     * Ueberprueft ob ein eingebene Benutzer in der Datenbank exisitiert.
+     * @param string $username
      * @return bool
      */
     private function checkUserExists($username) {
@@ -105,9 +105,9 @@ class LoginHandler {
     }
 
     /**
-     * Check, if apssword is correct
-     * @param $username
-     * @param $password
+     * Ueberprueft ob das eingebene Passwort richtig ist.
+     * @param string $username
+     * @param string $password
      * @return bool
      */
     private function checkPasswordCorrect($username, $password) {
@@ -122,12 +122,8 @@ class LoginHandler {
 
     }
 
-    /*
-     * Set user variable
-     */
-
     /**
-     * Start session and set session variable
+     * Starten der Session und setzen der Session-Variable.
      * @param $username
      */
     private function setSession($username) {
@@ -142,8 +138,8 @@ class LoginHandler {
     }
 
     /**
-     * Redirect user to a page
-     * @param $page
+     * Weiterleiten zur Seite X.
+     * @param string $page
      */
     public function redirect($page) {
         header('Location: ./' . $page);
@@ -151,14 +147,14 @@ class LoginHandler {
     }
 
     /**
-     * Logout function
+     * Logout
      */
     public function logout() {
         $this->deleteSession();
     }
 
     /**
-     * Empty and destroy session
+     * Leeren und loeschen der Session.
      */
     private function deleteSession() {
         session_start();
@@ -182,7 +178,7 @@ class LoginHandler {
     }
 
     /**
-     * Check, if user is logged in
+     * Ueberprueung ob eine Benutzer eingeloggt.
      * @return bool
      */
     public function isUserLoggedIn() {
@@ -197,7 +193,7 @@ class LoginHandler {
     }
 
     /**
-     * Restart the users session
+     * Wiederherstellung einer Session.
      */
     private function restartSession() {
         session_start();
@@ -205,7 +201,7 @@ class LoginHandler {
     }
 
     /**
-     * Check, if user is logged in session
+     * Ueberpruefung ob ein Benutzer bereits eingeloggt ist.
      * @return bool
      */
     private function checkLogin() {
@@ -220,6 +216,10 @@ class LoginHandler {
         }
     }
 
+    /**
+     * Liefert ein User-Objekt des aktuelle eingeloggten Benutzers.
+     * @return User
+     */
     public function getMyUser() {
         return new User($_SESSION['username']);
     }

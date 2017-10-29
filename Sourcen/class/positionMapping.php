@@ -2,11 +2,15 @@
 
 /**
  * Class PositionMapping
+ *
+ * Dies Klasse dient des Mappings einer Position zu einem Text-Ausgabe an der Oberflaeche.
+ * Bspw. Position 4 => Dienstag 12:00
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class PositionMapping {
 
-    const positions = [
+    const POSITIONS = [
         'Montag 08:00',
         'Montag 12:00',
         'Dienstag 08:00',
@@ -19,7 +23,7 @@ class PositionMapping {
         'Freitag 12:00'
     ];
 
-    const until = [
+    const UNTIL = [
         'Montag 12:00',
         'Montag 16:00',
         'Dienstag 12:00',
@@ -38,7 +42,7 @@ class PositionMapping {
      * @return string
      */
     public static function map($position) {
-        return self::positions[$position - 1];
+        return self::POSITIONS[$position - 1];
     }
 
     /**
@@ -50,7 +54,7 @@ class PositionMapping {
     public static function mapUntil($position, $length) {
 
         $untilPos = $position + $length - 1;
-        return self::until[$untilPos - 1];
+        return self::UNTIL[$untilPos - 1];
     }
 }
 

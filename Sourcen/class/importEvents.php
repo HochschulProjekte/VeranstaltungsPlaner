@@ -22,7 +22,7 @@ class ImportEvents extends Import {
     }
 
     /**
-     * Save imported events
+     * Persistieren der importierten Veranstaltungen in der Datenbank.
      */
     public function storeEvents() {
 
@@ -37,7 +37,7 @@ class ImportEvents extends Import {
     }
 
     /**
-     * Create an event
+     * Erstellen einer Veranstaltung.
      * @param $name
      * @param $description
      * @param $length

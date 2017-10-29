@@ -9,7 +9,7 @@ include_once './class/userInterface.php';
 // Controller
 $myProfileController = new ProfileController($_POST, $myUser);
 
-// Userinterface
+// User Interface
 $userInterface = new UserInterface($myProfileController);
 $userInterface->renderPage();
 ?>

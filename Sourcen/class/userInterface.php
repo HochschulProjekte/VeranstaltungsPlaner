@@ -1,9 +1,14 @@
 <?php
 
-include_once __DIR__ . '/../controller/controllerInterface.php';
+include_once __DIR__ . '/../controller/IController.php';
 
 /**
  * Class UserInterface
+ *
+ * Die Klassen UserInterface steuert die HTML-Ausgabe im Browser. Der Konstruktur der Klasse verlangt
+ * einen Seiten-Controller, welcher das IController - Interface implementiert. Dieses Interface definiert
+ * die benoetigten Schnittstellen fuer eine erfolgreiche Ausgabe der Oberflaeche.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class UserInterface {
@@ -12,8 +17,7 @@ class UserInterface {
 
     /**
      * UserInterface constructor.
-     * @param User $user Benutzer-Objekt
-     * @param string $fileName Dateiname fuer die CSS-Datei
+     * @param IController $controller
      */
     function __construct($controller) {
         $this->controller = $controller;

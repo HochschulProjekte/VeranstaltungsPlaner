@@ -36,7 +36,7 @@ class EventRegistration {
     }
 
     /**
-     * Load EventRegistration data from database
+     * Laedt die aktuellen Daten aus der Datenbank.
      * @param $id
      */
     private function load($id) {
@@ -55,7 +55,7 @@ class EventRegistration {
     }
 
     /**
-     * Save EventRegistration
+     * Persistiert die Registration eines Mitarbeiters in der Datenbank.
      */
     public function save() {
 
@@ -78,77 +78,77 @@ class EventRegistration {
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUsername() {
         return $this->username;
     }
 
     /**
-     * @param mixed $username
+     * @param string $username
      */
     public function setUsername($username) {
         $this->username = $username;
     }
 
     /**
-     * @return mixed
+     * @return ProjectWeekEntry
      */
     public function getProjectWeekEntry() {
         return $this->projectWeekEntry;
     }
 
     /**
-     * @param mixed $projectWeekEntry
+     * @param ProjectWeekEntry $projectWeekEntry
      */
     public function setProjectWeekEntry($projectWeekEntry) {
         $this->projectWeekEntry = $projectWeekEntry;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getPriority() {
         return $this->priority;
     }
 
     /**
-     * @param mixed $priority
+     * @param int $priority
      */
     public function setPriority($priority) {
         $this->priority = $priority;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function isApproved() {
         return $this->approved;
     }
 
     /**
-     * @param mixed $approved
+     * @param int $approved
      */
     public function setApproved($approved) {
         $this->approved = $approved;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getRegistrationDate() {
         return $this->registrationDate;
     }
 
     /**
-     * @param mixed $registrationDate
+     * @param string $registrationDate
      */
     public function setRegistrationDate($registrationDate) {
         $this->registrationDate = $registrationDate;

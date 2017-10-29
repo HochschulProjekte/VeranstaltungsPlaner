@@ -4,13 +4,20 @@ include_once __DIR__ . '/../class/personnalManagerCollection.php';
 include_once __DIR__ . '/../class/projectWeek.php';
 include_once __DIR__ . '/../class/eventCollection.php';
 include_once __DIR__ . '/../class/importEvents.php';
-include_once __DIR__ . '/../controller/controllerInterface.php';
+include_once __DIR__ . '/../controller/IController.php';
 
 /**
- * Class EventsController
+ * Class ControlEventsController
+ *
+ * Diese Klasse steuert die Logik der controlEvents.php Seite. Hierzu gehoert:
+ *
+ * - das Erstellen einer neuen Veranstaltung,
+ * - das Bearbeiten einer vorhandenen Veranstaltung
+ * - und das Loeschen einer vorhandenen Veranstaltung.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
-class ControlEventsController implements Controller {
+class ControlEventsController implements IController {
 
     private $personnalManager;
     private $personnalManagerCollection;

@@ -1,7 +1,7 @@
 <?php
 // Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
 
-// Authenticate user
+// Includes
 include_once './administration/authenticateUser.php';
 include_once './controller/controlEventsController.php';
 include_once './class/userInterface.php';

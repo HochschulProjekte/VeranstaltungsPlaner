@@ -4,11 +4,10 @@
 // Includes
 include_once './administration/authenticateUser.php';
 include_once './class/userInterface.php';
-include_once './controller/myEventsController.php';
-
+include_once './controller/eventsController.php';
 
 // Controller
-$myEventsController = new MyEventsController($myUser, $_POST);
+$myEventsController = new EventsController($myUser, $_POST);
 
 // User Interface
 $userInterface = new UserInterface($myEventsController);

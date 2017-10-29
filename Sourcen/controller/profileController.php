@@ -1,15 +1,17 @@
 <?php
 
 include_once __DIR__ . '/../class/user.php';
-include_once __DIR__ . '/../controller/controllerInterface.php';
-
-// TODO: Kommentare noch auf Englisch.
+include_once __DIR__ . '/../controller/IController.php';
 
 /**
- * Class MyProfileController
+ * Class ProfileController
+ *
+ * Dieser Controller steuert die Logik auf der profile.php-Seite. Es besteht die Moeglichkeit das Passwort
+ * und die Email-Adresse des eigenen Nutzers anzupassen.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
-class ProfileController implements Controller {
+class ProfileController implements IController {
 
     private $user;
     private $msg_one;
@@ -28,7 +30,7 @@ class ProfileController implements Controller {
     }
 
     /**
-     * Set user object.
+     * User-Object speichert.
      * @param $user
      */
     private function setUser($user) {
@@ -36,11 +38,11 @@ class ProfileController implements Controller {
     }
 
     /**
-     * Set current message.
-     * @param $msg
-     * @param $show
-     * @param $type
-     * @param $text
+     * Aktuelle Nachricht der vorherigen Funktion speichern.
+     * @param string $msg
+     * @param bool $show
+     * @param string $type
+     * @param string $text
      */
     private function setMessage($msg, $show, $type, $text) {
         switch ($msg) {
@@ -63,7 +65,7 @@ class ProfileController implements Controller {
     }
 
     /**
-     * Parse post array and decide which function should be executed.
+     * POST-Eingabe auswerten.
      * @param $POST_ARRAY
      */
     private function parsePostArray($POST_ARRAY) {
@@ -107,8 +109,8 @@ class ProfileController implements Controller {
     }
 
     /**
-     * Update email address.
-     * @param $email
+     * EMail-Adresse des aktuellen Benutzers anpassen.
+     * @param string $email
      */
     private function updateEmail($email) {
         $this->user->setEmail($email);
@@ -121,8 +123,8 @@ class ProfileController implements Controller {
     }
 
     /**
-     * Update password.
-     * @param $password
+     * Passwort des aktuellen Benutzers anpassen.
+     * @param string $password
      */
     private function updatePassword($password) {
         $this->user->setPassword($password);
@@ -174,15 +176,25 @@ class ProfileController implements Controller {
         return $this->user;
     }
 
-
+    /**
+     * Gibt den Benutzernamen als Zeichenketten zurueck.
+     * @return string
+     */
     public function getUsername() {
         return $this->user->getName();
     }
 
+    /**
+     * Gibt die EMail-Adresse als Zeichenketten zurueck.
+     * @return string
+     */
     public function getEmail() {
         return $this->user->getEmail();
     }
 
+    /**
+     * Gibt eine Nachricht aus.
+     */
     public function getMessages() {
         if ($this->msg_one['show'] === true) {
             echo '<div class="alert alert-' . $this->msg_one['type'] . '">' . $this->msg_one['text'] . '</div>';

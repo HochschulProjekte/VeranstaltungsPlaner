@@ -1,13 +1,13 @@
 <?php
 // Autoren: Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
 
-// Authenticate user
+// Includes
 include_once './administration/authenticateUser.php';
 include_once './class/userInterface.php';
-include_once './controller/userController.php';
+include_once './controller/controlUserController.php';
 
 // Controller
-$userController = new UserController($myUser);
+$userController = new ControlUserController($myUser);
 
 // User Interface
 $userInterface = new UserInterface($userController);

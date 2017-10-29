@@ -7,6 +7,9 @@ include_once __DIR__ . '/../class/eventRegistrationRepresentation.php';
 
 /**
  * Class EventRegistrationCollection
+ *
+ * Eine Sammlung von Veranstaltungsregistrierungen eines Mitarbeiters.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class EventRegistrationCollection {
@@ -35,7 +38,7 @@ class EventRegistrationCollection {
     }
 
     /**
-     * Load EventRegistrations from database
+     * Alle Registrierungen eines Mitarbeiters laden.
      */
     private function load() {
         $where = 'username = "' . $this->username . '" AND year = ' . $this->projectWeek->getYear() . ' AND week = ' . $this->projectWeek->getWeek();
@@ -48,24 +51,24 @@ class EventRegistrationCollection {
     }
 
     /**
-     * Add event-registration to local array
-     * @param $eventRegistration
+     * Eines Registierung zu dem aktuellen Array hinzufuegen.
+     * @param EventRegistration $eventRegistration
      */
     public function add($eventRegistration) {
         array_push($this->eventRegistrations, $eventRegistration);
     }
 
     /**
-     * Get all event-registrations
-     * @return array
+     * Liefert alle Veranstaltungs-Registrierungen.
+     * @return array EventRegistration
      */
     public function getEventRegistrations() {
         return $this->eventRegistrations;
     }
 
     /**
-     * Get all event-registrations as representation objects
-     * @return array
+     * Liefert alle Registierungen als Repraesentations-Objekte, fuer die Darstellung des Kalenders, zurueck.
+     * @return array EventRepresentation
      */
     public function getEventRepresentations() {
 

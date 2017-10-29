@@ -2,6 +2,9 @@
 
 /**
  * Class ArrayHelper
+ *
+ * Die Klasse enthaelt eine Hilfsfunktion zum Loeschen eines Items aus einem Array.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class ArrayHelper {

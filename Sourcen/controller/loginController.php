@@ -1,13 +1,16 @@
 <?php
 
-include_once __DIR__ . '/../controller/controllerInterface.php';
+include_once __DIR__ . '/../controller/IController.php';
 include_once __DIR__ . '/../class/loginHandler.php';
 
 /**
  * Class LoginController
+ *
+ * Diese Klasse steuert die Seite login.php.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
-class LoginController implements Controller {
+class LoginController implements IController {
 
     public $alert;
 
@@ -20,27 +23,26 @@ class LoginController implements Controller {
     }
 
     /**
-     * Parse POST array and decide which function should be executed.
+     * POST Eingabe auswerten und die entsprechenden Methoden aufrufen.
      * @param $POST_ARRAY
      */
     private function parsePostArray($POST_ARRAY) {
-        // Check, if inputs are filled
-        if (isset($POST_ARRAY['login-username']) && isset($POST_ARRAY['login-password'])) {
-            // Create LoginHandler
-            $loginHandler = new LoginHandler();
 
-            // Try to login user with form inputs
+        // Eingabefelder gefuellt?
+        if (isset($POST_ARRAY['login-username']) && isset($POST_ARRAY['login-password'])) {
+
+            $loginHandler = new LoginHandler();
             $ret = $loginHandler->login($POST_ARRAY['login-username'], $POST_ARRAY['login-password']);
 
-            // Check, if login was successful
+            // Ueberpruefung ob der Login erfolgreich war.
             if ($ret['err'] == true) {
-                // => error occured -> set talert
+                // => Fehler aufgetreten -> Fehlermeldung ausgeben
                 $this->alert = array();
                 $this->alert['type'] = $ret['type'];
                 $this->alert['msg'] = $ret['msg'];
             } else {
-                // => login successful -> redirect user
-                $loginHandler->redirect('vstp/index.php');
+                // => Login erfolgreich -> Benutzer weiterleiten.
+                $loginHandler->redirect('index.php');
             }
         } else {
             $this->alert = array();

@@ -8,19 +8,19 @@ include __DIR__ . '/../class/user.php';
 
 if ($_POST['data']) {
 
-    // Decode data into array
+    // JSON in Array umwandeln.
     $data = json_decode(stripslashes($_POST['data']), true);
 
-    // Create empty user object
+    // Einen leeres User-Objekt erstellen.
     $user = new User();
 
-    // Set user data
+    // Benutzer Daten setzen.
     $user->setName($data['name']);
     $user->setPassword($data['password']);
     $user->setPersonnalManager($data['personnalManager']);
     $user->setEmail($data['email']);
 
-    // Create user
+    // Benutzer erstellen.
     if ($user->create() == true) {
         echo json_encode(
             array(
@@ -39,7 +39,7 @@ if ($_POST['data']) {
 
 } else {
 
-    // No data was given
+    // Keinen Daten wurden uebergeben.
     echo json_encode(
         array(
             "err" => true,

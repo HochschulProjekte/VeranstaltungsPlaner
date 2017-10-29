@@ -1,20 +1,26 @@
 <?php
 
 include_once __DIR__ . '/../class/arrayHelper.php';
-include_once __DIR__ . '/../class/user.php';
 include_once __DIR__ . '/../class/projectWeek.php';
 include_once __DIR__ . '/../class/projectWeekEntry.php';
 include_once __DIR__ . '/../class/positionMapping.php';
+include_once __DIR__ . '/../class/user.php';
 
 include_once __DIR__ . '/../class/eventRegistration.php';
 include_once __DIR__ . '/../class/eventRegistrationRepresentation.php';
 include_once __DIR__ . '/../class/eventRegistrationCollection.php';
 
 /**
- * Class MyEventsController
+ * Class EventsController
+ *
+ * Steuert die Logik der index.php Seite. Diese enthaelt die Darstellung des Studenplans eines Mitarbeiters bzw. die
+ * Vorlesungen des Sachbearbeiters in der aktuellen Projektwoche.
+ *
+ * Mithilfe dieser Klasse besteht den Sacharbeitern die Moeglichkeit, sich an Projektwochen-Eintraegen zu registrieren.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
-class MyEventsController implements Controller {
+class EventsController implements IController {
 
     private $user;
     private $projectWeek;
@@ -114,6 +120,14 @@ class MyEventsController implements Controller {
     }
 
     /**
+     * Gibt den angemeldeten User zurueck.
+     * @return User
+     */
+    public function getUser() {
+        return $this->user;
+    }
+
+    /**
      * Liefert die Wochentage der aktuellen Projektwoche als Array von Zeichenketten.
      * @return array Wochentage als Zeichenketten
      */
@@ -129,28 +143,36 @@ class MyEventsController implements Controller {
         return $day_array;
     }
 
+    /**
+     * Liefert das Startdatum als yyyy-mm-dd der Projektwoche.
+     * @return string
+     */
     public function getWeekStartDate() {
         return $this->projectWeek->getFromDate();
     }
 
-    public function getEventRegistrationRepresentationAtPosition($position) {
+    /**
+     * Liefert das Enddatum als yyyy-mm-dd der Projektwoche.
+     * @return string
+     */
+    public function getWeekEndDate() {
+        return $this->projectWeek->getUntilDate();
+    }
 
-        // Suche der Veranstaltung-Registrierung-Darstellungs-Objekte
-        foreach ($this->eventRegistrationCollection->getEventRepresentations() as $eventRepresentation) {
+    /**
+     * Liefert das Jahr der Projektwoche.
+     * @return int
+     */
+    public function getYear() {
+        return $this->projectWeek->getYear();
+    }
 
-            // ist die richtige Position gefunden
-            if ($eventRepresentation->getPosition() == $position) {
-
-                // wird ueberprueft ob die Registrierung akzeptiert wurde oder nicht.
-                if ($eventRepresentation->isApproved()) {
-                    return $eventRepresentation;
-                } else {
-                    return NULL;
-                }
-            }
-        }
-
-        return NULL;
+    /**
+     * Liefert die Kalender-Woche der Projektwoche.
+     * @return int
+     */
+    public function getWeek() {
+        return $this->projectWeek->getWeek();
     }
 
     /**
@@ -159,9 +181,9 @@ class MyEventsController implements Controller {
      */
     public function getTemplate() {
         if ($this->user->isPersonnalManager()) {
-            return 'myEventsPersonnalManagerTemplate';
+            return 'eventsPersonnalManagerTemplate';
         } else {
-            return 'myEventsParticipantsTemplate';
+            return 'eventsParticipantsTemplate';
         }
     }
 
@@ -190,30 +212,19 @@ class MyEventsController implements Controller {
     }
 
     /**
-     * Gibt den angemeldeten User zurueck.
-     * @return User
+     * Liefert ein Array mit allen Projektwochen-Eintraegen die der angemeldete Sachbearbeiter halten muss.
+     * @return array ProjectWeekEntry
      */
-    public function getUser() {
-        return $this->user;
-    }
-
     public function getProjectWeekEntriesOfPersonnalManager() {
         return $this->projectWeek->getProjectWeekEntriesOfPersonnalManager($this->user->getName());
     }
 
-    public function getWeekEndDate() {
-        return $this->projectWeek->getUntilDate();
-    }
-
-    public function getYear() {
-        return $this->projectWeek->getYear();
-    }
-
-    public function getWeek() {
-        return $this->projectWeek->getWeek();
-    }
-
-    public function getPossibleWeekEntriesOfUser() {
+    /**
+     * Liefert ein Array mit allen Projektwochen-Eintraegen, die ein Mitarbeiter noch priorisieren kann.
+     * Hierbei werden bereits priorisierte Projekt-Wochen-Eintraege gefiltert.
+     * @return array ProjectWeekEntry
+     */
+    public function getPossibleProjectWeekEntriesOfUser() {
 
         $weekEntries = $this->projectWeek->getProjectWeekEntries();
 
@@ -230,6 +241,36 @@ class MyEventsController implements Controller {
         return $weekEntries;
     }
 
+    /**
+     * Liefert eine HTML-Repraesentation der Registration eines Nutzer an der uebergebenden Position.
+     * @param int $position
+     * @return string | null
+     */
+    public function getEventRegistrationRepresentationAtPosition($position) {
+
+        // Suche der Veranstaltung-Registrierung-Darstellungs-Objekte
+        foreach ($this->eventRegistrationCollection->getEventRepresentations() as $eventRepresentation) {
+
+            // ist die richtige Position gefunden
+            if ($eventRepresentation->getPosition() == $position) {
+
+                // wird ueberprueft ob die Registrierung akzeptiert wurde oder nicht.
+                if ($eventRepresentation->isApproved()) {
+                    return $eventRepresentation;
+                } else {
+                    return NULL;
+                }
+            }
+        }
+
+        return NULL;
+    }
+
+    /**
+     * Liefert ein Objekt vom Typ EventRegistrationCollection mit allen Registrierungen eines Mitarbeiters von der
+     * aktuellen Projektwoche.
+     * @return EventRegistrationCollection
+     */
     public function getEventRegistrationCollection() {
         return $this->eventRegistrationCollection;
     }

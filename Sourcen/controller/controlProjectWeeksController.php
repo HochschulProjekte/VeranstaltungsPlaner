@@ -1,16 +1,22 @@
 <?php
 
-include_once __DIR__ . '/../controller/controllerInterface.php';
+include_once __DIR__ . '/../controller/IController.php';
 include_once __DIR__ . '/../class/projectWeek.php';
 include_once __DIR__ . '/../class/projectWeekEntry.php';
 include_once __DIR__ . '/../class/phaseManager.php';
 include_once __DIR__ . '/../class/changePhaseMessage.php';
 
 /**
- * Class ProjectWeeksController
+ * Class ControlProjectWeeksController
+ *
+ * Diese Klasse steuert die controlWeeks.php Seite. Es besteht hierbei die Moeglichkeit:
+ * - eine neue Projektwoche anzulegen,
+ * - Veranstaltungen zu einer Projektwoche hinzuzufuegen
+ * - und Phasenwechsel einzuleiten.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
-class ProjectWeeksController implements Controller {
+class ControlProjectWeeksController implements IController {
 
     private $user;
     private $projectWeek;
@@ -20,6 +26,7 @@ class ProjectWeeksController implements Controller {
     /**
      * ProjectWeeksController constructor.
      * @param $POST_ARRAY
+     * @param $user
      */
     public function __construct($POST_ARRAY, $user) {
         $this->user = $user;
@@ -195,8 +202,6 @@ class ProjectWeeksController implements Controller {
     public function getAllPossibleEvents() {
         return $this->allPossibleEvents;
     }
-
-
 }
 
 ?>

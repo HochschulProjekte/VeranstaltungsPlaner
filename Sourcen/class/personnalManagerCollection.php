@@ -5,6 +5,9 @@ include_once __DIR__ . '/../database/pdoDatabaseController.php';
 
 /**
  * Class PersonnalManagerCollection
+ *
+ * Diese Klasse enthaelt eine Sammlung von Sachbearbeitern.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class PersonnalManagerCollection {
@@ -23,7 +26,7 @@ class PersonnalManagerCollection {
     }
 
     /**
-     * Laden aller moeglichen Sachbearbeiter / Dozenten
+     * Laden aller moeglichen Sachbearbeiter / Dozenten.
      */
     private function loadAllPersonnalManagers() {
         $result = $this->databaseHandler->select(self::TABLE, 'personnalManager = 1');

@@ -4,6 +4,9 @@ include_once __DIR__ . '/../class/eventRegistration.php';
 
 /**
  * Class EventRegistrationRepresentation
+ *
+ * Darstellung einer Veranstaltungsregistrierung fuer den Kalender.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class EventRegistrationRepresentation {

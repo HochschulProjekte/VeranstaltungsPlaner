@@ -2,21 +2,18 @@
 
 include_once __DIR__ . '/../database/pdoDatabaseController.php';
 
-// TODO: Sprache Englisch
-
 /**
  * Class User
+ *
+ * Diese Klasse repraesentiert einen Benutzer.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class User {
 
-    // Set base table for class
     const TABLE = 'User';
-
-    // Object variable for database handling
     private $databaseHandler;
 
-    // Objects user specific variables
     private $primaryKey;
     private $name;
     private $password;
@@ -24,7 +21,8 @@ class User {
     private $email;
 
     /**
-     * User constructor (if name is given it automatically loads the user from database)
+     * User constructor (Falls der Name des Nutzer uebergeben wird,
+     * laedt die Klasse automatisch ihre Daten aus der Datenbank)
      * @param null $name
      */
     function __construct($name = NULL) {
@@ -38,15 +36,13 @@ class User {
     }
 
     /**
-     * Function for loading user data from database by name
-     * @param $name
+     * Laedt die Daten eines Benutzer aus der Datenbank
+     * @param string $name
      */
     public function load($name) {
 
-        // Get user data from database
         $result = $this->databaseHandler->select(self::TABLE, 'name = "' . $name . '"');
 
-        // Store data in object variables
         $this->setPrimaryKey($result[0]['name']);
         $this->setName($result[0]['name']);
         $this->setPassword($result[0]['password']);
@@ -55,16 +51,8 @@ class User {
 
     }
 
-    private function setPrimaryKey($primaryKey) {
-        $this->primaryKey = $primaryKey;
-    }
-
-    public function setPersonnalManager($personnalManager) {
-        $this->personnalManager = $personnalManager;
-    }
-
     /**
-     * Format personnal manager for object
+     * PersonnalManager-Attribut fuer das Objekt von Integer zu Boolean umwandeln.
      * @param $personnalManager
      * @return bool
      */
@@ -77,7 +65,7 @@ class User {
     }
 
     /**
-     * Function for creating a new user in the database
+     * Benutzer in der Datenbank erstellen.
      * @return bool
      */
     public function create() {
@@ -97,25 +85,9 @@ class User {
         }
     }
 
-    public function getName() {
-        return $this->name;
-    }
-
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    public function getPassword() {
-        return $this->password;
-    }
-
-    public function setPassword($password) {
-        $this->password = $password;
-    }
-
     /**
-     * Format personnal manager for database
-     * @param $personnalManager
+     * Umwandeln der des boolean Werts des Attributs $personnalManager zu einem Integer-Wert.
+     * @param bool $personnalManager
      * @return int
      */
     private function convertPersonnalManagerForDatabase($personnalManager) {
@@ -126,20 +98,8 @@ class User {
         }
     }
 
-    public function isPersonnalManager() {
-        return $this->personnalManager;
-    }
-
-    public function getEmail() {
-        return $this->email;
-    }
-
-    public function setEmail($email) {
-        $this->email = $email;
-    }
-
     /**
-     * Function for updating a user in the database
+     * Daten eines Nutzers in der Datenbank persistieren.
      * @return bool
      */
     public function update() {
@@ -159,17 +119,82 @@ class User {
         }
     }
 
+    /**
+     * Loeschen eines Nutzers aus der Datenbank.
+     * @return bool
+     */
+    public function delete() {
+        return $this->databaseHandler->delete(self::TABLE, 'name = "' . $this->getPrimaryKey() . '"');
+    }
+
+    /**
+     * @return int
+     */
     private function getPrimaryKey() {
         return $this->primaryKey;
     }
 
     /**
-     * Function for deleting a user in the database
+     * @param int $primaryKey
+     */
+    private function setPrimaryKey($primaryKey) {
+        $this->primaryKey = $primaryKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword() {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    /**
+     * @param bool $personnalManager
+     */
+    public function setPersonnalManager($personnalManager) {
+        $this->personnalManager = $personnalManager;
+    }
+
+    /**
      * @return bool
      */
-    public function delete() {
+    public function isPersonnalManager() {
+        return $this->personnalManager;
+    }
 
-        return $this->databaseHandler->delete(self::TABLE, 'name = "' . $this->getPrimaryKey() . '"');
+    /**
+     * @return string
+     */
+    public function getEmail() {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email) {
+        $this->email = $email;
     }
 }
 

@@ -9,6 +9,9 @@ include_once __DIR__ . '/../class/projectWeekEntry.php';
 
 /**
  * Class PhaseManager
+ *
+ * Diese Klasse ist fuer den Phasenwechsel der Projektwochen zustaendig.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class PhaseManager {
@@ -29,7 +32,7 @@ class PhaseManager {
     /**
      * Phasenwechsel einleiten.
      * @param $newPhase
-     * @return ChangePhaseMessage|null
+     * @return ChangePhaseMessage
      */
     public function changePhase($newPhase) {
         if ($newPhase == 2) {

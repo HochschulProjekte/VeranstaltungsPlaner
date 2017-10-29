@@ -5,6 +5,12 @@ include_once __DIR__ . '/../class/blockedUser.php';
 
 /**
  * Class BlockedUserCollection
+ *
+ * Diese Klasse repraesentiert eine Sammlung von BlockedUser. Hierbei kann die Klasse:
+ * - weitere blockierte Mitarbeiter hinzufuegen,
+ * - uebpruefen ob ein Mitarbeiter schon vorhanden ist
+ * - und die weitere Positionsanzahl verringern.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class BlockedUserCollection {

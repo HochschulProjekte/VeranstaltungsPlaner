@@ -3,6 +3,12 @@ include_once __DIR__ . '/../database/pdoDatabaseController.php';
 
 /**
  * Class Event
+ *
+ * Diese Klasse repraesentiert eine Veranstaltung. Diese Veranstaltung kann:
+ * - ihre eigenen Daten aus der Datenbank laden,
+ * - Aenderungen ihrer Daten in der Datenbank persistieren,
+ * - und sich selber in der Datenbank loeschen.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class Event {

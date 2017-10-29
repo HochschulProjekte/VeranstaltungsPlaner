@@ -4,6 +4,9 @@ include_once __DIR__ . '/../class/event.php';
 
 /**
  * Class PersonnalManager
+ *
+ * Diese Klasse repraesentiert einen Sachbearbeiter.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class PersonnalManager {

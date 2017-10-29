@@ -1,12 +1,15 @@
 <?php
 
-include_once __DIR__ . '/../controller/controllerInterface.php';
+include_once __DIR__ . '/../controller/IController.php';
 
 /**
- * Class UserController
+ * Class ControlUserController
+ *
+ * Dieser Klasse steuert die Logik der controlUser.php Seite.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
-class UserController implements Controller {
+class ControlUserController implements IController {
 
     private $user;
 
@@ -70,8 +73,6 @@ class UserController implements Controller {
     public function getUser() {
         return $this->user;
     }
-
-
 }
 
 ?>

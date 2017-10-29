@@ -1,12 +1,15 @@
 <?php
 
-include_once __DIR__ . '/../controller/controllerInterface.php';
+include_once __DIR__ . '/../controller/IController.php';
 
 /**
  * Class ControlPageController
+ *
+ * Diese Klasse steuert die Seite control.php.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
-class ControlPageController implements Controller {
+class ControlPageController implements IController {
 
     private $user;
 

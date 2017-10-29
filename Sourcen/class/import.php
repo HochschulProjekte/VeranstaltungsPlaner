@@ -21,6 +21,7 @@ class Import {
     }
 
     /**
+     * Datei lesen.
      * @param $file
      */
     public function readFile($file) {
@@ -43,6 +44,7 @@ class Import {
     }
 
     /**
+     * Liefert die aktuelle Datei.
      * @return mixed
      */
     public function getFile() {
@@ -57,14 +59,16 @@ class Import {
     }
 
     /**
-     * @return mixed
+     * Liefert die Werte der importieren Datei.
+     * @return array string
      */
     public function getValues() {
         return $this->values;
     }
 
     /**
-     * @param $values
+     * Speichert die Werte der importierten Datei.
+     * @param array string $values
      */
     public function setValues($values) {
         $this->values = $values;

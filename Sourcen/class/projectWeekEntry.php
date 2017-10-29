@@ -4,6 +4,9 @@ include_once __DIR__ . '/../class/event.php';
 
 /**
  * Class ProjectWeekEntry
+ *
+ * Diese Klassen repraesentiert eine Veranstaltung innerhalb einer Projektwoche.
+ *
  * @author Matthias Fischer, Fabian Hagengers, Jonathan Hermsen
  */
 class ProjectWeekEntry {
