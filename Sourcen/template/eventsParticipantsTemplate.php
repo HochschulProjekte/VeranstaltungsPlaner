@@ -79,7 +79,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                $events = $controller->getPossibleWeekEntriesOfUser();
+                                $events = $controller->getPossibleProjectWeekEntriesOfUser();
 
                                 foreach ($events as $event) {
                                     echo '

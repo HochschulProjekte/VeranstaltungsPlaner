@@ -62,7 +62,7 @@ class PhaseManager {
 
                 if ($projectWeekEntry->getPosition() == $position
                     || ($projectWeekEntry->getPosition() < $position
-                        && ($projectWeekEntry->getPosition() + $projectWeekEntry->getEvent()->length - 1) >= $position)) {
+                        && ($projectWeekEntry->getPosition() + $projectWeekEntry->getEvent()->getLength() - 1) >= $position)) {
 
                     $cntUserSpace += $projectWeekEntry->getMaxParticipants();
 
@@ -142,7 +142,7 @@ class PhaseManager {
 
                             // Falls die Veranstaltung laenger als ein Halbtag ist,
                             // wird der Mitarbeiter fuer die folgenden Zuweisungen gesperrt.
-                            $eventLength = $firstRegistration->getProjectWeekEntry()->getEvent()->length;
+                            $eventLength = $firstRegistration->getProjectWeekEntry()->getEvent()->getLength();
                             if ($eventLength > 1) {
                                 $blockedUserCollection->add(new BlockedUser($approvedUsername, $eventLength));
                             }
